@@ -5,218 +5,268 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="SkipTheLatte Freedom Planner — Bitcoin milestone timeline to financial sovereignty."/>
+  <meta name="description" content="SkipTheLatte — Bitcoin Sovereignty Timeline. Calculate your path to financial freedom."/>
   <title>Freedom Planner — SkipTheLatte</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:     #0a0a0a;
-      --surf:   #111111;
-      --surf2:  #1a1a1a;
-      --surf3:  #222222;
-      --bd:     rgba(255,255,255,.07);
-      --bd2:    rgba(255,255,255,.12);
-      --blue:   #1763B6;
-      --blue-l: rgba(23,99,182,.15);
-      --green:  #05b26b;
-      --red:    #f04452;
-      --amber:  #f59e0b;
-      --text:   #f0f0f0;
-      --text2:  #888888;
-      --text3:  #555555;
-      --nav-h:  52px;
-      --left-w: 288px;
-      --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+      --bg:    #0a0a0a;
+      --panel: #0f0f0f;
+      --surf:  #141414;
+      --surf2: #1c1c1c;
+      --surf3: #242424;
+      --bd:    rgba(255,255,255,.06);
+      --bd2:   rgba(255,255,255,.1);
+      --bd3:   rgba(255,255,255,.16);
+      --blue:  #1763B6;
+      --green: #22c55e;
+      --red:   #ef4444;
+      --amber: #f59e0b;
+      --cyan:  #06b6d4;
+      --purple:#8b5cf6;
+      --rose:  #f43f5e;
+      --text:  #f2f2f2;
+      --t2:    #909090;
+      --t3:    #555;
+      --t4:    #333;
+      --nav:   52px;
+      --sw:    290px;
+      --font: 'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     }
     html{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
     body{height:100vh;display:flex;flex-direction:column;overflow:hidden}
     button{font-family:inherit;cursor:pointer}
-    input,select{font-family:inherit}
+    input{font-family:inherit}
+    a{text-decoration:none}
 
-    /* ── NAV ──────────────────────────────────── */
+    /* ══ NAV ══════════════════════════════════ */
     .nav{
-      flex-shrink:0;height:var(--nav-h);
-      background:var(--surf);border-bottom:1px solid var(--bd);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 20px;z-index:100;
+      flex-shrink:0;height:var(--nav);
+      background:var(--panel);border-bottom:1px solid var(--bd);
+      display:flex;align-items:center;justify-content:space-between;padding:0 18px;
     }
-    .nav-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.02em;text-decoration:none}
-    .logo-dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}
-    .nav-links{display:flex;align-items:center;gap:2px}
-    .nav-a{
-      padding:4px 11px;font-size:13px;font-weight:500;color:var(--text2);
-      border-radius:6px;text-decoration:none;transition:all .12s;
-    }
-    .nav-a:hover{color:var(--text);background:var(--surf2)}
-    .nav-a.active{color:var(--blue);background:var(--blue-l)}
-    .nav-btc{font-size:12px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:5px}
-    .live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s ease-in-out infinite;flex-shrink:0}
+    .nav-brand{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.02em}
+    .brand-dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+    .nav-links{display:flex;gap:1px}
+    .nl{padding:4px 11px;font-size:12px;font-weight:500;color:var(--t2);border-radius:6px;transition:all .12s}
+    .nl:hover{color:var(--text);background:var(--surf)}
+    .nl.on{color:var(--blue);background:rgba(23,99,182,.12)}
+    .nav-r{display:flex;align-items:center;gap:10px}
+    .live-tag{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)}
+    .ldot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s ease-in-out infinite}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-    /* ── APP LAYOUT ───────────────────────────── */
-    .app{flex:1;display:flex;overflow:hidden;min-height:0}
+    /* ══ APP ══════════════════════════════════ */
+    .app{flex:1;display:flex;min-height:0;overflow:hidden}
 
-    /* ── LEFT PANEL ───────────────────────────── */
-    .left{
-      width:var(--left-w);flex-shrink:0;
-      background:var(--surf);border-right:1px solid var(--bd);
-      overflow-y:auto;display:flex;flex-direction:column;gap:0;
+    /* ══ SIDEBAR ══════════════════════════════ */
+    .sb{
+      width:var(--sw);flex-shrink:0;
+      background:var(--panel);border-right:1px solid var(--bd);
+      overflow-y:auto;display:flex;flex-direction:column;
     }
-    .left::-webkit-scrollbar{width:4px}
-    .left::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+    .sb::-webkit-scrollbar{width:3px}
+    .sb::-webkit-scrollbar-thumb{background:var(--surf3);border-radius:2px}
 
-    .l-section{padding:16px;border-bottom:1px solid var(--bd)}
-    .l-section:last-child{border-bottom:none}
-
-    .l-label{
-      font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
-      color:var(--text3);margin-bottom:10px;
+    /* section block */
+    .sb-blk{padding:14px 15px;border-bottom:1px solid var(--bd)}
+    .sb-blk:last-child{border-bottom:none}
+    .blk-title{
+      font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--t3);margin-bottom:11px;
     }
-    .l-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-    .l-field:last-child{margin-bottom:0}
-    .l-field label{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text3)}
-    .l-irow{position:relative;display:flex;align-items:center}
-    .l-pre{position:absolute;left:10px;font-size:12px;font-weight:600;color:var(--text3);pointer-events:none;z-index:1}
-    .l-suf{position:absolute;right:10px;font-size:11px;font-weight:600;color:var(--text3);pointer-events:none;z-index:1}
-    .l-field input[type="number"],.l-field input[type="text"]{
-      width:100%;background:var(--surf2);border:1px solid var(--bd2);color:var(--text);
-      padding:9px 10px 9px 26px;border-radius:7px;
-      font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;
+
+    /* inputs */
+    .inp-grp{display:flex;flex-direction:column;gap:4px;margin-bottom:9px}
+    .inp-grp:last-child{margin-bottom:0}
+    .inp-grp label{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}
+    .inp-row{position:relative}
+    .inp-pre{
+      position:absolute;left:10px;top:50%;transform:translateY(-50%);
+      font-size:12px;font-weight:600;color:var(--t3);pointer-events:none;z-index:1;
+    }
+    .inp-row input{
+      width:100%;background:var(--surf);border:1px solid var(--bd2);color:var(--text);
+      padding:9px 10px 9px 26px;border-radius:8px;
+      font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;
       transition:border-color .15s;-moz-appearance:textfield;
     }
-    .l-field input::-webkit-inner-spin-button,.l-field input::-webkit-outer-spin-button{-webkit-appearance:none}
-    .l-field input:focus{outline:none;border-color:var(--blue);background:#151515}
-    .l-field input::placeholder{color:var(--text3);font-weight:400}
-    .l-hint{font-size:11px;color:var(--text3);margin-top:2px;font-variant-numeric:tabular-nums}
+    .inp-row input::-webkit-inner-spin-button,.inp-row input::-webkit-outer-spin-button{-webkit-appearance:none}
+    .inp-row input:focus{outline:none;border-color:rgba(255,255,255,.25);background:var(--surf2)}
+    .inp-row input::placeholder{color:var(--t4);font-weight:400;font-size:13px}
+    .inp-hint{font-size:11px;color:var(--t3);margin-top:3px;font-variant-numeric:tabular-nums}
 
     /* CAGR buttons */
-    .cagr-btns{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px}
-    .cagr-btn{
-      padding:7px 6px;border-radius:7px;font-size:12px;font-weight:700;
-      background:var(--surf2);border:1px solid var(--bd2);color:var(--text2);
-      transition:all .12s;
+    .cagr-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:9px}
+    .cg{
+      padding:8px 6px;border-radius:8px;font-size:11px;font-weight:700;
+      text-align:center;line-height:1.4;
+      background:var(--surf);border:1px solid var(--bd2);color:var(--t2);
+      transition:all .12s;display:flex;flex-direction:column;gap:0;
     }
-    .cagr-btn:hover{border-color:var(--bd2);color:var(--text)}
-    .cagr-btn.on[data-sc="bear"] {background:rgba(240,68,82,.15);border-color:var(--red);color:var(--red)}
-    .cagr-btn.on[data-sc="base"] {background:rgba(23,99,182,.15);border-color:var(--blue);color:var(--blue)}
-    .cagr-btn.on[data-sc="bull"] {background:rgba(5,178,107,.15);border-color:var(--green);color:var(--green)}
-    .cagr-btn.on[data-sc="custom"]{background:rgba(245,158,11,.15);border-color:var(--amber);color:var(--amber)}
+    .cg-sub{font-size:9px;font-weight:500;opacity:.65;margin-top:1px}
+    .cg:hover{border-color:var(--bd3);color:var(--text)}
+    .cg.on[data-sc="bear"] {background:rgba(239,68,68,.12) ;border-color:rgba(239,68,68,.4) ;color:var(--red)}
+    .cg.on[data-sc="base"] {background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.4);color:var(--amber)}
+    .cg.on[data-sc="bull"] {background:rgba(34,197,94,.12) ;border-color:rgba(34,197,94,.4) ;color:var(--green)}
+    .cg.on[data-sc="custom"]{background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.4);color:var(--purple)}
 
-    /* Slider */
-    .l-slider{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;outline:none;cursor:pointer;
-      background:linear-gradient(to right,var(--blue) 0%,var(--blue) var(--pct,30%),var(--surf3) var(--pct,30%),var(--surf3) 100%);
-      margin:8px 0 4px;
+    /* CAGR slider */
+    .cagr-sl{
+      -webkit-appearance:none;width:100%;height:3px;border-radius:2px;outline:none;cursor:pointer;
+      background:linear-gradient(to right,var(--amber) 0%,var(--amber) var(--pct,30%),var(--surf3) var(--pct,30%),var(--surf3) 100%);
+      margin:7px 0 3px;
     }
-    .l-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);border:2px solid var(--surf);cursor:pointer;box-shadow:0 0 0 3px rgba(23,99,182,.2)}
-    .l-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--blue);border:2px solid var(--surf);cursor:pointer}
+    .cagr-sl::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--amber);border:2px solid var(--panel);cursor:pointer;box-shadow:0 0 0 3px rgba(245,158,11,.2)}
+    .cagr-sl::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--amber);border:2px solid var(--panel);cursor:pointer}
+    .cagr-mm{display:flex;justify-content:space-between;font-size:9px;color:var(--t4)}
 
-    .cagr-info-box{
-      background:var(--surf2);border:1px solid var(--bd);border-radius:7px;
-      padding:8px 10px;margin-top:6px;
+    /* CAGR info box */
+    .cagr-box{
+      background:var(--surf);border:1px solid var(--bd);border-radius:8px;
+      padding:9px 11px;margin-top:8px;
     }
-    .cagr-info-main{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px}
-    .cagr-info-sub{font-size:11px;color:var(--text3)}
+    .cagr-box-main{font-size:12px;font-weight:700;color:var(--text)}
+    .cagr-box-sub{font-size:10px;color:var(--t3);margin-top:2px}
+    .cagr-box-hist{
+      display:flex;gap:8px;margin-top:7px;padding-top:7px;
+      border-top:1px solid var(--bd);
+    }
+    .hist-item{display:flex;flex-direction:column;gap:1px;flex:1}
+    .hist-item label{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--t4)}
+    .hist-item span{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 
-    .btc-price-box{
-      background:var(--surf2);border:1px solid var(--bd);border-radius:7px;
+    /* BTC price box */
+    .price-box{
+      background:var(--surf);border:1px solid var(--bd2);border-radius:8px;
       padding:10px 12px;display:flex;align-items:center;justify-content:space-between;
     }
-    .btc-price-val{font-size:16px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
-    .btc-price-change{font-size:12px;font-weight:600}
-    .btn-tiny-refresh{background:transparent;border:1px solid var(--bd2);border-radius:5px;color:var(--text3);padding:3px 7px;font-size:13px;transition:all .12s}
-    .btn-tiny-refresh:hover{color:var(--text);border-color:var(--bd2)}
-    .btn-tiny-refresh.spin{animation:spin .6s linear infinite}
+    .price-num{font-size:18px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+    .price-label{font-size:9px;color:var(--t3);margin-top:1px;text-transform:uppercase;letter-spacing:.06em}
+    .price-chg{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+    .price-r{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+    .btn-ref{
+      background:transparent;border:1px solid var(--bd2);border-radius:5px;
+      color:var(--t3);padding:3px 7px;font-size:13px;transition:all .12s;
+    }
+    .btn-ref:hover{color:var(--text);border-color:var(--bd3)}
+    .btn-ref.sp{animation:spin .6s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    .target-hint{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
-    .target-input{
-      width:100%;background:var(--surf2);border:1px solid var(--bd2);color:var(--text);
-      padding:9px 12px;border-radius:7px;font-size:14px;font-weight:600;
-      -moz-appearance:textfield;
+    /* Sovereignty score */
+    .sov-box{
+      background:var(--surf);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;
     }
-    .target-input::-webkit-inner-spin-button,.target-input::-webkit-outer-spin-button{-webkit-appearance:none}
-    .target-input:focus{outline:none;border-color:var(--blue);background:#151515}
-    .target-input::placeholder{color:var(--text3);font-weight:400}
+    .sov-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+    .sov-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t3)}
+    .sov-score{font-size:18px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+    .sov-bar-bg{height:4px;background:var(--surf3);border-radius:2px;overflow:hidden;margin-bottom:6px}
+    .sov-bar{height:100%;border-radius:2px;transition:width .4s ease,background .4s}
+    .sov-status{font-size:11px;color:var(--t3)}
+    .ms-count{
+      margin-top:7px;padding-top:7px;border-top:1px solid var(--bd);
+      font-size:11px;color:var(--t3);display:flex;align-items:center;justify-content:space-between;
+    }
+    .ms-count-val{font-size:13px;font-weight:700;color:var(--text)}
 
-    /* ── RIGHT PANEL ──────────────────────────── */
-    .right{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0}
-    .right::-webkit-scrollbar{width:4px}
-    .right::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+    /* Target year */
+    .target-lbl{font-size:9px;color:var(--t3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em}
+    .target-inp{
+      width:100%;background:var(--surf);border:1px solid var(--bd2);color:var(--text);
+      padding:9px 12px;border-radius:8px;font-size:14px;font-weight:700;
+      transition:border-color .15s;-moz-appearance:textfield;
+    }
+    .target-inp::-webkit-inner-spin-button,.target-inp::-webkit-outer-spin-button{-webkit-appearance:none}
+    .target-inp:focus{outline:none;border-color:rgba(255,255,255,.25);background:var(--surf2)}
+    .target-inp::placeholder{color:var(--t4);font-weight:400;font-size:13px}
+    .target-hint{font-size:10px;color:var(--t3);margin-top:4px}
 
-    .r-header{
-      flex-shrink:0;padding:12px 20px;
-      border-bottom:1px solid var(--bd);
+    /* ══ MAIN ═════════════════════════════════ */
+    .main{flex:1;min-width:0;overflow-y:auto;display:flex;flex-direction:column;background:var(--bg)}
+    .main::-webkit-scrollbar{width:4px}
+    .main::-webkit-scrollbar-thumb{background:var(--surf3);border-radius:2px}
+
+    /* Projection header */
+    .proj-hdr{
+      flex-shrink:0;padding:10px 18px;border-bottom:1px solid var(--bd);
       display:flex;align-items:center;justify-content:space-between;
-      background:rgba(255,255,255,.015);
+      background:rgba(255,255,255,.01);
     }
-    .r-header-left{font-size:11px;color:var(--text3)}
-    .r-header-right{font-size:12px;font-weight:700;color:var(--blue)}
+    .proj-hdr-l{font-size:11px;color:var(--t3)}
+    .proj-hdr-r{font-size:12px;font-weight:700;color:var(--amber)}
 
-    /* ── MILESTONE CARDS ──────────────────────── */
-    .milestones{display:flex;flex-direction:column;padding:8px 0}
+    /* ══ MILESTONE CARDS ══════════════════════ */
+    .ms-list{display:flex;flex-direction:column}
 
     .ms-card{
-      padding:14px 20px;border-bottom:1px solid var(--bd);
-      transition:background .15s;cursor:default;
+      display:flex;align-items:stretch;
+      border-bottom:1px solid var(--bd);
+      transition:background .12s;
     }
-    .ms-card:hover{background:rgba(255,255,255,.025)}
-    .ms-card.achieved{background:rgba(5,178,107,.04)}
-    .ms-card.achieved:hover{background:rgba(5,178,107,.07)}
+    .ms-card:last-child{border-bottom:none}
+    .ms-card:hover{background:rgba(255,255,255,.02)}
+    .ms-card.achieved{background:rgba(34,197,94,.025)}
+    .ms-card.achieved:hover{background:rgba(34,197,94,.05)}
 
-    .ms-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .ms-left-block{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
-    .ms-icon-wrap{
-      width:34px;height:34px;border-radius:9px;flex-shrink:0;
-      display:flex;align-items:center;justify-content:center;font-size:16px;
-    }
-    .ms-text{flex:1;min-width:0}
-    .ms-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.2}
-    .ms-sub{font-size:11px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .ms-card.achieved .ms-sub{color:#4de0a0}
+    /* Left color bar */
+    .ms-bar-l{width:4px;flex-shrink:0;border-radius:0}
 
-    .ms-right-block{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
-    .ms-date-badge{
-      padding:3px 9px;border-radius:5px;font-size:11px;font-weight:700;
-      background:var(--surf2);color:var(--text2);border:1px solid var(--bd2);
-      font-variant-numeric:tabular-nums;
-    }
-    .ms-card.achieved .ms-date-badge{background:rgba(5,178,107,.15);border-color:rgba(5,178,107,.3);color:var(--green)}
-    .ms-time{font-size:11px;color:var(--text3);font-variant-numeric:tabular-nums}
-    .ms-values{font-size:11px;color:var(--text3);font-variant-numeric:tabular-nums}
+    /* Card content */
+    .ms-content{flex:1;padding:13px 16px;min-width:0;display:flex;flex-direction:column;gap:9px}
 
-    .ms-bar-wrap{height:3px;background:var(--surf3);border-radius:2px;overflow:hidden}
-    .ms-bar{height:100%;border-radius:2px;transition:width .4s ease}
+    /* Row 1: icon+text | date */
+    .ms-r1{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .ms-left{display:flex;align-items:flex-start;gap:10px;flex:1;min-width:0}
+    .ms-emoji{font-size:18px;line-height:1.4;flex-shrink:0}
+    .ms-txt .ms-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3}
+    .ms-txt .ms-desc{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4}
+    .ms-card.achieved .ms-txt .ms-desc{color:rgba(34,197,94,.6)}
 
-    /* ── RECOMMENDATIONS ──────────────────────── */
-    .recs-section{padding:16px 20px;border-top:1px solid var(--bd);margin-top:auto}
-    .recs-header{
-      font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
-      color:var(--text3);display:flex;align-items:center;gap:8px;margin-bottom:12px;
+    .ms-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
+    .ms-date{
+      padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;
+      background:var(--surf);border:1px solid var(--bd2);color:var(--t2);
+      font-variant-numeric:tabular-nums;white-space:nowrap;
     }
-    .recs-header::before{content:'■';font-size:8px}
-    .rec-cards{display:flex;flex-direction:column;gap:8px}
-    .rec-card{
-      background:var(--surf2);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;
-    }
-    .rec-card-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
-    .rec-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-    .rec-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.35}
-    .rec-body{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px;padding-left:26px}
-    .rec-tag{
-      display:inline-block;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:700;
-      letter-spacing:.04em;
-    }
-    .tag-high{background:rgba(245,158,11,.15);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
-    .tag-med {background:rgba(23,99,182,.15); color:#60a5fa;border:1px solid rgba(23,99,182,.3)}
+    .ms-card.achieved .ms-date{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.25);color:var(--green)}
+    .ms-time{font-size:10px;color:var(--t3);font-variant-numeric:tabular-nums}
 
-    /* ── MOBILE ───────────────────────────────── */
+    /* Row 2: values + progress bar */
+    .ms-r2{display:flex;flex-direction:column;gap:5px}
+    .ms-vals{display:flex;align-items:center;justify-content:space-between}
+    .ms-val-l{font-size:11px;color:var(--t3);font-variant-numeric:tabular-nums}
+    .ms-val-r{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+    .ms-prog-bg{height:2px;background:var(--surf3);border-radius:1px;overflow:hidden}
+    .ms-prog{height:100%;border-radius:1px;transition:width .4s ease}
+
+    /* ══ RECOMMENDATIONS ══════════════════════ */
+    .recs{padding:14px 18px;border-top:1px solid var(--bd)}
+    .recs-hdr{
+      font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--t3);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+    }
+    .recs-hdr::before{content:'■';font-size:7px}
+    .recs-list{display:flex;flex-direction:column;gap:7px}
+    .rec{background:var(--panel);border:1px solid var(--bd);border-radius:9px;padding:12px 14px}
+    .rec-top{display:flex;align-items:flex-start;gap:9px;margin-bottom:5px}
+    .rec-ic{font-size:14px;flex-shrink:0;margin-top:1px}
+    .rec-ttl{font-size:12px;font-weight:700;color:var(--text);line-height:1.4}
+    .rec-body{font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:7px;padding-left:23px}
+    .tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+    .tag-hi{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+    .tag-md{background:rgba(23,99,182,.1);color:#60a5fa;border:1px solid rgba(23,99,182,.2)}
+    .tag-ok{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+
+    /* footer note */
+    .footer-note{padding:12px 18px;border-top:1px solid var(--bd);font-size:10px;color:var(--t4);line-height:1.5}
+
     @media(max-width:700px){
-      body{overflow:auto}
+      body{overflow:auto;height:auto}
       .app{flex-direction:column;overflow:visible;height:auto}
-      .left{width:100%;height:auto;overflow:visible;border-right:none;border-bottom:1px solid var(--bd)}
-      .right{overflow:visible;height:auto}
+      .sb{width:100%;height:auto;overflow:visible;border-right:none;border-bottom:1px solid var(--bd)}
+      .main{overflow:visible;height:auto}
     }
   </style>
 </head>
@@ -224,186 +274,312 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <a class="nav-logo" href="/"><span class="logo-dot"></span>SkipTheLatte</a>
+  <a class="nav-brand" href="/"><span class="brand-dot"></span>SkipTheLatte</a>
   <div class="nav-links">
-    <a href="/" class="nav-a">Calculator</a>
-    <a href="/freedom" class="nav-a active">Freedom Planner</a>
-    <a href="/faq" class="nav-a">FAQ</a>
+    <a href="/" class="nl">Calculator</a>
+    <a href="/freedom" class="nl on">Freedom Planner</a>
+    <a href="/faq" class="nl">FAQ</a>
   </div>
-  <div class="nav-btc">
-    <span class="live-dot"></span>
-    <span id="nav-btc">Loading...</span>
+  <div class="nav-r">
+    <div class="live-tag">
+      <span class="ldot"></span>
+      <span id="nav-price">Loading...</span>
+    </div>
   </div>
 </nav>
 
 <div class="app">
 
-  <!-- ════ LEFT PANEL ════ -->
-  <aside class="left">
+  <!-- ════════ SIDEBAR ════════ -->
+  <aside class="sb">
 
     <!-- YOUR NUMBERS -->
-    <div class="l-section">
-      <div class="l-label">Your Numbers</div>
+    <div class="sb-blk">
+      <div class="blk-title">Your Numbers</div>
 
-      <div class="l-field">
+      <div class="inp-grp">
         <label>Bitcoin Stack (BTC)</label>
-        <div class="l-irow">
-          <span class="l-pre" style="font-size:14px">₿</span>
-          <input type="number" id="btc-stack" value="0.1" min="0" step="any" placeholder="0.00" oninput="onAnyChange()"/>
+        <div class="inp-row">
+          <span class="inp-pre" style="font-size:13px;font-weight:800">₿</span>
+          <input type="number" id="btc-stack" value="0.1" min="0" step="any" placeholder="0.00" oninput="go()"/>
         </div>
-        <div class="l-hint" id="stack-usd">≈ $0 USD</div>
+        <div class="inp-hint" id="stack-hint">≈ $— USD</div>
       </div>
 
-      <div class="l-field">
+      <div class="inp-grp">
         <label>Monthly DCA ($)</label>
-        <div class="l-irow">
-          <span class="l-pre">$</span>
-          <input type="number" id="monthly-dca" value="200" min="0" step="any" placeholder="200" oninput="onAnyChange()"/>
+        <div class="inp-row">
+          <span class="inp-pre">$</span>
+          <input type="number" id="monthly-dca" value="200" min="0" step="any" placeholder="200" oninput="go()"/>
         </div>
       </div>
 
-      <div class="l-field" style="margin-bottom:0">
+      <div class="inp-grp" style="margin-bottom:0">
         <label>Monthly Expenses ($)</label>
-        <div class="l-irow">
-          <span class="l-pre">$</span>
-          <input type="number" id="monthly-exp" value="3000" min="0" step="any" placeholder="3000" oninput="onAnyChange()"/>
+        <div class="inp-row">
+          <span class="inp-pre">$</span>
+          <input type="number" id="monthly-exp" value="3000" min="0" step="any" placeholder="3000" oninput="go()"/>
         </div>
       </div>
     </div>
 
     <!-- CAGR -->
-    <div class="l-section">
-      <div class="l-label">Annual Growth Rate (CAGR)</div>
+    <div class="sb-blk">
+      <div class="blk-title">Annual Growth Rate (CAGR)</div>
 
-      <div class="cagr-btns">
-        <button class="cagr-btn" data-sc="bear"   onclick="setScenario('bear')">Bear<br><span style="font-size:10px;font-weight:400">15%</span></button>
-        <button class="cagr-btn on" data-sc="base" onclick="setScenario('base')">Base<br><span style="font-size:10px;font-weight:400">21%</span></button>
-        <button class="cagr-btn" data-sc="bull"   onclick="setScenario('bull')">Bull<br><span style="font-size:10px;font-weight:400">35%</span></button>
-        <button class="cagr-btn" data-sc="custom" onclick="setScenario('custom')">Custom<br><span style="font-size:10px;font-weight:400" id="custom-pct">—%</span></button>
+      <div class="cagr-grid">
+        <button class="cg" data-sc="bear" onclick="setSc('bear')">
+          Bear<span class="cg-sub">20%/yr</span>
+        </button>
+        <button class="cg on" data-sc="base" onclick="setSc('base')">
+          Base<span class="cg-sub">55%/yr</span>
+        </button>
+        <button class="cg" data-sc="bull" onclick="setSc('bull')">
+          Bull<span class="cg-sub">110%/yr</span>
+        </button>
+        <button class="cg" data-sc="custom" onclick="setSc('custom')">
+          Custom<span class="cg-sub" id="cust-pct">—%</span>
+        </button>
       </div>
 
-      <input type="range" id="cagr-slider" class="l-slider" min="5" max="60" value="21" oninput="onCagrSlide(this)"/>
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:4px"><span>5%</span><span>60%</span></div>
+      <input type="range" id="cagr-sl" class="cagr-sl" min="5" max="150" value="55" oninput="onSlide(this)"/>
+      <div class="cagr-mm"><span>5%</span><span>150%</span></div>
 
-      <div class="cagr-info-box">
-        <div class="cagr-info-main" id="cagr-main-txt">Base CAGR 21%/yr · monthly: 1.6%</div>
-        <div class="cagr-info-sub" id="cagr-sub-txt">Conservative long-term Bitcoin estimate</div>
+      <div class="cagr-box">
+        <div class="cagr-box-main" id="cagr-main">Base CAGR 55%/yr · monthly: 3.7%</div>
+        <div class="cagr-box-sub"  id="cagr-sub">4-year historical Bitcoin average</div>
+        <div class="cagr-box-hist">
+          <div class="hist-item">
+            <label>4yr CAGR</label>
+            <span style="color:var(--amber)">~55%</span>
+          </div>
+          <div class="hist-item">
+            <label>10yr CAGR</label>
+            <span style="color:var(--green)">~80%</span>
+          </div>
+          <div class="hist-item">
+            <label>Since 2009</label>
+            <span style="color:var(--cyan)">~130%</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- BTC PRICE -->
-    <div class="l-section">
-      <div class="l-label">BTC Current Price</div>
-      <div class="btc-price-box">
+    <div class="sb-blk">
+      <div class="blk-title">BTC Current Price</div>
+      <div class="price-box">
         <div>
-          <div class="btc-price-val" id="btc-price-val">$—</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px">via CoinGecko</div>
+          <div class="price-num" id="btc-price-num">$—</div>
+          <div class="price-label">via CoinGecko</div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <span class="btc-price-change" id="btc-change-val">—</span>
-          <button class="btn-tiny-refresh" id="refresh-btn" onclick="fetchPrice(true)">↻</button>
+        <div class="price-r">
+          <span class="price-chg" id="btc-chg">—</span>
+          <button class="btn-ref" id="ref-btn" onclick="fetchPrice(true)">↻</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOVEREIGNTY SCORE -->
+    <div class="sb-blk">
+      <div class="blk-title">Sovereignty Score</div>
+      <div class="sov-box">
+        <div class="sov-row">
+          <span class="sov-label">Score</span>
+          <span class="sov-score" id="sov-score">0<span style="font-size:12px;font-weight:500;color:var(--t3)">/100</span></span>
+        </div>
+        <div class="sov-bar-bg">
+          <div class="sov-bar" id="sov-bar" style="width:0%;background:var(--red)"></div>
+        </div>
+        <div class="sov-status" id="sov-status">Just getting started</div>
+        <div class="ms-count">
+          <span>Milestones Reached</span>
+          <span class="ms-count-val" id="ms-count">0/8</span>
         </div>
       </div>
     </div>
 
     <!-- FREEDOM TARGET YEAR -->
-    <div class="l-section">
-      <div class="l-label">Freedom Target Year</div>
-      <div class="target-hint">I want to be free by...</div>
-      <input type="number" id="target-year" class="target-input"
-        placeholder="e.g., 2035" min="2025" max="2065"
-        oninput="onAnyChange()"/>
-      <div class="l-hint" id="target-hint" style="margin-top:5px"></div>
+    <div class="sb-blk">
+      <div class="blk-title">Freedom Target Year</div>
+      <div class="target-lbl">I want to be free by...</div>
+      <input type="number" id="target-yr" class="target-inp" placeholder="e.g. 2035" min="2025" max="2075" oninput="go()"/>
+      <div class="target-hint" id="target-hint"></div>
     </div>
 
   </aside>
 
-  <!-- ════ RIGHT PANEL ════ -->
-  <div class="right">
+  <!-- ════════ MAIN ════════ -->
+  <div class="main">
 
-    <div class="r-header">
-      <span class="r-header-left">Projections based on growth rate:</span>
-      <span class="r-header-right" id="r-cagr-header">CAGR 21%/yr · 1.6%/mo compounding</span>
+    <!-- Header -->
+    <div class="proj-hdr">
+      <span class="proj-hdr-l">Projections based on growth rate:</span>
+      <span class="proj-hdr-r" id="proj-cagr">CAGR 55%/yr · 3.7%/mo compounding</span>
     </div>
 
-    <!-- MILESTONE CARDS -->
-    <div class="milestones" id="milestones-list">
-      <!-- populated by JS -->
+    <!-- Milestone list -->
+    <div class="ms-list" id="ms-list"></div>
+
+    <!-- Recommendations -->
+    <div class="recs">
+      <div class="recs-hdr">Plan Recommendations</div>
+      <div class="recs-list" id="rec-list"></div>
     </div>
 
-    <!-- RECOMMENDATIONS -->
-    <div class="recs-section">
-      <div class="recs-header">Plan Recommendations</div>
-      <div class="rec-cards" id="rec-cards">
-        <!-- populated by JS -->
-      </div>
+    <!-- Disclaimer -->
+    <div class="footer-note">
+      ⚠️ Simulation Only — Not Financial Advice. All projections assume consistent CAGR compounding with monthly DCA. Bitcoin is volatile; past performance does not guarantee future results. SkipTheLatte · Price data: CoinGecko
     </div>
 
   </div>
 
-</div><!-- /app -->
+</div>
 
 <script is:inline>
-// ═══════════════════════════════════════════════
-//  State
-// ═══════════════════════════════════════════════
-let btcPriceNow = 0;
-let btcChange24 = 0;
+// ════════════════════════════════════════════
+//  Config
+// ════════════════════════════════════════════
+let BTC = 0, chg24 = 0;
 
-const SCENARIOS = {
-  bear:   { cagr: 15, label: 'Bear Case',   sub: 'Conservative downside scenario' },
-  base:   { cagr: 21, label: 'Base Case',   sub: 'Conservative long-term Bitcoin estimate' },
-  bull:   { cagr: 35, label: 'Bull Case',   sub: 'Strong adoption growth scenario' },
-  custom: { cagr: 21, label: 'Custom',      sub: 'Your own growth assumption' },
+const SC = {
+  bear:  { cagr:20,  color:'#ef4444', label:'Bear',   sub:'Conservative downside scenario'      },
+  base:  { cagr:55,  color:'#f59e0b', label:'Base',   sub:'4-year historical Bitcoin average'   },
+  bull:  { cagr:110, color:'#22c55e', label:'Bull',   sub:'Aggressive adoption growth scenario' },
+  custom:{ cagr:55,  color:'#8b5cf6', label:'Custom', sub:'Your own growth assumption'          },
 };
-let activeScenario = 'base';
+let activeSc = 'base';
 
-// Milestone definitions
-const MS_DEFS = [
-  { id:'m3mo',  name:'3 Months Free',          sub:'Your first taste of breathing room',                    icon:'🌱', color:'#05b26b', targetFn: (mo)=> mo*3           },
-  { id:'m6mo',  name:'6 Months Runway',         sub:'Half a year — no financial pressure',                   icon:'🌊', color:'#0891b2', targetFn: (mo)=> mo*6           },
-  { id:'m1yr',  name:'1 Year of Freedom',       sub:'12 months of living expenses in your stack',            icon:'⚡', color:'#1763B6', targetFn: (mo)=> mo*12          },
-  { id:'m5yr',  name:'5-Year Sovereignty',      sub:'Half a decade — no employer can touch you',             icon:'🚀', color:'#7c3aed', targetFn: (mo)=> mo*60          },
-  { id:'fire',  name:'FIRE Number',             sub:'25× annual expenses — retirement threshold',            icon:'🔥', color:'#f59e0b', targetFn: (mo)=> mo*12*25       },
-  { id:'m1m',   name:'$1M Stack',               sub:'Seven figures in hard money',                           icon:'💎', color:'#e2b714', targetFn: ()  => 1_000_000      },
-  { id:'nsta',  name:'Never Sell Time Again',   sub:'Appreciation alone covers your lifestyle — forever',   icon:'♾️', color:'#ef4444', targetFn: (mo)=> mo*12*50       },
-  { id:'gw',    name:'Generational Wealth 💰',  sub:'Your annual expenses — a legacy that outlasts you',    icon:'👑', color:'#c2410c', targetFn: (mo)=> mo*12*100      },
+// Milestone definitions — targets are functions of (monthly_exp, cagr)
+const MS_DEF = [
+  {
+    id:'m3mo', emoji:'☕', name:'3 Months Free',
+    desc:'Your first taste of breathing room',
+    color:'#22c55e',
+    target:(e)=> e * 3,
+  },
+  {
+    id:'m6mo', emoji:'🌊', name:'6 Months Runway',
+    desc:'Half a year — no financial pressure',
+    color:'#06b6d4',
+    target:(e)=> e * 6,
+  },
+  {
+    id:'m1yr', emoji:'🦅', name:'1 Year of Freedom',
+    desc:'12 months of living expenses in your stack',
+    color:'#1763B6',
+    target:(e)=> e * 12,
+  },
+  {
+    id:'m5yr', emoji:'⚡', name:'5-Year Sovereignty',
+    desc:'Half a decade — no employer can touch you',
+    color:'#8b5cf6',
+    target:(e)=> e * 60,
+  },
+  {
+    id:'fire', emoji:'🎯', name:'FIRE Number',
+    desc:'25× annual expenses — retirement threshold',
+    color:'#f59e0b',
+    target:(e)=> e * 12 * 25,
+  },
+  {
+    id:'m1m', emoji:'💎', name:'$1M Stack',
+    desc:'Seven figures in hard money',
+    color:'#fbbf24',
+    target:()=> 1_000_000,
+  },
+  {
+    id:'nsta', emoji:'∞', name:'Never Sell Time Again',
+    desc:'Appreciation alone covers your lifestyle — forever',
+    color:'#f43f5e',
+    // Dynamic: portfolio appreciation at CAGR covers expenses
+    target:(e, cagr)=> e * 12 / (cagr / 100),
+  },
+  {
+    id:'gw', emoji:'🏛️', name:'Generational Wealth',
+    desc:'100× annual expenses — a legacy that outlasts you',
+    color:'#c2410c',
+    target:(e)=> e * 12 * 100,
+  },
 ];
 
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
 //  Formatters
-// ═══════════════════════════════════════════════
-function fmtUSD(n) {
-  if (!n && n !== 0) return '—';
-  if (n >= 1e9)  return '$' + (n/1e9).toFixed(2)  + 'B';
-  if (n >= 1e6)  return '$' + (n/1e6).toFixed(2)  + 'M';
-  if (n >= 1e3)  return '$' + (n/1e3).toFixed(1)  + 'K';
-  return '$' + n.toFixed(0);
+// ════════════════════════════════════════════
+function fK(n) {
+  if (n == null || isNaN(n)) return '—';
+  if (n >= 1e9) return '$'+(n/1e9).toFixed(2)+'B';
+  if (n >= 1e6) return '$'+(n/1e6).toFixed(2)+'M';
+  if (n >= 1e3) return '$'+(n/1e3).toFixed(1)+'K';
+  return '$'+n.toFixed(0);
 }
-function fmtUSDfull(n) {
-  if (!n && n !== 0) return '—';
-  return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+function fFull(n) {
+  if (n == null || isNaN(n)) return '—';
+  return '$'+n.toLocaleString('en-US',{maximumFractionDigits:0});
 }
-function fmtBTC(n) {
-  if (n == null) return '—';
-  return n.toFixed(4) + ' BTC';
+function fDate(d) {
+  if (!d) return '> 40 yrs';
+  return d.toLocaleString('en-US',{month:'short',year:'numeric'});
 }
-function fmtDate(d) {
-  if (!d) return '—';
-  return d.toLocaleString('en-US', { month:'short', year:'numeric' });
-}
-function fmtYears(y) {
-  if (y == null) return '—';
-  if (y < 0.1) return '< 0.1 yrs';
-  return 'In ' + y.toFixed(1) + ' yrs';
+function fYrs(y) {
+  if (y == null) return '';
+  if (y < 0.08) return 'Now ✓';
+  return 'In '+y.toFixed(1)+' yrs';
 }
 
-// ═══════════════════════════════════════════════
-//  Price fetch
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
+//  Slider / scenario
+// ════════════════════════════════════════════
+function setPct(el) {
+  const pct = ((el.value - el.min)/(el.max - el.min)*100).toFixed(1)+'%';
+  el.style.setProperty('--pct', pct);
+}
+function getCagr() { return +document.getElementById('cagr-sl').value || 55; }
+
+function onSlide(el) {
+  setPct(el);
+  activeSc = 'custom';
+  SC.custom.cagr = +el.value;
+  document.getElementById('cust-pct').textContent = el.value+'%';
+  document.querySelectorAll('.cg').forEach(b => b.classList.toggle('on', b.dataset.sc === 'custom'));
+  // Update slider color to purple for custom
+  el.style.background = `linear-gradient(to right,#8b5cf6 0%,#8b5cf6 ${((el.value-el.min)/(el.max-el.min)*100).toFixed(1)}%,var(--surf3) ${((el.value-el.min)/(el.max-el.min)*100).toFixed(1)}%,var(--surf3) 100%)`;
+  updCagrUI();
+  go();
+}
+
+function setSc(sc) {
+  activeSc = sc;
+  const s = SC[sc];
+  const sl = document.getElementById('cagr-sl');
+  if (sc !== 'custom') {
+    sl.value = s.cagr;
+    setPct(sl);
+    // Update slider track color
+    const pct = ((s.cagr - 5)/(150 - 5)*100).toFixed(1);
+    sl.style.background = `linear-gradient(to right,${s.color} 0%,${s.color} ${pct}%,var(--surf3) ${pct}%,var(--surf3) 100%)`;
+  }
+  document.getElementById('cust-pct').textContent = s.cagr+'%';
+  document.querySelectorAll('.cg').forEach(b => b.classList.toggle('on', b.dataset.sc === sc));
+  updCagrUI();
+  go();
+}
+
+function updCagrUI() {
+  const cagr = getCagr();
+  const mo   = (Math.pow(1 + cagr/100, 1/12) - 1) * 100;
+  const s    = SC[activeSc];
+  document.getElementById('cagr-main').textContent = s.label + ' CAGR ' + cagr + '%/yr · monthly: ' + mo.toFixed(1) + '%';
+  document.getElementById('cagr-sub').textContent  = s.sub;
+  document.getElementById('proj-cagr').textContent = 'CAGR ' + cagr + '%/yr · ' + mo.toFixed(1) + '%/mo compounding';
+}
+
+// ════════════════════════════════════════════
+//  CoinGecko fetch
+// ════════════════════════════════════════════
 async function fetchPrice(manual = false) {
-  const rb = document.getElementById('refresh-btn');
-  if (rb) rb.classList.add('spin');
+  const rb = document.getElementById('ref-btn');
+  if (rb) rb.classList.add('sp');
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 9000);
   try {
@@ -412,308 +588,260 @@ async function fetchPrice(manual = false) {
       { signal: ctrl.signal }
     );
     clearTimeout(timer);
-    if (!r.ok) throw new Error();
+    if (!r.ok) throw new Error('HTTP '+r.status);
     const d = await r.json();
-    btcPriceNow  = d.bitcoin.usd;
-    btcChange24  = d.bitcoin.usd_24h_change ?? 0;
-    updatePriceDisplay();
-    onAnyChange();
+    BTC   = d.bitcoin.usd;
+    chg24 = d.bitcoin.usd_24h_change ?? 0;
+
+    const pn = document.getElementById('btc-price-num');
+    const pc = document.getElementById('btc-chg');
+    const np = document.getElementById('nav-price');
+    if (pn) pn.textContent = '$'+BTC.toLocaleString('en-US');
+    if (pc) { pc.textContent = (chg24>=0?'▲ +':'▼ ')+Math.abs(chg24).toFixed(2)+'%'; pc.style.color = chg24>=0?'#22c55e':'#ef4444'; }
+    if (np) np.textContent  = '$'+BTC.toLocaleString('en-US')+' '+(chg24>=0?'▲':'▼')+' '+Math.abs(chg24).toFixed(2)+'%';
+    go();
   } catch(e) {
     clearTimeout(timer);
-    console.warn('fetchPrice failed');
+    const np = document.getElementById('nav-price');
+    if (np) np.textContent = 'API Error';
+    console.warn('fetchPrice failed:', e.message);
   } finally {
-    if (rb) rb.classList.remove('spin');
+    if (rb) rb.classList.remove('sp');
   }
 }
 
-function updatePriceDisplay() {
-  const pv = document.getElementById('btc-price-val');
-  const ch = document.getElementById('btc-change-val');
-  const nb = document.getElementById('nav-btc');
-  if (pv) pv.textContent = '$' + btcPriceNow.toLocaleString('en-US');
-  if (ch) {
-    ch.textContent = (btcChange24 >= 0 ? '▲ +' : '▼ ') + Math.abs(btcChange24).toFixed(2) + '%';
-    ch.style.color = btcChange24 >= 0 ? '#05b26b' : '#f04452';
-  }
-  if (nb) {
-    nb.textContent = '$' + btcPriceNow.toLocaleString('en-US') + ' ' +
-      (btcChange24 >= 0 ? '▲' : '▼') + ' ' + Math.abs(btcChange24).toFixed(2) + '%';
-  }
-}
-
-// ═══════════════════════════════════════════════
-//  CAGR controls
-// ═══════════════════════════════════════════════
-function setPct(el) {
-  const pct = ((el.value - el.min) / (el.max - el.min) * 100).toFixed(1) + '%';
-  el.style.setProperty('--pct', pct);
-}
-
-function setScenario(sc) {
-  activeScenario = sc;
-  const s = SCENARIOS[sc];
-  const sl = document.getElementById('cagr-slider');
-  if (sc !== 'custom') { sl.value = s.cagr; setPct(sl); }
-  updateCagrDisplay();
-  document.querySelectorAll('.cagr-btn').forEach(b => b.classList.toggle('on', b.dataset.sc === sc));
-  onAnyChange();
-}
-
-function onCagrSlide(el) {
-  setPct(el);
-  activeScenario = 'custom';
-  document.querySelectorAll('.cagr-btn').forEach(b => b.classList.toggle('on', b.dataset.sc === 'custom'));
-  SCENARIOS.custom.cagr = parseInt(el.value);
-  document.getElementById('custom-pct').textContent = el.value + '%';
-  updateCagrDisplay();
-  onAnyChange();
-}
-
-function updateCagrDisplay() {
-  const cagr = getCagr();
-  const monthly = (Math.pow(1 + cagr/100, 1/12) - 1) * 100;
-  document.getElementById('cagr-main-txt').textContent =
-    (activeScenario === 'custom' ? 'Custom' : SCENARIOS[activeScenario].label) +
-    ' CAGR ' + cagr + '%/yr · monthly: ' + monthly.toFixed(1) + '%';
-  document.getElementById('cagr-sub-txt').textContent = SCENARIOS[activeScenario]?.sub ?? 'Custom growth assumption';
-  document.getElementById('r-cagr-header').textContent =
-    'CAGR ' + cagr + '%/yr · ' + monthly.toFixed(1) + '%/mo compounding';
-  document.getElementById('custom-pct').textContent = cagr + '%';
-}
-
-function getCagr() {
-  return parseInt(document.getElementById('cagr-slider').value) || 21;
-}
-
-// ═══════════════════════════════════════════════
-//  Core simulation
-// ═══════════════════════════════════════════════
-function simulate(stackBTC, dca, expenses, price, cagrPct) {
+// ════════════════════════════════════════════
+//  Core monthly simulation
+// ════════════════════════════════════════════
+function simulate(stack, dca, exp, price, cagrPct) {
   if (!price) return null;
-  const mGrowth = Math.pow(1 + cagrPct/100, 1/12);
-  const targets = MS_DEFS.map(m => ({ ...m, target: m.targetFn(expenses), achieved: false, date: null, yearsAway: null, portVal: null, btcAmt: null }));
+  const mGrow = Math.pow(1 + cagrPct/100, 1/12);
+  const now   = new Date();
+  const curP  = stack * price;
 
-  let stack = stackBTC, p = price;
-  const now = new Date();
-  const currentPort = stack * p;
+  // Build milestone targets (some depend on cagr)
+  const mss = MS_DEF.map(m => ({
+    ...m,
+    tgt: m.target(exp, cagrPct),
+    reached: false, date: null, yrsAway: null, portAtMs: null,
+  }));
 
-  // Mark already achieved
-  targets.forEach(t => {
-    if (currentPort >= t.target) {
-      t.achieved = true;
-      t.date = new Date();
-      t.yearsAway = 0;
-      t.portVal = currentPort;
-      t.btcAmt = stack;
-      t.priceAtMs = p;
-    }
+  // Mark already achieved at t=0
+  mss.forEach(m => {
+    if (curP >= m.tgt) { m.reached = true; m.date = new Date(); m.yrsAway = 0; m.portAtMs = curP; }
   });
 
-  // Simulate forward
-  const pending = targets.filter(t => !t.achieved);
+  // Simulate month by month
+  const pending = mss.filter(m => !m.reached);
+  let s = stack, p = price;
   for (let mo = 1; mo <= 480 && pending.length > 0; mo++) {
-    stack += dca / p;
-    p *= mGrowth;
-    const port = stack * p;
-    const d = new Date(now.getFullYear(), now.getMonth() + mo, 1);
+    s += dca / p;
+    p *= mGrow;
+    const port = s * p;
     for (let i = pending.length - 1; i >= 0; i--) {
-      if (port >= pending[i].target) {
-        pending[i].date = d;
-        pending[i].yearsAway = mo / 12;
-        pending[i].portVal = port;
-        pending[i].btcAmt = stack;
-        pending[i].priceAtMs = p;
+      if (port >= pending[i].tgt) {
+        pending[i].date    = new Date(now.getFullYear(), now.getMonth() + mo, 1);
+        pending[i].yrsAway = mo / 12;
+        pending[i].portAtMs= port;
         pending.splice(i, 1);
       }
     }
   }
-
-  return targets;
+  return mss;
 }
 
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
 //  Render milestones
-// ═══════════════════════════════════════════════
-function renderMilestones(results) {
-  if (!results) return;
-  const container = document.getElementById('milestones-list');
-  container.innerHTML = '';
+// ════════════════════════════════════════════
+function renderMs(mss) {
+  const list = document.getElementById('ms-list');
+  list.innerHTML = '';
+  if (!mss || !BTC) return;
 
-  results.forEach(m => {
-    const currentPort = parseFloat(document.getElementById('btc-stack').value || 0) * btcPriceNow;
-    const progress = m.target > 0 ? Math.min(100, (currentPort / m.target) * 100) : 0;
+  const stack  = parseFloat(document.getElementById('btc-stack').value) || 0;
+  const curP   = stack * BTC;
+  let reached  = 0;
+
+  mss.forEach(m => {
+    const isReached = curP >= m.tgt;
+    if (isReached) reached++;
+    const pct     = m.tgt > 0 ? Math.min(100, (curP / m.tgt) * 100) : 0;
+    const barClr  = isReached ? '#22c55e' : m.color;
+    const dateStr = isReached ? 'Achieved ✓' : fDate(m.date);
+    const timeStr = isReached ? 'Complete'   : fYrs(m.yrsAway);
+    const valL    = fK(curP);
+    const valR    = fK(m.tgt);
 
     const card = document.createElement('div');
-    card.className = 'ms-card' + (m.achieved ? ' achieved' : '');
-
-    const dateStr  = m.date ? fmtDate(m.date) : '> 40 yrs';
-    const timeStr  = m.achieved && m.yearsAway === 0 ? 'Now ✓' : fmtYears(m.yearsAway);
-    const valueStr = m.portVal ? fmtUSD(m.portVal) : 'Beyond 40yr';
-    const targetStr = fmtUSD(m.target);
-
+    card.className = 'ms-card' + (isReached ? ' achieved' : '');
     card.innerHTML = `
-      <div class="ms-top">
-        <div class="ms-left-block">
-          <div class="ms-icon-wrap" style="background:${m.color}1a;border:1px solid ${m.color}33">
-            ${m.icon}
+      <div class="ms-bar-l" style="background:${barClr}"></div>
+      <div class="ms-content">
+        <div class="ms-r1">
+          <div class="ms-left">
+            <span class="ms-emoji">${m.emoji}</span>
+            <div class="ms-txt">
+              <div class="ms-name">${m.name}</div>
+              <div class="ms-desc">${m.desc}</div>
+            </div>
           </div>
-          <div class="ms-text">
-            <div class="ms-name">${m.name}</div>
-            <div class="ms-sub">${m.sub}</div>
+          <div class="ms-right">
+            <div class="ms-date">${dateStr}</div>
+            <div class="ms-time">${timeStr}</div>
           </div>
         </div>
-        <div class="ms-right-block">
-          <div class="ms-date-badge">${dateStr}</div>
-          <div class="ms-time">${timeStr}</div>
-          <div class="ms-values">${fmtUSD(currentPort)} / ${targetStr}</div>
+        <div class="ms-r2">
+          <div class="ms-vals">
+            <span class="ms-val-l">${valL} / ${valR}</span>
+            <span class="ms-val-r" style="color:${barClr}">${pct.toFixed(0)}%</span>
+          </div>
+          <div class="ms-prog-bg">
+            <div class="ms-prog" style="width:${pct}%;background:${barClr}"></div>
+          </div>
         </div>
-      </div>
-      <div class="ms-bar-wrap">
-        <div class="ms-bar" style="width:${progress}%;background:${m.color}"></div>
-      </div>
-    `;
-    container.appendChild(card);
+      </div>`;
+    list.appendChild(card);
   });
+
+  // Update sidebar score
+  const fireMs  = mss.find(m => m.id === 'fire');
+  const fireTgt = fireMs?.tgt ?? 1;
+  const rawScore= BTC ? Math.min(100, (stack * BTC / fireTgt) * 100) : 0;
+  const score   = Math.round(rawScore);
+  const scoreEl = document.getElementById('sov-score');
+  const barEl   = document.getElementById('sov-bar');
+  const statEl  = document.getElementById('sov-status');
+  const cntEl   = document.getElementById('ms-count');
+  if (scoreEl) scoreEl.innerHTML = score+'<span style="font-size:12px;font-weight:500;color:var(--t3)">/100</span>';
+  const barColor = score < 20 ? '#ef4444' : score < 50 ? '#f59e0b' : score < 80 ? '#1763B6' : '#22c55e';
+  if (barEl) { barEl.style.width = score+'%'; barEl.style.background = barColor; }
+  const statuses = [[5,'Just getting started'],[15,'Accumulating'],[30,'Building momentum'],[50,'Stacking up'],[75,'Almost there'],[95,'Near freedom'],[100,'Sovereign ✓']];
+  if (statEl) statEl.textContent = statuses.find(([t])=>score<=t)?.[1] ?? 'Sovereign ✓';
+  if (cntEl) cntEl.textContent = reached+'/'+mss.length;
 }
 
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
 //  Render recommendations
-// ═══════════════════════════════════════════════
-function renderRecs(stackBTC, dca, expenses, price, cagrPct, results) {
-  const container = document.getElementById('rec-cards');
-  container.innerHTML = '';
-  const recs = [];
-  const cagr = cagrPct;
-  const monthlyToAnnualExp = expenses;
-  const dcaRatio = monthlyToAnnualExp > 0 ? (dca / monthlyToAnnualExp) * 100 : 0;
-  const fireMs = results?.find(m => m.id === 'fire');
-  const fireYears = fireMs?.yearsAway;
-  const targetYearVal = parseInt(document.getElementById('target-year').value);
-  const currentYear = new Date().getFullYear();
+// ════════════════════════════════════════════
+function renderRecs(stack, dca, exp, cagr, mss) {
+  const cont  = document.getElementById('rec-list');
+  cont.innerHTML = '';
+  const recs  = [];
+  const curP  = stack * BTC;
+  const fireMs = mss?.find(m => m.id === 'fire');
+  const fireYrs= fireMs?.yrsAway;
+  const dcaRatio = exp > 0 ? (dca / exp) * 100 : 0;
+  const ty     = parseInt(document.getElementById('target-yr').value);
+  const cyear  = new Date().getFullYear();
 
-  // Rec 1: DCA vs expenses ratio
-  if (dcaRatio < 10 && monthlyToAnnualExp > 0) {
-    const suggested = Math.round(monthlyToAnnualExp * 0.1);
+  // 1 — DCA velocity check
+  if (dcaRatio < 10 && exp > 0) {
+    const sug = Math.ceil(exp * 0.1 / 50) * 50;
     recs.push({
-      icon: '⚠️',
-      title: `You're only stacking ${dcaRatio.toFixed(1)}% of your spending — that's below escape velocity`,
-      body: `Stackers who reach sovereignty typically put 10-20% of their budget into Bitcoin. Right now you're putting $${dca} against $${monthlyToAnnualExp}/mo of expenses. Raising to $${suggested}/mo would lift your rate to 10% and compress every single milestone on your timeline.`,
-      tag: 'High Impact', tagClass: 'tag-high',
+      ic:'⚠️', tag:'High Impact', cls:'tag-hi',
+      ttl:`You're only stacking ${dcaRatio.toFixed(1)}% of your spending — that's below escape velocity`,
+      body:`Stackers who reach sovereignty typically put 10–20% of their budget into Bitcoin. Right now you're putting $${dca} against $${exp}/mo of expenses. Raising to $${sug}/mo would lift your rate to ${((sug/exp)*100).toFixed(0)}% and compress every single milestone on your timeline.`,
     });
   }
 
-  // Rec 2: Expense reduction
-  if (monthlyToAnnualExp > 2000) {
-    const cut = Math.round(monthlyToAnnualExp * 0.1 / 50) * 50;
-    const fireTarget = monthlyToAnnualExp * 12 * 25;
-    const newFireTarget = (monthlyToAnnualExp - cut) * 12 * 25;
-    const saving = fireTarget - newFireTarget;
+  // 2 — Expense cut impact
+  if (exp > 1000) {
+    const cut  = Math.round(exp * 0.1 / 50) * 50;
+    const save = cut * 12 * 25;
     recs.push({
-      icon: '✂️',
-      title: `Cut $${cut}/mo → your FIRE target drops by ${fmtUSD(saving)}`,
-      body: `Going from $${monthlyToAnnualExp} to $${monthlyToAnnualExp - cut}/mo in expenses shrinks your FIRE number from ${fmtUSD(fireTarget)} to ${fmtUSD(newFireTarget)} — and hits your FIRE number months earlier. Every dollar you stop spending is worth 25× in freedom.`,
-      tag: 'High Impact', tagClass: 'tag-high',
+      ic:'✂️', tag:'High Impact', cls:'tag-hi',
+      ttl:`Cut $${cut}/mo → your FIRE target drops by ${fK(save)}`,
+      body:`Going from $${exp} to $${exp-cut}/mo in expenses shrinks your FIRE number from ${fK(exp*12*25)} to ${fK((exp-cut)*12*25)} — and hits your FIRE number months earlier. Every dollar you stop spending is worth 25× in freedom.`,
     });
   }
 
-  // Rec 3: On-track vs target year
-  if (targetYearVal && fireMs?.date) {
-    const projectedYear = fireMs.date.getFullYear();
-    const diff = projectedYear - targetYearVal;
+  // 3 — Target year vs projection
+  if (ty && fireMs?.date) {
+    const projYr = fireMs.date.getFullYear();
+    const diff   = projYr - ty;
     if (diff > 2) {
-      const needed = (Math.pow(1 + cagr/100, fireYears) - 1) * dca * 12 / fireYears / 12;
       recs.push({
-        icon: '🎯',
-        title: `You're projected to be free ${diff} years after your ${targetYearVal} target`,
-        body: `Current trajectory reaches FIRE in ${projectedYear}. To hit ${targetYearVal}, you'd need to significantly increase DCA or reduce expenses. Try switching to the Bull scenario to see the impact.`,
-        tag: 'Medium Impact', tagClass: 'tag-med',
+        ic:'🎯', tag:'Medium Impact', cls:'tag-md',
+        ttl:`You're projected to be free ${diff} years after your ${ty} target`,
+        body:`Current trajectory hits FIRE in ${projYr}. To hit ${ty}, try increasing your DCA, cutting expenses, or switching to the Bull scenario to see the impact.`,
       });
     } else if (diff <= 0) {
       recs.push({
-        icon: '✅',
-        title: `You're on track to hit freedom before your ${targetYearVal} target!`,
-        body: `Projected FIRE date is ${fmtDate(fireMs.date)} — ${Math.abs(diff)} year${Math.abs(diff) !== 1 ? 's' : ''} ahead of schedule. Keep stacking.`,
-        tag: 'On Track', tagClass: 'tag-med',
+        ic:'✅', tag:'On Track', cls:'tag-ok',
+        ttl:`On track to hit freedom before your ${ty} target!`,
+        body:`Projected FIRE date is ${fDate(fireMs.date)} — ${Math.abs(diff)} year${Math.abs(diff)!==1?'s':''} ahead of schedule. Keep stacking. ₿`,
       });
     }
   }
 
-  // Rec 4: CAGR upgrade
-  if (cagr < 35 && fireYears && fireYears > 5) {
-    const { simulate: sim2 } = { simulate };
-    const bullResults = simulate(stackBTC, dca, expenses, price, 35);
-    const bullFire = bullResults?.find(m => m.id === 'fire');
-    if (bullFire?.yearsAway && fireYears) {
-      const saved = (fireYears - bullFire.yearsAway).toFixed(1);
+  // 4 — Bull upside
+  if (cagr < 110 && fireYrs && fireYrs > 3) {
+    const bRes  = simulate(stack, dca, exp, BTC, 110);
+    const bFire = bRes?.find(m => m.id === 'fire');
+    if (bFire?.yrsAway) {
+      const saved = (fireYrs - bFire.yrsAway).toFixed(1);
       if (parseFloat(saved) > 0.5) {
         recs.push({
-          icon: '🐂',
-          title: `Bull scenario (35% CAGR) shaves ${saved} years off your timeline`,
-          body: `If Bitcoin achieves its historical adoption growth rate, you'd hit FIRE in ${bullFire.yearsAway.toFixed(1)} years instead of ${fireYears.toFixed(1)}. The difference between Base and Bull is roughly a Bitcoin halving cycle of outperformance.`,
-          tag: 'Medium Impact', tagClass: 'tag-med',
+          ic:'🐂', tag:'Medium Impact', cls:'tag-md',
+          ttl:`Bull scenario (110% CAGR) cuts ${saved} years off your timeline`,
+          body:`If Bitcoin achieves its historical adoption growth rate, you'd hit FIRE in ${bFire.yrsAway.toFixed(1)} years instead of ${fireYrs.toFixed(1)}. The difference between Base and Bull is roughly one Bitcoin halving cycle of outperformance.`,
         });
       }
     }
   }
 
+  if (recs.length === 0) {
+    cont.innerHTML = '<div style="font-size:12px;color:var(--t3);padding:4px 0">Looking solid — keep stacking! ₿</div>';
+    return;
+  }
   recs.slice(0, 3).forEach(r => {
     const el = document.createElement('div');
-    el.className = 'rec-card';
+    el.className = 'rec';
     el.innerHTML = `
-      <div class="rec-card-top">
-        <div class="rec-icon">${r.icon}</div>
-        <div class="rec-title">${r.title}</div>
-      </div>
+      <div class="rec-top"><span class="rec-ic">${r.ic}</span><div class="rec-ttl">${r.ttl}</div></div>
       <div class="rec-body">${r.body}</div>
-      <span class="rec-tag ${r.tagClass}">${r.tag}</span>
-    `;
-    container.appendChild(el);
+      <span class="tag ${r.cls}">${r.tag}</span>`;
+    cont.appendChild(el);
   });
-
-  if (recs.length === 0) {
-    container.innerHTML = '<div style="font-size:13px;color:var(--text3);padding:8px 0">Keep stacking — looking good! 🟠</div>';
-  }
 }
 
-// ═══════════════════════════════════════════════
-//  Main update
-// ═══════════════════════════════════════════════
-function onAnyChange() {
-  const stackBTC = parseFloat(document.getElementById('btc-stack').value) || 0;
-  const dca      = parseFloat(document.getElementById('monthly-dca').value) || 0;
-  const expenses = parseFloat(document.getElementById('monthly-exp').value) || 0;
-  const cagr     = getCagr();
-  const price    = btcPriceNow || 0;
+// ════════════════════════════════════════════
+//  Main go()
+// ════════════════════════════════════════════
+function go() {
+  const stack = parseFloat(document.getElementById('btc-stack').value) || 0;
+  const dca   = parseFloat(document.getElementById('monthly-dca').value) || 0;
+  const exp   = parseFloat(document.getElementById('monthly-exp').value) || 0;
+  const cagr  = getCagr();
 
-  // Stack USD value hint
-  const stackUSD = stackBTC * price;
-  const el = document.getElementById('stack-usd');
-  if (el) el.textContent = price ? '≈ ' + fmtUSDfull(stackUSD) + ' USD' : '≈ $— USD';
+  // Stack hint
+  const sh = document.getElementById('stack-hint');
+  if (sh) sh.textContent = BTC ? '≈ '+fFull(stack * BTC)+' USD' : '≈ $— USD';
 
   // Target year hint
-  const targetYearVal = parseInt(document.getElementById('target-year').value);
-  const targetHint = document.getElementById('target-hint');
-  if (targetHint && targetYearVal) {
-    const yearsLeft = targetYearVal - new Date().getFullYear();
-    targetHint.textContent = yearsLeft > 0 ? yearsLeft + ' years from now' : yearsLeft === 0 ? 'This year' : 'In the past';
-  }
+  const ty = parseInt(document.getElementById('target-yr').value);
+  const th = document.getElementById('target-hint');
+  if (th && ty) {
+    const left = ty - new Date().getFullYear();
+    th.textContent = left > 0 ? left+' years from now' : left === 0 ? 'This year!' : 'In the past';
+  } else if (th) th.textContent = '';
 
-  // Simulate
-  if (price <= 0) return;
-  const results = simulate(stackBTC, dca, expenses, price, cagr);
-  renderMilestones(results);
-  renderRecs(stackBTC, dca, expenses, price, cagr, results);
+  if (!BTC) return;
+  const mss = simulate(stack, dca, exp, BTC, cagr);
+  renderMs(mss);
+  renderRecs(stack, dca, exp, cagr, mss);
 }
 
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
 //  Init
-// ═══════════════════════════════════════════════
-const sl = document.getElementById('cagr-slider');
-setPct(sl);
-updateCagrDisplay();
+// ════════════════════════════════════════════
+const slEl = document.getElementById('cagr-sl');
+setPct(slEl);
+// Set Base scenario color on slider
+slEl.style.background = 'linear-gradient(to right,#f59e0b 0%,#f59e0b 36.7%,var(--surf3) 36.7%,var(--surf3) 100%)';
+updCagrUI();
 fetchPrice();
 setInterval(() => fetchPrice(), 60000);
 </script>
-
 </body>
 </html>
