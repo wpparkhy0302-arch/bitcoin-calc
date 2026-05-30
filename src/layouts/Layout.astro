@@ -1,0 +1,21 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = 'SkipTheLatte', description = 'Bitcoin opportunity cost calculator.' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content={description}/>
+  <title>{title}</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2204132369832933" crossorigin="anonymous"></script>
+</head>
+<body>
+  <slot/>
+</body>
+</html>
