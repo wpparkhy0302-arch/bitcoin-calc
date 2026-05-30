@@ -212,19 +212,20 @@
     .delta-pos{color:#4de0a0} .delta-neg{color:#ff8080}
 
     /* BREAKDOWN */
-    .breakdown-grid{
-      display:grid;grid-template-columns:1fr 1fr;gap:0;
-      border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;
+    .bd-list{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+    .bd-row{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:13px 18px;border-bottom:1px solid var(--border2);gap:16px;
     }
-    .bd-item{
-      padding:15px 18px;border-bottom:1px solid var(--border2);border-right:1px solid var(--border2);
-    }
-    .bd-item:nth-child(2n){border-right:none}
-    .bd-item:nth-last-child(-n+2){border-bottom:none}
-    .bd-item label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);display:block;margin-bottom:5px}
-    .bd-item .bd-val{font-size:16px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
-    .bd-item .bd-val.blue{color:var(--blue)}
-    .bd-item .bd-val.green{color:var(--green)}
+    .bd-row:last-child{border-bottom:none}
+    .bd-row:nth-child(even){background:var(--bg2)}
+    .bd-lbl{font-size:13px;font-weight:500;color:var(--text2);flex-shrink:0}
+    .bd-right{text-align:right;display:flex;flex-direction:column;gap:2px}
+    .bd-val{font-size:14px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+    .bd-val.blue{color:var(--blue)}
+    .bd-val.green{color:var(--green)}
+    .bd-val.red{color:var(--red)}
+    .bd-sub{font-size:11px;font-weight:500;color:var(--text3);font-variant-numeric:tabular-nums}
 
     /* SHARE */
     .share-section{border:1.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
@@ -340,18 +341,7 @@
   </div>
 
   <div class="nav-right">
-    <div class="pill-group" id="cur-group">
-      <button class="pill-btn on" data-cur="usd" onclick="setCur('usd')">USD</button>
-      <button class="pill-btn"    data-cur="krw" onclick="setCur('krw')">KRW</button>
-      <button class="pill-btn"    data-cur="jpy" onclick="setCur('jpy')">JPY</button>
-      <button class="pill-btn"    data-cur="eur" onclick="setCur('eur')">EUR</button>
-      <button class="pill-btn"    data-cur="gbp" onclick="setCur('gbp')">GBP</button>
-    </div>
-    <div class="pill-group" id="lang-group">
-      <button class="pill-btn on" onclick="setLang('en')">EN</button>
-      <button class="pill-btn"    onclick="setLang('ko')">KO</button>
-      <button class="pill-btn"    onclick="setLang('ja')">JA</button>
-    </div>
+    <a href="/faq" style="font-size:13px;font-weight:600;color:var(--text2);padding:5px 12px;border:1px solid var(--border);border-radius:7px;text-decoration:none;transition:color .12s,border-color .12s;" onmouseover="this.style.color='#1763B6';this.style.borderColor='#1763B6'" onmouseout="this.style.color='';this.style.borderColor=''">FAQ</a>
   </div>
 </nav>
 
@@ -497,30 +487,33 @@
       <span class="sec-title" data-i18n="sec_breakdown">BREAKDOWN</span>
     </div>
 
-    <div class="breakdown-grid">
-      <div class="bd-item">
-        <label data-i18n="bd_usd_out">Total USD Out</label>
-        <div class="bd-val blue" id="bd-usd">—</div>
+    <div class="bd-list">
+      <div class="bd-row">
+        <span class="bd-lbl">Total USD Out</span>
+        <div class="bd-right"><span class="bd-val blue" id="bd-usd">—</span></div>
       </div>
-      <div class="bd-item">
-        <label data-i18n="bd_btc_acc">BTC Accumulated</label>
-        <div class="bd-val" id="bd-btc">—</div>
+      <div class="bd-row">
+        <span class="bd-lbl">BTC Accumulated</span>
+        <div class="bd-right">
+          <span class="bd-val" id="bd-btc">—</span>
+          <span class="bd-sub" id="bd-btc-sats">—</span>
+        </div>
       </div>
-      <div class="bd-item">
-        <label id="bd-price-label">BTC Price in 2034</label>
-        <div class="bd-val" id="bd-future-price">—</div>
+      <div class="bd-row">
+        <span class="bd-lbl" id="bd-price-label">BTC Price in 2034</span>
+        <div class="bd-right"><span class="bd-val" id="bd-future-price">—</span></div>
       </div>
-      <div class="bd-item">
-        <label data-i18n="bd_portfolio">Portfolio Value</label>
-        <div class="bd-val green" id="bd-portfolio">—</div>
+      <div class="bd-row">
+        <span class="bd-lbl">Portfolio Value</span>
+        <div class="bd-right"><span class="bd-val green" id="bd-portfolio">—</span></div>
       </div>
-      <div class="bd-item">
-        <label data-i18n="bd_return">Return on Spend</label>
-        <div class="bd-val" id="bd-return">—</div>
+      <div class="bd-row">
+        <span class="bd-lbl">Return on Spend</span>
+        <div class="bd-right"><span class="bd-val" id="bd-return">—</span></div>
       </div>
-      <div class="bd-item">
-        <label data-i18n="bd_sats">Sats per $ Spent</label>
-        <div class="bd-val" id="bd-sats">—</div>
+      <div class="bd-row">
+        <span class="bd-lbl">Sats per $ Spent</span>
+        <div class="bd-right"><span class="bd-val" id="bd-sats">—</span></div>
       </div>
     </div>
 
@@ -937,30 +930,30 @@ function calculate(){
   document.getElementById('v-spent-label').textContent =
     activeFreq === 'once' ? 'one-time payment' : `over ${years} year${years > 1 ? 's' : ''}`;
 
-  // ── BREAKDOWN ────────────────────────────────────
-  document.getElementById('bd-usd').textContent         = fmt(totalFiat);
-  document.getElementById('bd-btc').textContent         = fmtBTC(btcAmt);
-  document.getElementById('bd-price-label').textContent = `BTC Price in ${targetYear}`;
-  document.getElementById('bd-future-price').textContent = fmtBig(futBTCFiat);
-  document.getElementById('bd-portfolio').textContent    = fmtBig(portFiat);
+  // ── BREAKDOWN (list) ─────────────────────────────
+  const btcSats = btcAmt > 0 ? Math.round(btcAmt * 1e8) : 0;
+
+  document.getElementById('bd-usd').textContent            = fmtUSD(totalUSD);
+  document.getElementById('bd-btc').textContent            = fmtBTC(btcAmt);
+  document.getElementById('bd-btc-sats').textContent       = btcSats > 0 ? btcSats.toLocaleString('en-US') + ' sats' : '';
+  document.getElementById('bd-price-label').textContent    = `BTC Price in ${targetYear}`;
+  document.getElementById('bd-future-price').textContent   = fmtUSD(futureBTCprice);
+  document.getElementById('bd-portfolio').textContent      = fmtUSD(portfolioUSD);
 
   const retEl       = document.getElementById('bd-return');
   retEl.textContent = sign(returnPct) + returnPct.toFixed(1) + '%';
-  retEl.className   = 'bd-val ' + (returnPct >= 0 ? 'green' : '');
+  retEl.className   = 'bd-val ' + (returnPct >= 0 ? 'green' : 'red');
 
   document.getElementById('bd-sats').textContent =
-    satsPerDollar.toLocaleString('en-US') + ' sats';
+    satsPerDollar.toLocaleString('en-US') + ' sats / $1';
 
-  // ── SHARE TEXT ───────────────────────────────────
-  const tmpl = t('share_tmpl');
-  const shareStr = tmpl
-    .replace('{{freq}}',  freqLabel)
-    .replace('{{amt}}',   fmt(amountFiat))
-    .replace('{{label}}', label)
-    .replace('{{value}}', fmtBig(portFiat))
-    .replace('{{year}}',  targetYear)
-    .replace('{{btc}}',   fmtBTC(btcAmt))
-    + '\n' + window.location.href;
+  // ── SHARE TEXT (always English) ──────────────────
+  const shareStr =
+    `I just calculated that my ${freqLabel} $${amountUSD.toFixed(2)} ${label} habit ` +
+    `could be worth ${fmtUSD(portfolioUSD)} in Bitcoin by ${targetYear}.\n\n` +
+    `That's ${fmtBTC(btcAmt)} — stacked instead of spent.\n\n` +
+    `Based on ${cagr}% annual BTC return (${document.getElementById('cagr-scenario-label').textContent}).\n\n` +
+    `What's YOUR habit costing you? 👇\n${window.location.href}`;
   document.getElementById('share-text').value = shareStr;
 
   // ── SHOW RESULTS ─────────────────────────────────
