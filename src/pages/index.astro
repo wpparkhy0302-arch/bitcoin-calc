@@ -1,0 +1,675 @@
+---
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="실시간 Bitcoin 계산기 — BTC/USD/KRW 환율 변환, 수익률 계산, DCA 평단가 계산기" />
+  <title>Bitcoin Calculator — BTC/USD/KRW 실시간</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d1117;
+      --surface:  #161b22;
+      --surface2: #1c2128;
+      --border:   #30363d;
+      --orange:   #f7931a;
+      --orange-d: #d4780e;
+      --green:    #3fb950;
+      --red:      #f85149;
+      --text:     #e6edf3;
+      --muted:    #8b949e;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    html { font-family: var(--font); background: var(--bg); color: var(--text); }
+    body { min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: var(--orange); text-decoration: none; }
+    input, select, button { font-family: inherit; }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: .75rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .logo { display: flex; align-items: center; gap: .6rem; font-size: 1.2rem; font-weight: 700; color: var(--text); }
+    .logo-icon { font-size: 1.5rem; }
+    .logo span { color: var(--orange); }
+    .header-right { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .network-badge {
+      background: #1a2d1a; border: 1px solid #2d5a2d; color: var(--green);
+      font-size: .72rem; font-weight: 700; padding: .2rem .6rem; border-radius: 20px;
+      display: flex; align-items: center; gap: .35rem;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    /* ── Price Banner ── */
+    .price-banner {
+      background: linear-gradient(135deg, #1a1200 0%, var(--surface2) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+    }
+    .price-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: space-between; }
+    .price-main { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; }
+    .price-btc-label { font-size: .85rem; font-weight: 700; color: var(--orange); letter-spacing: .05em; }
+    #price-usd { font-size: 2.2rem; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+    #price-change {
+      font-size: .9rem; font-weight: 700; padding: .2rem .6rem; border-radius: 6px;
+    }
+    .change-pos { background: #1a3a1a; color: var(--green); }
+    .change-neg { background: #3a1a1a; color: var(--red); }
+    .change-neu { background: var(--surface); color: var(--muted); }
+    .price-stats { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .price-stat { display: flex; flex-direction: column; gap: .1rem; }
+    .price-stat label { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .price-stat span { font-size: .95rem; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+    .refresh-row { display: flex; align-items: center; gap: .75rem; }
+    #updated { font-size: .78rem; color: var(--muted); }
+    .btn-refresh {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      padding: .35rem .75rem; border-radius: 6px; cursor: pointer; font-size: .8rem;
+      transition: all .15s; display: flex; align-items: center; gap: .3rem;
+    }
+    .btn-refresh:hover { border-color: var(--orange); color: var(--orange); }
+    .btn-refresh.spinning .spin { animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Main Layout ── */
+    main { flex: 1; padding: 1.5rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    @media(max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .card-title {
+      font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      color: var(--orange); display: flex; align-items: center; gap: .5rem;
+    }
+    .card-title .icon { font-size: 1rem; }
+
+    /* ── Form Elements ── */
+    .field { display: flex; flex-direction: column; gap: .35rem; }
+    .field label { font-size: .78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+    .input-wrap { position: relative; display: flex; align-items: center; }
+    .input-prefix, .input-suffix {
+      position: absolute; font-size: .85rem; color: var(--muted); pointer-events: none; font-weight: 600;
+    }
+    .input-prefix { left: .75rem; }
+    .input-suffix { right: .75rem; }
+    input[type="number"], input[type="text"], input[type="date"] {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+      padding: .55rem .75rem; border-radius: 8px; font-size: .95rem;
+      transition: border-color .15s;
+      -moz-appearance: textfield;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input:focus { outline: none; border-color: var(--orange); }
+    .has-prefix input { padding-left: 2.2rem; }
+    .has-suffix input { padding-right: 2.5rem; }
+
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ── Result boxes ── */
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
+    .result-box {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: .75rem; display: flex; flex-direction: column; gap: .2rem;
+    }
+    .result-box.full { grid-column: 1 / -1; }
+    .result-box label { font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+    .result-box .val { font-size: 1.05rem; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; word-break: break-all; }
+    .result-box.profit .val  { color: var(--green); }
+    .result-box.loss   .val  { color: var(--red); }
+    .result-box.neutral .val { color: var(--muted); }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      width: 100%; padding: .6rem 1rem; background: var(--orange); color: white;
+      border: none; border-radius: 8px; font-size: .9rem; font-weight: 700;
+      cursor: pointer; transition: background .15s;
+    }
+    .btn-primary:hover { background: var(--orange-d); }
+    .btn-secondary {
+      padding: .4rem .8rem; background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); border-radius: 6px; font-size: .82rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+    }
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+    .btn-danger {
+      padding: .25rem .5rem; background: transparent; border: 1px solid transparent;
+      color: var(--muted); border-radius: 4px; font-size: .8rem; cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-danger:hover { color: var(--red); border-color: var(--red); }
+
+    /* ── Converter specific ── */
+    .converter-arrow { text-align: center; color: var(--muted); font-size: 1.1rem; margin: -.2rem 0; }
+
+    /* ── DCA Table ── */
+    .dca-header {
+      display: grid; grid-template-columns: 1fr 1.1fr 1fr auto;
+      gap: .4rem; font-size: .7rem; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .04em; font-weight: 700; padding: 0 .1rem;
+    }
+    #dca-rows { display: flex; flex-direction: column; gap: .4rem; }
+    .dca-row {
+      display: grid; grid-template-columns: 1fr 1.1fr 1fr auto;
+      gap: .4rem; align-items: center;
+    }
+    .dca-row input { padding: .45rem .55rem; font-size: .84rem; }
+    .dca-stats {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: .65rem;
+    }
+    .dca-stat { display: flex; flex-direction: column; gap: .15rem; }
+    .dca-stat label { font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+    .dca-stat .val { font-size: .95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .dca-stat.full { grid-column: 1 / -1; }
+    .green { color: var(--green); }
+    .red   { color: var(--red); }
+    .orange { color: var(--orange); }
+
+    /* ── Error / Loading ── */
+    .api-error {
+      background: #2d1a1a; border: 1px solid #5a2d2d; color: #f85149;
+      border-radius: 8px; padding: .6rem .9rem; font-size: .82rem; display: none;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 1rem 1.5rem; text-align: center;
+      font-size: .78rem; color: var(--muted);
+    }
+    footer a { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-icon">₿</span>
+    <span>Bitcoin</span> Calculator
+  </div>
+  <div class="header-right">
+    <div class="network-badge">
+      <span class="dot"></span> Live Data
+    </div>
+    <span style="font-size:.78rem;color:var(--muted);">CoinGecko API</span>
+  </div>
+</header>
+
+<!-- Live Price Banner -->
+<div class="price-banner">
+  <div class="price-inner">
+    <div class="price-main">
+      <span class="price-btc-label">BTC/USD</span>
+      <span id="price-usd">Loading...</span>
+      <span id="price-change" class="change-neu">—</span>
+    </div>
+    <div class="price-stats">
+      <div class="price-stat">
+        <label>BTC/KRW</label>
+        <span id="price-krw">—</span>
+      </div>
+      <div class="price-stat">
+        <label>24h High</label>
+        <span id="price-high">—</span>
+      </div>
+      <div class="price-stat">
+        <label>24h Low</label>
+        <span id="price-low">—</span>
+      </div>
+      <div class="price-stat">
+        <label>Market Cap</label>
+        <span id="mcap">—</span>
+      </div>
+      <div class="price-stat">
+        <label>24h Volume</label>
+        <span id="volume">—</span>
+      </div>
+    </div>
+    <div class="refresh-row">
+      <span id="updated">—</span>
+      <button class="btn-refresh" id="refresh-btn" onclick="fetchPrice(true)">
+        <span class="spin">↻</span> Refresh
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="api-error" class="api-error" style="max-width:1200px;margin:.75rem auto;display:none;">
+  ⚠️ API 연결 실패 — CoinGecko 무료 API 요청 한도 초과이거나 네트워크 문제입니다. 잠시 후 다시 시도하세요.
+</div>
+
+<main>
+  <div class="grid-3">
+
+    <!-- ── 1. Converter ── -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🔄</span> 환율 변환기</div>
+
+      <div class="field">
+        <label>Bitcoin (BTC)</label>
+        <div class="input-wrap has-suffix">
+          <input type="number" id="conv-btc" placeholder="0.00000000" step="any" oninput="convFrom('btc')" />
+          <span class="input-suffix">BTC</span>
+        </div>
+      </div>
+
+      <div class="converter-arrow">⇅</div>
+
+      <div class="field">
+        <label>US Dollar (USD)</label>
+        <div class="input-wrap has-prefix">
+          <span class="input-prefix">$</span>
+          <input type="number" id="conv-usd" placeholder="0.00" step="any" oninput="convFrom('usd')" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Korean Won (KRW)</label>
+        <div class="input-wrap has-prefix">
+          <span class="input-prefix">₩</span>
+          <input type="number" id="conv-krw" placeholder="0" step="any" oninput="convFrom('krw')" />
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="result-grid">
+        <div class="result-box full">
+          <label>현재 기준가</label>
+          <div class="val" id="conv-rate">가격 로딩 중...</div>
+        </div>
+        <div class="result-box">
+          <label>1 BTC =</label>
+          <div class="val" id="conv-1btc-usd">—</div>
+        </div>
+        <div class="result-box">
+          <label>1 BTC =</label>
+          <div class="val" id="conv-1btc-krw">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2. P&L Calculator ── -->
+    <div class="card">
+      <div class="card-title"><span class="icon">📈</span> 수익률 계산기</div>
+
+      <div class="field">
+        <label>매수 평균가 (USD)</label>
+        <div class="input-wrap has-prefix">
+          <span class="input-prefix">$</span>
+          <input type="number" id="pl-entry" placeholder="예: 60000" step="any" oninput="calcPL()" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>보유 수량 (BTC)</label>
+        <div class="input-wrap has-suffix">
+          <input type="number" id="pl-amount" placeholder="예: 0.1" step="any" oninput="calcPL()" />
+          <span class="input-suffix">BTC</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>현재가 (USD) <span style="font-size:.7rem;color:var(--orange);">← 실시간 자동입력</span></label>
+        <div class="input-wrap has-prefix">
+          <span class="input-prefix">$</span>
+          <input type="number" id="pl-current" placeholder="자동 입력됩니다" step="any" oninput="calcPL()" />
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="result-grid">
+        <div class="result-box" id="pl-box-pnl-usd">
+          <label>손익 (USD)</label>
+          <div class="val" id="pl-pnl-usd">—</div>
+        </div>
+        <div class="result-box" id="pl-box-pnl-krw">
+          <label>손익 (KRW)</label>
+          <div class="val" id="pl-pnl-krw">—</div>
+        </div>
+        <div class="result-box" id="pl-box-roi">
+          <label>수익률 (ROI)</label>
+          <div class="val" id="pl-roi">—</div>
+        </div>
+        <div class="result-box">
+          <label>현재 평가액</label>
+          <div class="val" id="pl-value">—</div>
+        </div>
+        <div class="result-box full">
+          <label>투자 원금</label>
+          <div class="val" id="pl-cost">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 3. DCA Calculator ── -->
+    <div class="card">
+      <div class="card-title"><span class="icon">📊</span> DCA 평단가 계산기</div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:.8rem;color:var(--muted);">매수 내역 입력</span>
+        <button class="btn-secondary" onclick="addDCARow()">+ 행 추가</button>
+      </div>
+
+      <div class="dca-header">
+        <span>날짜</span>
+        <span>매수가 ($)</span>
+        <span>수량 (BTC)</span>
+        <span></span>
+      </div>
+
+      <div id="dca-rows"></div>
+
+      <button class="btn-primary" onclick="calcDCA()">계산하기</button>
+
+      <hr class="divider" />
+
+      <div class="dca-stats">
+        <div class="dca-stat">
+          <label>평균 매수가</label>
+          <div class="val orange" id="dca-avg">—</div>
+        </div>
+        <div class="dca-stat">
+          <label>총 보유량</label>
+          <div class="val" id="dca-total-btc">—</div>
+        </div>
+        <div class="dca-stat">
+          <label>총 투자금</label>
+          <div class="val" id="dca-invested">—</div>
+        </div>
+        <div class="dca-stat">
+          <label>현재 평가액</label>
+          <div class="val" id="dca-value">—</div>
+        </div>
+        <div class="dca-stat full" id="dca-stat-pnl">
+          <label>미실현 손익</label>
+          <div class="val" id="dca-pnl">—</div>
+        </div>
+        <div class="dca-stat">
+          <label>수익률 (ROI)</label>
+          <div class="val" id="dca-roi">—</div>
+        </div>
+        <div class="dca-stat">
+          <label>Break-even</label>
+          <div class="val" id="dca-breakeven">—</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>
+    가격 데이터: <a href="https://www.coingecko.com" target="_blank" rel="noopener">CoinGecko</a> API —
+    본 계산기는 참고용이며 투자 조언이 아닙니다.
+  </p>
+</footer>
+
+<script>
+  // ──────────────────────────────────────────────
+  //  State
+  // ──────────────────────────────────────────────
+  let BTC_USD = null;
+  let BTC_KRW = null;
+  let dcaRowCount = 0;
+
+  // ──────────────────────────────────────────────
+  //  Formatters
+  // ──────────────────────────────────────────────
+  const fmtUSD = (n) =>
+    n == null ? '—' : '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  const fmtKRW = (n) =>
+    n == null ? '—' : '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  const fmtBTC = (n) =>
+    n == null ? '—' : n.toFixed(8) + ' BTC';
+
+  const fmtBig = (n) => {
+    if (n == null) return '—';
+    if (n >= 1e12) return '$' + (n / 1e12).toFixed(2) + 'T';
+    if (n >= 1e9)  return '$' + (n / 1e9).toFixed(2) + 'B';
+    if (n >= 1e6)  return '$' + (n / 1e6).toFixed(2) + 'M';
+    return '$' + n.toLocaleString('en-US');
+  };
+
+  // ──────────────────────────────────────────────
+  //  Fetch Live Price
+  // ──────────────────────────────────────────────
+  async function fetchPrice(manual = false) {
+    const btn = document.getElementById('refresh-btn');
+    btn.classList.add('spinning');
+
+    try {
+      const res = await fetch(
+        'https://api.coingecko.com/api/v3/coins/bitcoin?' +
+        'localization=false&tickers=false&market_data=true&community_data=false&developer_data=false',
+        { signal: AbortSignal.timeout(8000) }
+      );
+      if (!res.ok) throw new Error('API error ' + res.status);
+
+      const d = await res.json();
+      const md = d.market_data;
+
+      BTC_USD = md.current_price.usd;
+      BTC_KRW = md.current_price.krw;
+
+      const change24 = md.price_change_percentage_24h ?? 0;
+      const changeEl = document.getElementById('price-change');
+      changeEl.textContent = (change24 >= 0 ? '+' : '') + change24.toFixed(2) + '%';
+      changeEl.className = change24 > 0 ? 'change-pos' : change24 < 0 ? 'change-neg' : 'change-neu';
+
+      document.getElementById('price-usd').textContent = fmtUSD(BTC_USD);
+      document.getElementById('price-krw').textContent = fmtKRW(BTC_KRW);
+      document.getElementById('price-high').textContent = fmtUSD(md.high_24h?.usd);
+      document.getElementById('price-low').textContent  = fmtUSD(md.low_24h?.usd);
+      document.getElementById('mcap').textContent   = fmtBig(md.market_cap?.usd);
+      document.getElementById('volume').textContent = fmtBig(md.total_volume?.usd);
+
+      const now = new Date();
+      document.getElementById('updated').textContent =
+        '업데이트: ' + now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      document.getElementById('api-error').style.display = 'none';
+
+      // Sync current price to P&L input
+      const plCurrent = document.getElementById('pl-current');
+      if (!plCurrent.dataset.userEdited) plCurrent.value = BTC_USD;
+
+      // Refresh all displays
+      updateConvRate();
+      calcPL();
+      calcDCA();
+
+    } catch (e) {
+      console.error('fetchPrice error:', e);
+      document.getElementById('api-error').style.display = 'block';
+    } finally {
+      btn.classList.remove('spinning');
+    }
+  }
+
+  // ──────────────────────────────────────────────
+  //  Converter
+  // ──────────────────────────────────────────────
+  function updateConvRate() {
+    if (!BTC_USD) return;
+    document.getElementById('conv-rate').textContent = `1 BTC = ${fmtUSD(BTC_USD)} / ${fmtKRW(BTC_KRW)}`;
+    document.getElementById('conv-1btc-usd').textContent = fmtUSD(BTC_USD);
+    document.getElementById('conv-1btc-krw').textContent = fmtKRW(BTC_KRW);
+  }
+
+  function convFrom(source) {
+    if (!BTC_USD || !BTC_KRW) return;
+    const btcEl  = document.getElementById('conv-btc');
+    const usdEl  = document.getElementById('conv-usd');
+    const krwEl  = document.getElementById('conv-krw');
+
+    if (source === 'btc') {
+      const btc = parseFloat(btcEl.value);
+      if (isNaN(btc)) { usdEl.value = ''; krwEl.value = ''; return; }
+      usdEl.value = (btc * BTC_USD).toFixed(2);
+      krwEl.value = Math.round(btc * BTC_KRW);
+    } else if (source === 'usd') {
+      const usd = parseFloat(usdEl.value);
+      if (isNaN(usd)) { btcEl.value = ''; krwEl.value = ''; return; }
+      btcEl.value = (usd / BTC_USD).toFixed(8);
+      krwEl.value = Math.round(usd * (BTC_KRW / BTC_USD));
+    } else {
+      const krw = parseFloat(krwEl.value);
+      if (isNaN(krw)) { btcEl.value = ''; usdEl.value = ''; return; }
+      btcEl.value = (krw / BTC_KRW).toFixed(8);
+      usdEl.value = (krw / (BTC_KRW / BTC_USD)).toFixed(2);
+    }
+  }
+
+  // ──────────────────────────────────────────────
+  //  P&L Calculator
+  // ──────────────────────────────────────────────
+  function calcPL() {
+    const entry   = parseFloat(document.getElementById('pl-entry').value);
+    const amount  = parseFloat(document.getElementById('pl-amount').value);
+    const current = parseFloat(document.getElementById('pl-current').value) || BTC_USD;
+
+    if (!entry || !amount || !current) {
+      ['pl-pnl-usd','pl-pnl-krw','pl-roi','pl-value','pl-cost'].forEach(id => {
+        document.getElementById(id).textContent = '—';
+      });
+      ['pl-box-pnl-usd','pl-box-pnl-krw','pl-box-roi'].forEach(id => {
+        document.getElementById(id).className = 'result-box';
+      });
+      return;
+    }
+
+    const cost     = entry * amount;
+    const value    = current * amount;
+    const pnlUSD   = value - cost;
+    const pnlKRW   = BTC_KRW ? (pnlUSD * (BTC_KRW / current)) : null;
+    const roi      = (pnlUSD / cost) * 100;
+    const isProfit = pnlUSD > 0;
+    const isLoss   = pnlUSD < 0;
+
+    const cls = isProfit ? 'result-box profit' : isLoss ? 'result-box loss' : 'result-box neutral';
+    document.getElementById('pl-box-pnl-usd').className = cls;
+    document.getElementById('pl-box-pnl-krw').className = cls;
+    document.getElementById('pl-box-roi').className     = cls;
+
+    const sign = pnlUSD >= 0 ? '+' : '';
+    document.getElementById('pl-pnl-usd').textContent = sign + fmtUSD(pnlUSD);
+    document.getElementById('pl-pnl-krw').textContent = pnlKRW != null ? sign + fmtKRW(pnlKRW) : '—';
+    document.getElementById('pl-roi').textContent     = sign + roi.toFixed(2) + '%';
+    document.getElementById('pl-value').textContent   = fmtUSD(value);
+    document.getElementById('pl-cost').textContent    = fmtUSD(cost);
+  }
+
+  // Mark as user-edited so auto-refresh doesn't overwrite
+  document.getElementById('pl-current').addEventListener('input', function() {
+    this.dataset.userEdited = 'true';
+    calcPL();
+  });
+
+  // ──────────────────────────────────────────────
+  //  DCA Calculator
+  // ──────────────────────────────────────────────
+  function addDCARow(date = '', price = '', amount = '') {
+    dcaRowCount++;
+    const id = dcaRowCount;
+    const row = document.createElement('div');
+    row.className = 'dca-row';
+    row.id = `dca-row-${id}`;
+    row.innerHTML = `
+      <input type="date" value="${date}" placeholder="날짜" />
+      <input type="number" value="${price}" placeholder="매수가 $" step="any" />
+      <input type="number" value="${amount}" placeholder="0.001" step="any" />
+      <button class="btn-danger" onclick="removeDCARow(${id})">✕</button>
+    `;
+    document.getElementById('dca-rows').appendChild(row);
+  }
+
+  function removeDCARow(id) {
+    const el = document.getElementById(`dca-row-${id}`);
+    if (el) el.remove();
+    calcDCA();
+  }
+
+  function calcDCA() {
+    const rows = document.querySelectorAll('#dca-rows .dca-row');
+    let totalBTC = 0;
+    let totalCost = 0;
+
+    rows.forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      const price  = parseFloat(inputs[1].value);
+      const amount = parseFloat(inputs[2].value);
+      if (!isNaN(price) && !isNaN(amount) && price > 0 && amount > 0) {
+        totalBTC  += amount;
+        totalCost += price * amount;
+      }
+    });
+
+    if (totalBTC === 0 || totalCost === 0) {
+      ['dca-avg','dca-total-btc','dca-invested','dca-value','dca-pnl','dca-roi','dca-breakeven'].forEach(id => {
+        document.getElementById(id).textContent = '—';
+        document.getElementById(id).className = 'val';
+      });
+      return;
+    }
+
+    const avgPrice = totalCost / totalBTC;
+    const current  = BTC_USD || 0;
+    const value    = totalBTC * current;
+    const pnl      = value - totalCost;
+    const roi      = (pnl / totalCost) * 100;
+    const isP      = pnl > 0;
+    const isL      = pnl < 0;
+
+    document.getElementById('dca-avg').textContent       = fmtUSD(avgPrice);
+    document.getElementById('dca-total-btc').textContent = fmtBTC(totalBTC);
+    document.getElementById('dca-invested').textContent  = fmtUSD(totalCost);
+    document.getElementById('dca-value').textContent     = current ? fmtUSD(value) : '—';
+    document.getElementById('dca-breakeven').textContent = fmtUSD(avgPrice);
+
+    const sign = pnl >= 0 ? '+' : '';
+    const pnlEl = document.getElementById('dca-pnl');
+    pnlEl.textContent = current ? sign + fmtUSD(pnl) : '현재가 로딩 중...';
+    pnlEl.className   = `val ${isP ? 'green' : isL ? 'red' : ''}`;
+
+    const roiEl = document.getElementById('dca-roi');
+    roiEl.textContent = current ? sign + roi.toFixed(2) + '%' : '—';
+    roiEl.className   = `val ${isP ? 'green' : isL ? 'red' : ''}`;
+  }
+
+  // ──────────────────────────────────────────────
+  //  Init
+  // ──────────────────────────────────────────────
+  // Seed 3 DCA rows
+  addDCARow('2024-01-15', '42000', '0.05');
+  addDCARow('2024-03-10', '68000', '0.03');
+  addDCARow('2024-08-05', '55000', '0.04');
+
+  // Initial fetch
+  fetchPrice();
+
+  // Auto-refresh every 60 seconds
+  setInterval(() => fetchPrice(), 60_000);
+</script>
+
+</body>
+</html>
