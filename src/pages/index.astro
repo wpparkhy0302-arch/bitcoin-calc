@@ -370,7 +370,7 @@
     <div class="field">
       <label data-i18n="label_name">What is this habit? (optional)</label>
       <div class="irow">
-        <input type="text" id="spend-label" placeholder="latte, coffee, gym, Netflix..." maxlength="40"/>
+        <input type="text" id="spend-label" value="My Latte Habit" placeholder="latte, coffee, gym, Netflix..." maxlength="40"/>
       </div>
     </div>
 
@@ -731,7 +731,17 @@ const CURR = {
 };
 let cur = 'usd', prices = {}, priceData = null;
 
+// Convert spend-amount field to new currency when user switches
 function setCur(c){
+  const prevRate = prices.usd && prices[cur] ? prices[cur] / prices.usd : 0;
+  const nextRate = prices.usd && prices[c]   ? prices[c]   / prices.usd : 0;
+  const amtEl   = document.getElementById('spend-amount');
+  const oldAmt  = parseFloat(amtEl.value);
+  if (prevRate > 0 && nextRate > 0 && !isNaN(oldAmt)) {
+    const inUSD  = oldAmt / prevRate;           // convert to USD
+    const inNew  = inUSD  * nextRate;            // convert to target
+    amtEl.value  = inNew.toFixed(CURR[c].dec);
+  }
   cur = c;
   document.querySelectorAll('#cur-group .pill-btn').forEach(b=>b.classList.toggle('on',b.dataset.cur===c));
   document.getElementById('cur-sym').textContent = CURR[c].sym;
@@ -852,66 +862,85 @@ function setFreq(f){
 //  CALCULATE
 // ══════════════════════════════════════════════
 function calculate(){
-  const amount   = parseFloat(document.getElementById('spend-amount').value)||0;
-  const label    = document.getElementById('spend-label').value.trim()||'habit';
-  const years    = parseInt(document.getElementById('years-slider').value)||10;
-  const cagr     = parseFloat(document.getElementById('cagr-slider').value)||21;
-  const btcNow   = parseFloat(document.getElementById('btc-price-input').value)||prices.usd||0;
+  const amountFiat = parseFloat(document.getElementById('spend-amount').value) || 0;
+  const label      = document.getElementById('spend-label').value.trim() || 'My Latte Habit';
+  const years      = parseInt(document.getElementById('years-slider').value) || 10;
+  const cagr       = parseFloat(document.getElementById('cagr-slider').value) || 21;
+  const btcNow     = parseFloat(document.getElementById('btc-price-input').value) || prices.usd || 0;
 
   const errEl = document.getElementById('err-msg');
-  if(amount<=0||!btcNow){ errEl.classList.add('show'); return; }
+  if (amountFiat <= 0 || !btcNow) { errEl.classList.add('show'); return; }
   errEl.classList.remove('show');
 
-  const mult      = FREQ_MULT[activeFreq];
-  const totalUSD  = activeFreq==='once' ? amount : amount * mult * years;
-  const btcAmt    = btcNow>0 ? totalUSD/btcNow : 0;
-  const futureBTC = btcNow * Math.pow(1+cagr/100, years);
-  const portfolioUSD  = btcAmt * futureBTC;
-  const rate      = (prices.usd&&prices[cur]) ? prices[cur]/prices.usd : 1;
-  const totalFiat = totalUSD  * rate;
-  const portFiat  = portfolioUSD * rate;
-  const returnPct = totalUSD>0 ? ((portfolioUSD-totalUSD)/totalUSD)*100 : 0;
-  const satsPerDollar = btcNow>0 ? Math.round(1e8/btcNow) : 0;
-  const targetYear = new Date().getFullYear()+years;
-  const freqLabel = FREQ_LABEL[activeFreq];
+  // Normalise amount to USD (all BTC maths are in USD)
+  const fiatToUSD = (prices.usd && prices[cur]) ? prices.usd / prices[cur] : 1;
+  const amountUSD = amountFiat * fiatToUSD;
 
-  // Verdict
+  // Core maths
+  const mult          = FREQ_MULT[activeFreq];
+  const totalUSD      = activeFreq === 'once' ? amountUSD : amountUSD * mult * years;
+  const btcAmt        = btcNow > 0 ? totalUSD / btcNow : 0;
+  const futureBTCprice = btcNow * Math.pow(1 + cagr / 100, years);
+  const portfolioUSD  = btcAmt * futureBTCprice;
+
+  // Display currency conversions
+  const usdToFiat  = (prices.usd && prices[cur]) ? prices[cur] / prices.usd : 1;
+  const totalFiat  = totalUSD     * usdToFiat;
+  const portFiat   = portfolioUSD * usdToFiat;
+  const futBTCFiat = futureBTCprice * usdToFiat;
+
+  const returnPct     = totalUSD > 0 ? ((portfolioUSD - totalUSD) / totalUSD) * 100 : 0;
+  const satsPerDollar = btcNow > 0 ? Math.round(1e8 / btcNow) : 0;
+  const targetYear    = new Date().getFullYear() + years;
+  const freqLabel     = FREQ_LABEL[activeFreq];
+
+  // ── VERDICT ──────────────────────────────────────
   document.getElementById('v-sentence').textContent =
-    `Your ${freqLabel} ${CURR[cur].sym}${amount.toFixed(2)} ${label}`;
+    `Your ${freqLabel} ${fmt(amountFiat)} ${label}`;
   document.getElementById('v-big').textContent = fmtBig(portFiat);
   document.getElementById('v-sub').textContent =
-    `could be worth this by ${targetYear}, based on ${cagr}% annual Bitcoin return`;
-  document.getElementById('v-spent').textContent  = fmt(totalFiat);
-  document.getElementById('v-stack').textContent  = fmtBig(portFiat);
-  document.getElementById('v-stack-roi').textContent = sign(returnPct)+returnPct.toFixed(0)+'% vs. spent';
+    `could be worth this by ${targetYear} — based on ${cagr}% annual Bitcoin CAGR`;
+  document.getElementById('v-spent').textContent = fmt(totalFiat);
+  document.getElementById('v-stack').textContent = fmtBig(portFiat);
 
-  // Breakdown
-  document.getElementById('bd-usd').textContent = fmt(totalFiat);
-  document.getElementById('bd-btc').textContent = fmtBTC(btcAmt);
+  const roiEl = document.getElementById('v-stack-roi');
+  roiEl.textContent = sign(returnPct) + returnPct.toFixed(0) + '% vs. what you spent';
+  roiEl.className   = 'v-delta ' + (returnPct >= 0 ? 'delta-pos' : 'delta-neg');
+
+  // v-spent label: e.g. "over 10 years"
+  document.getElementById('v-spent-label').textContent =
+    activeFreq === 'once' ? 'one-time payment' : `over ${years} year${years > 1 ? 's' : ''}`;
+
+  // ── BREAKDOWN ────────────────────────────────────
+  document.getElementById('bd-usd').textContent         = fmt(totalFiat);
+  document.getElementById('bd-btc').textContent         = fmtBTC(btcAmt);
   document.getElementById('bd-price-label').textContent = `BTC Price in ${targetYear}`;
-  document.getElementById('bd-future-price').textContent = fmtBig(futureBTC*rate);
+  document.getElementById('bd-future-price').textContent = fmtBig(futBTCFiat);
   document.getElementById('bd-portfolio').textContent    = fmtBig(portFiat);
-  const retEl = document.getElementById('bd-return');
-  retEl.textContent = sign(returnPct)+returnPct.toFixed(0)+'%';
-  retEl.className   = 'bd-val '+(returnPct>=0?'green':'');
-  document.getElementById('bd-sats').textContent = satsPerDollar.toLocaleString('en-US')+' sats';
 
-  // Share text
+  const retEl       = document.getElementById('bd-return');
+  retEl.textContent = sign(returnPct) + returnPct.toFixed(1) + '%';
+  retEl.className   = 'bd-val ' + (returnPct >= 0 ? 'green' : '');
+
+  document.getElementById('bd-sats').textContent =
+    satsPerDollar.toLocaleString('en-US') + ' sats';
+
+  // ── SHARE TEXT ───────────────────────────────────
   const tmpl = t('share_tmpl');
   const shareStr = tmpl
-    .replace('{{freq}}',freqLabel)
-    .replace('{{amt}}',amount.toFixed(2))
-    .replace('{{label}}',label)
-    .replace('{{value}}',fmtBig(portFiat))
-    .replace('{{year}}',targetYear)
-    .replace('{{btc}}',fmtBTC(btcAmt))
-    + window.location.href;
+    .replace('{{freq}}',  freqLabel)
+    .replace('{{amt}}',   fmt(amountFiat))
+    .replace('{{label}}', label)
+    .replace('{{value}}', fmtBig(portFiat))
+    .replace('{{year}}',  targetYear)
+    .replace('{{btc}}',   fmtBTC(btcAmt))
+    + '\n' + window.location.href;
   document.getElementById('share-text').value = shareStr;
 
-  // Show results
+  // ── SHOW RESULTS ─────────────────────────────────
   const rw = document.getElementById('results');
   rw.classList.add('show');
-  setTimeout(()=>rw.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  setTimeout(() => rw.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
 }
 
 // ══════════════════════════════════════════════
