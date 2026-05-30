@@ -1,7 +1,7 @@
 ---
 title: "Investing in Your Health: The Opportunity Cost of Neglect"
 description: "Poor health habits have massive financial opportunity costs through higher healthcare costs, reduced earning capacity, and lower quality of life. The ROI of healthy choices."
-pubDate: 2026-07-03
+pubDate: 2026-06-24
 slug: "opportunity-cost-health"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Fat FIRE: Building a Portfolio for Luxury Early Retirement"
 description: "Fat FIRE targets a high-income retirement without lifestyle sacrifices. What it requires in terms of portfolio size, savings rate, and income to make it a reality."
-pubDate: 2026-06-26
+pubDate: 2026-06-07
 slug: "fat-fire-lifestyle"
 ---
 

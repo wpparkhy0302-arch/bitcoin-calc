@@ -1,7 +1,7 @@
 ---
 title: "Chubby FIRE: Financial Independence for Comfortable, Not Lavish, Living"
 description: "Chubby FIRE targets a retirement income of $80,000-$150,000 — comfortable but not extravagant. The planning requirements and portfolio targets for this middle-ground approach."
-pubDate: 2026-06-27
+pubDate: 2026-06-02
 slug: "chubby-fire-guide"
 ---
 

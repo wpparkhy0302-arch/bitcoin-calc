@@ -1,7 +1,7 @@
 ---
 title: "Meal Prep: How Spending 2 Hours on Sunday Saves $150 a Week"
 description: "Meal prepping is one of the highest-ROI habits you can build. This guide covers the practical financial math and a simple system to get started."
-pubDate: 2026-06-03
+pubDate: 2026-06-20
 slug: "meal-prep-financial-benefits"
 ---
 

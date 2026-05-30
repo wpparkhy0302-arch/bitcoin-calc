@@ -1,7 +1,7 @@
 ---
 title: "The Hidden Cost of Content Consumption: Time Is Money Too"
 description: "Streaming services, news apps, and social platforms cost time as well as money. An analysis of the real cost of passive content consumption on your finances and life."
-pubDate: 2026-06-13
+pubDate: 2026-06-03
 slug: "content-consumption-cost"
 ---
 

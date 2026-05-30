@@ -1,7 +1,7 @@
 ---
 title: "Charitable Giving and Opportunity Cost: How to Give Strategically"
 description: "Charitable giving is valuable but involves real opportunity costs. How to maximize the impact of giving while accounting for its effects on your own financial independence."
-pubDate: 2026-07-06
+pubDate: 2026-06-02
 slug: "charitable-giving-opportunity"
 ---
 

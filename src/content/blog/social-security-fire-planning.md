@@ -1,7 +1,7 @@
 ---
 title: "Social Security and Early Retirement: What FIRE Chasers Need to Know"
 description: "Early retirement creates unique Social Security planning considerations. Understanding how early retirement affects your benefit and the optimal claiming strategy."
-pubDate: 2026-06-28
+pubDate: 2026-07-02
 slug: "social-security-fire-planning"
 ---
 

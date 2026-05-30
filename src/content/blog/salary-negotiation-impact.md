@@ -1,7 +1,7 @@
 ---
 title: "Salary Negotiation: The One Skill That Changes Every Financial Outcome"
 description: "Negotiating your salary has a compounding effect on lifetime earnings. A practical guide to negotiating raises and job offers with confidence."
-pubDate: 2026-06-22
+pubDate: 2026-06-29
 slug: "salary-negotiation-impact"
 ---
 

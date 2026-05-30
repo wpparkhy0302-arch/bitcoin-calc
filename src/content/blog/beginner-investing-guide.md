@@ -1,7 +1,7 @@
 ---
 title: "Investing for Beginners: Everything You Need to Know to Get Started"
 description: "Starting to invest feels intimidating, but it does not have to be. A complete, jargon-free guide to beginning your investing journey with as little as $1."
-pubDate: 2026-06-17
+pubDate: 2026-05-31
 slug: "beginner-investing-guide"
 ---
 

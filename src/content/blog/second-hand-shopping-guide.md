@@ -1,7 +1,7 @@
 ---
 title: "The Ultimate Guide to Second-Hand Shopping: Quality on a Budget"
 description: "Thrift stores, online resale platforms, and buy-nothing groups offer incredible deals. Learn how to find quality second-hand items and save thousands yearly."
-pubDate: 2026-06-02
+pubDate: 2026-06-30
 slug: "second-hand-shopping-guide"
 ---
 

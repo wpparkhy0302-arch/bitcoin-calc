@@ -1,7 +1,7 @@
 ---
 title: "Travel Hacking 101: See the World While Spending Less"
 description: "Strategic use of travel rewards, off-peak timing, and smart booking can dramatically reduce travel costs. An introduction to affordable travel planning."
-pubDate: 2026-06-05
+pubDate: 2026-07-06
 slug: "travel-hacking-basics"
 ---
 

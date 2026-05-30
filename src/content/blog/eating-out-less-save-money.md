@@ -1,7 +1,7 @@
 ---
 title: "Eating Out Less: How Cooking at Home Can Save You $400 a Month"
 description: "Restaurant spending is one of the fastest ways to drain a budget. Practical strategies to reduce dining out without feeling like you are missing out."
-pubDate: 2026-06-02
+pubDate: 2026-06-06
 slug: "eating-out-less-save-money"
 ---
 

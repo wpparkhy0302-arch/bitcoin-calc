@@ -1,7 +1,7 @@
 ---
 title: "The Keeping Up With the Joneses Trap: Why Comparison Spending Destroys Wealth"
 description: "Comparative consumption is one of the most destructive financial habits. Understanding it is essential to breaking free from the wealth-destroying cycle."
-pubDate: 2026-06-07
+pubDate: 2026-06-19
 slug: "keeping-up-with-joneses"
 ---
 

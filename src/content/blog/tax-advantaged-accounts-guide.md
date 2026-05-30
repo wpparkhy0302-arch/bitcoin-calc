@@ -1,7 +1,7 @@
 ---
 title: "401k, IRA, Roth IRA: Maximizing Your Tax-Advantaged Accounts"
 description: "Tax-advantaged accounts are the most powerful tools in a personal finance toolkit. A comprehensive guide to understanding, choosing, and maximizing each account type."
-pubDate: 2026-06-16
+pubDate: 2026-07-04
 slug: "tax-advantaged-accounts-guide"
 ---
 

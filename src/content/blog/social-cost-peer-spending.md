@@ -1,7 +1,7 @@
 ---
 title: "The Social Cost of Spending: How Peer Group Affects Your Financial Trajectory"
 description: "The spending norms of your social group have a more powerful effect on your finances than most people acknowledge. The opportunity cost of keeping up with the wrong crowd."
-pubDate: 2026-07-02
+pubDate: 2026-07-01
 slug: "social-cost-peer-spending"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Credit Cards and Spending Psychology: Why You Spend More When Swiping"
 description: "Research confirms that credit cards increase spending compared to cash. Understanding the pain-of-paying effect and strategies to maintain spending discipline."
-pubDate: 2026-06-11
+pubDate: 2026-06-04
 slug: "credit-card-spending-psychology"
 ---
 

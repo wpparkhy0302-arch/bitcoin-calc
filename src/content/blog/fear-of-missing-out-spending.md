@@ -1,7 +1,7 @@
 ---
 title: "FOMO Spending: How Fear of Missing Out Drains Your Savings"
 description: "Fear of missing out is a powerful spending trigger amplified by social media. Strategies to identify FOMO-driven purchases and replace them with deliberate choices."
-pubDate: 2026-06-12
+pubDate: 2026-06-07
 slug: "fear-of-missing-out-spending"
 ---
 

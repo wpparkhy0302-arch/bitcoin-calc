@@ -1,7 +1,7 @@
 ---
 title: "The Framing Effect: How Presentation Changes Your Financial Decisions"
 description: "How a financial choice is framed dramatically affects the decision made. Understanding framing effects helps you recognize and counteract manipulation in financial contexts."
-pubDate: 2026-07-07
+pubDate: 2026-06-15
 slug: "framing-effect-spending"
 ---
 

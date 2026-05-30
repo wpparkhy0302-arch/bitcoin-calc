@@ -1,7 +1,7 @@
 ---
 title: "Do You Need a Financial Advisor? How to Find One and What to Pay"
 description: "Financial advisors range from excellent to predatory. A guide to understanding advisor types, fee structures, and how to find qualified advice for your situation."
-pubDate: 2026-06-18
+pubDate: 2026-06-08
 slug: "financial-advisor-guide"
 ---
 

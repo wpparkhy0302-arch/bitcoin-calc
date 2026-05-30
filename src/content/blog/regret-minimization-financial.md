@@ -1,7 +1,7 @@
 ---
 title: "Regret Minimization: Jeff Bezos's Framework for Financial Decisions"
 description: "Jeff Bezos's regret minimization framework — imagining yourself at 80 looking back — offers a powerful lens for major financial decisions and opportunity cost trade-offs."
-pubDate: 2026-07-08
+pubDate: 2026-06-28
 slug: "regret-minimization-financial"
 ---
 

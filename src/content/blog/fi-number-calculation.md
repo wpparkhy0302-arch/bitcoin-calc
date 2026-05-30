@@ -1,7 +1,7 @@
 ---
 title: "How to Calculate Your FI Number: The Target That Changes Your Life"
 description: "Your FI Number is the portfolio size that makes working optional. Learn the 4% rule and how to calculate your personal financial independence target with precision."
-pubDate: 2026-06-23
+pubDate: 2026-06-08
 slug: "fi-number-calculation"
 ---
 

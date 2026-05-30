@@ -1,7 +1,7 @@
 ---
 title: "The Four Wealth-Building Fundamentals That Never Change"
 description: "Regardless of economic conditions, four core principles drive wealth accumulation. Understanding and consistently applying them is what separates the financially secure from the rest."
-pubDate: 2026-06-20
+pubDate: 2026-07-07
 slug: "wealth-building-fundamentals"
 ---
 

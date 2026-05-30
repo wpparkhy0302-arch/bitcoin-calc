@@ -1,7 +1,7 @@
 ---
 title: "Thoughtful Gift Giving on a Budget: Spending Less, Meaning More"
 description: "Gift giving should not create financial stress. Learn how to give meaningful, memorable gifts that strengthen relationships without straining your budget."
-pubDate: 2026-06-11
+pubDate: 2026-06-16
 slug: "gift-giving-budget-guide"
 ---
 

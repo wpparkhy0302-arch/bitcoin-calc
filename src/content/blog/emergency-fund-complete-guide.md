@@ -1,7 +1,7 @@
 ---
 title: "Emergency Fund 101: How Much You Really Need and Where to Keep It"
 description: "An emergency fund is the foundation of financial stability. Find out exactly how much to save, where to store it, and how to build it faster."
-pubDate: 2026-06-01
+pubDate: 2026-06-06
 slug: "emergency-fund-complete-guide"
 ---
 

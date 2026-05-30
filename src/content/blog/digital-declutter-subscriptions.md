@@ -1,7 +1,7 @@
 ---
 title: "Digital Declutter: Cancelling the Apps and Services You Forgot You Paid For"
 description: "The average person has 2-3 paid apps and services they have not used in over a year. A systematic approach to auditing and cancelling digital waste."
-pubDate: 2026-06-11
+pubDate: 2026-06-05
 slug: "digital-declutter-subscriptions"
 ---
 

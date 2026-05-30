@@ -1,7 +1,7 @@
 ---
 title: "Financial Envy: How to Stop Comparing Your Money to Others"
 description: "Comparing your financial life to others is a recipe for dissatisfaction and overspending. Strategies to cultivate gratitude and financial contentment."
-pubDate: 2026-06-13
+pubDate: 2026-05-30
 slug: "avoiding-financial-envy"
 ---
 

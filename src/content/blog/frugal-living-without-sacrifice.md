@@ -1,7 +1,7 @@
 ---
 title: "Frugal Living Without Sacrifice: Finding Joy in Spending Less"
 description: "Frugality is not about deprivation — it is about intentionality. Discover how to live well on less and find more satisfaction in mindful consumption."
-pubDate: 2026-05-31
+pubDate: 2026-06-15
 slug: "frugal-living-without-sacrifice"
 ---
 

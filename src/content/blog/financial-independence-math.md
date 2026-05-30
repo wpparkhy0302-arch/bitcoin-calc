@@ -1,7 +1,7 @@
 ---
 title: "The Simple Math Behind Financial Independence"
 description: "Financial independence has a formula. Learn how to calculate your FI number, your savings rate, and exactly how many years you have left until you can stop working."
-pubDate: 2026-06-16
+pubDate: 2026-06-09
 slug: "financial-independence-math"
 ---
 

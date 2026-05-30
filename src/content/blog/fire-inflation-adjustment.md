@@ -1,7 +1,7 @@
 ---
 title: "Inflation-Adjusted Planning for FIRE: Why Your FI Number Needs to Grow"
 description: "Failing to account for inflation in FIRE planning is one of the most common and costly mistakes. How to incorporate realistic inflation assumptions into every calculation."
-pubDate: 2026-06-30
+pubDate: 2026-06-12
 slug: "fire-inflation-adjustment"
 ---
 

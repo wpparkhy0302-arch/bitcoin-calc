@@ -1,7 +1,7 @@
 ---
 title: "How FIRE Plans Fail: The Most Common Mistakes and How to Avoid Them"
 description: "Not every FIRE journey succeeds. Analyzing the ways early retirement plans unravel reveals the most important risk factors to manage and contingencies to build in."
-pubDate: 2026-06-28
+pubDate: 2026-06-11
 slug: "fire-failure-modes"
 ---
 

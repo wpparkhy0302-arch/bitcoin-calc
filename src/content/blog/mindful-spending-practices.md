@@ -1,7 +1,7 @@
 ---
 title: "Mindful Spending: Bringing Awareness to Every Financial Decision"
 description: "Applying mindfulness principles to spending creates a pause between stimulus and response. Practical exercises to develop more conscious financial habits."
-pubDate: 2026-06-13
+pubDate: 2026-06-21
 slug: "mindful-spending-practices"
 ---
 

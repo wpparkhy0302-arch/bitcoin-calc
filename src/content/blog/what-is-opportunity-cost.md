@@ -1,7 +1,7 @@
 ---
 title: "What Is Opportunity Cost? The Concept That Transforms Every Financial Decision"
 description: "Opportunity cost — the value of the next best alternative foregone — is the single most important concept in economics and personal finance. A complete introduction."
-pubDate: 2026-07-01
+pubDate: 2026-07-08
 slug: "what-is-opportunity-cost"
 ---
 

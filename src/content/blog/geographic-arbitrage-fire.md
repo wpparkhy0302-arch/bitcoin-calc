@@ -1,7 +1,7 @@
 ---
 title: "Geographic Arbitrage: How Moving Accelerates Financial Independence"
 description: "Living in a lower cost-of-living area — domestically or internationally — can compress a 20-year FIRE timeline into 10. How geographic arbitrage works in practice."
-pubDate: 2026-06-25
+pubDate: 2026-06-15
 slug: "geographic-arbitrage-fire"
 ---
 

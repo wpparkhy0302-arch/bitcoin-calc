@@ -1,7 +1,7 @@
 ---
 title: "Your Library Card: The Most Underrated Personal Finance Tool"
 description: "Public libraries offer far more than books. From free streaming services to financial counseling, discover how a library card can replace paid subscriptions."
-pubDate: 2026-06-04
+pubDate: 2026-06-20
 slug: "library-resources-free"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Dollar-Cost Averaging: The Stress-Free Path to Long-Term Investing"
 description: "DCA removes emotion and timing risk from investing. A complete guide to how dollar-cost averaging works, its advantages, and how to implement it in any market."
-pubDate: 2026-06-15
+pubDate: 2026-06-05
 slug: "dollar-cost-averaging-guide"
 ---
 

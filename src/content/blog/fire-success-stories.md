@@ -1,7 +1,7 @@
 ---
 title: "Real FIRE Success Stories: What Actually Worked and What Surprised Them"
 description: "Studying the journeys of people who achieved financial independence reveals patterns and surprises. Common threads from real FIRE success stories."
-pubDate: 2026-06-27
+pubDate: 2026-06-14
 slug: "fire-success-stories"
 ---
 

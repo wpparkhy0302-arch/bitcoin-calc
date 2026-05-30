@@ -1,7 +1,7 @@
 ---
 title: "Stock Market Basics: How It Works and Why It Builds Wealth"
 description: "The stock market can seem intimidating but the fundamentals are straightforward. Learn how the market works, why stocks historically increase in value, and how to participate."
-pubDate: 2026-06-18
+pubDate: 2026-07-03
 slug: "stock-market-basics"
 ---
 

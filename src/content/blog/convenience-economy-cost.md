@@ -1,7 +1,7 @@
 ---
 title: "The Convenience Economy: How Outsourcing Everything Destroys Your Financial Future"
 description: "The gig economy has made it easy to outsource everything — at enormous financial cost. An opportunity cost analysis of the convenience economy."
-pubDate: 2026-07-07
+pubDate: 2026-06-03
 slug: "convenience-economy-cost"
 ---
 

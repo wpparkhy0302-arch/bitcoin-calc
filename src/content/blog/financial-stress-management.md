@@ -1,7 +1,7 @@
 ---
 title: "Financial Stress: How Money Anxiety Affects Your Health and Decisions"
 description: "Financial stress is one of the leading causes of health problems and relationship conflict. Strategies for managing money anxiety while improving your actual financial situation."
-pubDate: 2026-06-21
+pubDate: 2026-06-10
 slug: "financial-stress-management"
 ---
 

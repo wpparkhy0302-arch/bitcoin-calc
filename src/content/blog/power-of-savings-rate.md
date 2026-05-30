@@ -1,7 +1,7 @@
 ---
 title: "The Power of Your Savings Rate: The One Number That Determines Financial Freedom"
 description: "Your savings rate — not your income — is the primary driver of financial independence. Understanding and optimizing this single number accelerates every financial goal."
-pubDate: 2026-06-21
+pubDate: 2026-06-26
 slug: "power-of-savings-rate"
 ---
 

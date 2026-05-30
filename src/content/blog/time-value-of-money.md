@@ -1,7 +1,7 @@
 ---
 title: "The Time Value of Money: Why a Dollar Today Is Worth More Than Tomorrow"
 description: "The time value of money underpins all of investing and financial planning. A clear explanation of TVM with practical applications to everyday financial decisions."
-pubDate: 2026-07-01
+pubDate: 2026-07-05
 slug: "time-value-of-money"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Building a Capsule Wardrobe on a Budget: Look Great, Spend Less"
 description: "A strategic approach to building a versatile wardrobe with minimal investment. Learn how to shop smarter, care for your clothes, and resist fast fashion."
-pubDate: 2026-06-05
+pubDate: 2026-06-02
 slug: "clothing-budget-guide"
 ---
 

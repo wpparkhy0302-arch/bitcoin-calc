@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Television: What 4 Hours a Day Is Worth"
 description: "The average American watches 4+ hours of television daily. An analysis of what that time could generate if redirected toward income-producing or skill-building activities."
-pubDate: 2026-07-04
+pubDate: 2026-07-05
 slug: "television-time-opportunity-cost"
 ---
 

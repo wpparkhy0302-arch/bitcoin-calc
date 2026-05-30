@@ -1,7 +1,7 @@
 ---
 title: "Investment Fees: How 1% Costs You $100,000 Over a Lifetime"
 description: "Seemingly small differences in investment fees compound dramatically over decades. A clear illustration of how fee minimization dramatically accelerates wealth building."
-pubDate: 2026-06-20
+pubDate: 2026-06-19
 slug: "investment-fees-impact"
 ---
 

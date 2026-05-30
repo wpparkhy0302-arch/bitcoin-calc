@@ -1,7 +1,7 @@
 ---
 title: "The 50/30/20 Rule: The Simplest Budget Framework You Will Ever Need"
 description: "A breakdown of the 50/30/20 budgeting rule — 50% needs, 30% wants, 20% savings — and how to customize it for your income and lifestyle."
-pubDate: 2026-05-31
+pubDate: 2026-07-05
 slug: "the-50-30-20-rule"
 ---
 

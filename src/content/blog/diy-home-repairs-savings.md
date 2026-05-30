@@ -1,7 +1,7 @@
 ---
 title: "DIY Home Repairs: Skills That Save Homeowners Thousands a Year"
 description: "Learning basic home repair skills can save you thousands in contractor fees. A beginner-friendly guide to the most valuable DIY repairs to learn first."
-pubDate: 2026-06-03
+pubDate: 2026-06-05
 slug: "diy-home-repairs-savings"
 ---
 

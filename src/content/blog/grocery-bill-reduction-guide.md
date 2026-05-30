@@ -1,7 +1,7 @@
 ---
 title: "How to Cut Your Grocery Bill in Half Without Eating Worse"
 description: "Food is one of the largest controllable expenses for most households. These tested strategies will slash your grocery bill while improving your diet."
-pubDate: 2026-05-31
+pubDate: 2026-06-16
 slug: "grocery-bill-reduction-guide"
 ---
 

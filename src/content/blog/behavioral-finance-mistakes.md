@@ -1,7 +1,7 @@
 ---
 title: "Common Behavioral Finance Mistakes That Cost Investors Thousands"
 description: "Cognitive biases cause investors to buy high and sell low repeatedly. Understanding the most common behavioral finance errors is the first step to avoiding them."
-pubDate: 2026-06-19
+pubDate: 2026-05-31
 slug: "behavioral-finance-mistakes"
 ---
 

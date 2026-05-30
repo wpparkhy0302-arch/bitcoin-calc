@@ -1,7 +1,7 @@
 ---
 title: "Experiences vs. Things: Where to Spend for Maximum Happiness"
 description: "Decades of happiness research show that experiences deliver more lasting joy than possessions. How to reallocate your spending for a richer, more fulfilling life."
-pubDate: 2026-06-12
+pubDate: 2026-06-07
 slug: "experience-vs-stuff-spending"
 ---
 

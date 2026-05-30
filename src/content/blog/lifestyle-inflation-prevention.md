@@ -1,7 +1,7 @@
 ---
 title: "Lifestyle Inflation: How Raises Disappear and How to Stop It"
 description: "As income grows, expenses tend to grow with it — lifestyle inflation is one of the most common barriers to building wealth. Here is how to resist it."
-pubDate: 2026-06-09
+pubDate: 2026-06-20
 slug: "lifestyle-inflation-prevention"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "How to Calculate and Track Your Net Worth: Your Most Important Financial Number"
 description: "Net worth is the scoreboard of your financial life. Learn how to calculate yours, what affects it, and how tracking it monthly changes your financial trajectory."
-pubDate: 2026-06-15
+pubDate: 2026-06-22
 slug: "net-worth-tracking-guide"
 ---
 

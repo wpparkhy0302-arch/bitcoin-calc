@@ -1,7 +1,7 @@
 ---
 title: "The Most Common Financial Regrets and How to Avoid Them"
 description: "Research on financial regret reveals consistent patterns. Understanding what people most commonly wish they had done differently can guide better decisions today."
-pubDate: 2026-07-08
+pubDate: 2026-06-10
 slug: "financial-regret-minimization"
 ---
 

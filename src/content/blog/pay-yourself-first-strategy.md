@@ -1,7 +1,7 @@
 ---
 title: "Pay Yourself First: The Strategy That Makes Saving Automatic"
 description: "Instead of saving what is left over, learn to save before you spend. The pay-yourself-first strategy is the single most impactful shift in personal finance."
-pubDate: 2026-05-31
+pubDate: 2026-06-26
 slug: "pay-yourself-first-strategy"
 ---
 

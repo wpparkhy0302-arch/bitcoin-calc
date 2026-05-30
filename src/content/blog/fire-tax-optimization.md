@@ -1,7 +1,7 @@
 ---
 title: "Tax Optimization for FIRE: How to Keep More of What You Earn"
 description: "Tax efficiency can shave years off a FIRE timeline. Tax-advantaged accounts, Roth conversion ladders, and capital gains harvesting strategies for FIRE chasers."
-pubDate: 2026-06-28
+pubDate: 2026-06-14
 slug: "fire-tax-optimization"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Beyond the Portfolio: Creative Ways to Generate Income in Early Retirement"
 description: "Many FIRE retirees choose to generate some income in retirement for flexibility and purpose. Flexible work, consulting, and creative income strategies for early retirees."
-pubDate: 2026-06-26
+pubDate: 2026-06-12
 slug: "fire-income-replacement"
 ---
 

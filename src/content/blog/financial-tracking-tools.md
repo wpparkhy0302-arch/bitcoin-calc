@@ -1,7 +1,7 @@
 ---
 title: "The Best Free Tools to Track Your Spending and Net Worth"
 description: "You cannot improve what you do not measure. A review of the best free and low-cost apps for budgeting, expense tracking, and net worth monitoring."
-pubDate: 2026-06-06
+pubDate: 2026-06-11
 slug: "financial-tracking-tools"
 ---
 

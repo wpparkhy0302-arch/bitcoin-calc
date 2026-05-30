@@ -1,7 +1,7 @@
 ---
 title: "Peer Pressure and Money: How to Say No Without Losing Friends"
 description: "Social obligations around weddings, vacations, and dining can devastate budgets. Scripts and strategies for maintaining relationships without overspending."
-pubDate: 2026-06-11
+pubDate: 2026-06-26
 slug: "peer-pressure-spending"
 ---
 

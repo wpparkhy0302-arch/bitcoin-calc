@@ -1,7 +1,7 @@
 ---
 title: "The Spending Freeze: A Radical Reset for Your Budget"
 description: "A spending freeze — stopping all non-essential purchases for a set period — can break bad habits and reveal your true financial baseline."
-pubDate: 2026-06-13
+pubDate: 2026-07-02
 slug: "spending-freeze-guide"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Portfolio Rebalancing: Why and How to Realign Your Investments"
 description: "Market movements throw off your target allocation over time. Learn what rebalancing is, why it matters for risk management, and how to do it systematically."
-pubDate: 2026-06-18
+pubDate: 2026-06-27
 slug: "rebalancing-portfolio-guide"
 ---
 

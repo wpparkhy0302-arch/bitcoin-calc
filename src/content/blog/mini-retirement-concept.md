@@ -1,7 +1,7 @@
 ---
 title: "Mini-Retirements: Taking Sabbaticals on the Path to FIRE"
 description: "Rather than working 40 years then retiring, mini-retirements insert extended breaks throughout your career. Tim Ferriss popularized this approach — here is how it works."
-pubDate: 2026-06-25
+pubDate: 2026-06-21
 slug: "mini-retirement-concept"
 ---
 

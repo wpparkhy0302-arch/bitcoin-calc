@@ -1,7 +1,7 @@
 ---
 title: "The 30-Day No-Spend Challenge: Rules, Benefits, and How to Win"
 description: "A no-spend challenge can reset your relationship with money and reveal hidden savings potential. Here is everything you need to complete your first one."
-pubDate: 2026-06-01
+pubDate: 2026-06-23
 slug: "no-spend-challenge"
 ---
 

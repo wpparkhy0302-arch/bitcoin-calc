@@ -1,7 +1,7 @@
 ---
 title: "Index Fund Investing: The Strategy That Beats Most Professional Investors"
 description: "Decades of data show that low-cost index funds outperform most actively managed funds. A plain-English guide to getting started with index fund investing."
-pubDate: 2026-06-15
+pubDate: 2026-06-17
 slug: "index-fund-investing-basics"
 ---
 

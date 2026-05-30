@@ -1,7 +1,7 @@
 ---
 title: "Barista FIRE: Semi-Retirement as a Path to Freedom"
 description: "Full retirement is not the only option. Barista FIRE — retiring from your career but working part-time — offers a sustainable middle path worth serious consideration."
-pubDate: 2026-06-23
+pubDate: 2026-05-31
 slug: "barista-fire-explained"
 ---
 

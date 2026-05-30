@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Your Time: How to Value Your Most Finite Resource"
 description: "Time is the ultimate finite resource. Calculating the opportunity cost of how you spend time — including in relationships, entertainment, and work — changes every decision."
-pubDate: 2026-07-06
+pubDate: 2026-06-25
 slug: "opportunity-cost-relationships-time"
 ---
 

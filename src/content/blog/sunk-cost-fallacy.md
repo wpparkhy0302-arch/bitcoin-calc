@@ -1,7 +1,7 @@
 ---
 title: "The Sunk Cost Fallacy: How Past Losses Drive Future Mistakes"
 description: "The sunk cost fallacy causes people to throw good money after bad. Understanding this cognitive bias and its financial manifestations is essential to rational decision-making."
-pubDate: 2026-07-07
+pubDate: 2026-07-04
 slug: "sunk-cost-fallacy"
 ---
 

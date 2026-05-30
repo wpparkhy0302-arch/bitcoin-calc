@@ -1,7 +1,7 @@
 ---
 title: "Managing Sequence Risk in Early Retirement: Strategies for Surviving Bear Markets"
 description: "Early retirees face longer exposure to sequence of returns risk. Practical strategies — from flexible withdrawals to cash buffers — for managing this critical threat."
-pubDate: 2026-06-26
+pubDate: 2026-06-30
 slug: "sequence-risk-early-retirement"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Vacations: How to Travel Without Sacrificing Wealth"
 description: "Vacations are valuable but expensive in opportunity costs. How to evaluate travel spending through an opportunity cost lens and strategies to travel more affordably."
-pubDate: 2026-07-03
+pubDate: 2026-07-06
 slug: "vacation-opportunity-cost"
 ---
 

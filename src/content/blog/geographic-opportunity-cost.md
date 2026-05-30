@@ -1,7 +1,7 @@
 ---
 title: "Where You Live and What It Costs You: Geographic Opportunity Cost"
 description: "Your zip code is one of the largest financial decisions you make. The opportunity cost of living in high versus low cost-of-living areas over a decade."
-pubDate: 2026-07-05
+pubDate: 2026-06-15
 slug: "geographic-opportunity-cost"
 ---
 

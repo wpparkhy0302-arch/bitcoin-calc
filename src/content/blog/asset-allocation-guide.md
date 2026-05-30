@@ -1,7 +1,7 @@
 ---
 title: "Asset Allocation: The Most Important Investment Decision You Will Make"
 description: "Research shows asset allocation determines the vast majority of long-term portfolio performance. How to build an allocation that matches your goals, timeline, and risk tolerance."
-pubDate: 2026-06-19
+pubDate: 2026-05-30
 slug: "asset-allocation-guide"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "The Ultimate Opportunity Cost: Trading Your Freedom for Things"
 description: "At its core, every excessive purchase is trading future freedom for present consumption. The philosophical and financial case for viewing financial independence as the ultimate goal."
-pubDate: 2026-07-08
+pubDate: 2026-06-24
 slug: "opportunity-cost-financial-freedom"
 ---
 

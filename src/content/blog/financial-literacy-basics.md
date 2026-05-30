@@ -1,7 +1,7 @@
 ---
 title: "Financial Literacy Fundamentals: What Every Adult Should Know"
 description: "Financial literacy gaps cost people thousands annually. A foundational guide to the core concepts every adult needs to make informed money decisions."
-pubDate: 2026-06-17
+pubDate: 2026-06-09
 slug: "financial-literacy-basics"
 ---
 

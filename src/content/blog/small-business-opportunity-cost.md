@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Entrepreneurship: What Starting a Business Really Costs"
 description: "Starting a business involves significant opportunity costs beyond the financial investment. A complete analysis of what entrepreneurship trades against a traditional career."
-pubDate: 2026-07-05
+pubDate: 2026-07-01
 slug: "small-business-opportunity-cost"
 ---
 

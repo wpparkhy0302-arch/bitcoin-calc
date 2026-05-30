@@ -1,7 +1,7 @@
 ---
 title: "Teaching Kids About Money: Building Healthy Spending Habits Early"
 description: "Financial habits are formed in childhood. Evidence-based approaches to teaching children about earning, saving, spending, and giving from an early age."
-pubDate: 2026-06-14
+pubDate: 2026-06-19
 slug: "kids-financial-education"
 ---
 

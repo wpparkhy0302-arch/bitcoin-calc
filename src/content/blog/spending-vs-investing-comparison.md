@@ -1,7 +1,7 @@
 ---
 title: "Spending vs. Investing: The $1 Million Question"
 description: "Every discretionary spending decision has an investment opportunity cost. A compelling comparison that makes the trade-off vivid and motivating."
-pubDate: 2026-07-04
+pubDate: 2026-07-03
 slug: "spending-vs-investing-comparison"
 ---
 

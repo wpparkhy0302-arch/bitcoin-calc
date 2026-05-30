@@ -1,7 +1,7 @@
 ---
 title: "Generic vs. Brand Name: When to Splurge and When to Switch"
 description: "Not all generic products are equal, and not all brand names are worth the premium. A category-by-category guide to smart substitution decisions."
-pubDate: 2026-06-04
+pubDate: 2026-06-15
 slug: "generic-vs-brand-products"
 ---
 

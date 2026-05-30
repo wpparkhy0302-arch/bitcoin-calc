@@ -1,7 +1,7 @@
 ---
 title: "Shifting Your Mindset: From Impulsive to Intentional Spending"
 description: "Changing your financial behavior requires changing your financial mindset. A guide to the mental shifts that make conscious, intentional spending natural."
-pubDate: 2026-06-12
+pubDate: 2026-06-03
 slug: "comparison-shopping-mindset"
 ---
 

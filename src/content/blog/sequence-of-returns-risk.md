@@ -1,7 +1,7 @@
 ---
 title: "Sequence of Returns Risk: The Hidden Threat to Early Retirees"
 description: "The order in which investment returns occur can make or break a retirement plan. Understanding and managing sequence risk is essential for anyone planning to retire early."
-pubDate: 2026-06-18
+pubDate: 2026-06-30
 slug: "sequence-of-returns-risk"
 ---
 

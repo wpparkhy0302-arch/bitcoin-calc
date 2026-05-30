@@ -1,7 +1,7 @@
 ---
 title: "Identifying Your Emotional Spending Triggers and How to Defuse Them"
 description: "Stress, boredom, and loneliness are common triggers for emotional spending. Learn to identify your specific triggers and build healthier responses."
-pubDate: 2026-06-08
+pubDate: 2026-06-06
 slug: "emotional-spending-triggers"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Homeownership: What Your Equity Could Earn Elsewhere"
 description: "Home equity is an asset, but it is an illiquid one with opportunity costs. Examining what the capital locked in your home could generate if deployed elsewhere."
-pubDate: 2026-07-04
+pubDate: 2026-06-24
 slug: "opportunity-cost-homeownership"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Spending Accountability: Systems That Keep You on Track"
 description: "Knowing your budget and sticking to it are different challenges. Accountability systems — from apps to partners — dramatically improve spending follow-through."
-pubDate: 2026-06-14
+pubDate: 2026-07-02
 slug: "spending-accountability-systems"
 ---
 

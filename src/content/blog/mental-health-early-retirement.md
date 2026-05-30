@@ -1,7 +1,7 @@
 ---
 title: "The Mental Health Side of FIRE: Managing Anxiety on the Path to Freedom"
 description: "The FIRE journey involves years of delayed gratification, which creates its own psychological challenges. Strategies for maintaining wellbeing while pursuing a multi-year financial goal."
-pubDate: 2026-06-28
+pubDate: 2026-06-21
 slug: "mental-health-early-retirement"
 ---
 

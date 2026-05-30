@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Fear: How Avoiding Risk Destroys Wealth"
 description: "Risk aversion has an opportunity cost — by keeping money in low-return assets, the cost of safety compounds into millions over a lifetime. The math of fear."
-pubDate: 2026-07-06
+pubDate: 2026-06-24
 slug: "opportunity-cost-fear"
 ---
 

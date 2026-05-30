@@ -1,7 +1,7 @@
 ---
 title: "Robo-Advisors Explained: Automated Investing for Busy Professionals"
 description: "Robo-advisors have democratized professional portfolio management. A guide to how they work, their costs versus traditional advisors, and who benefits most from using them."
-pubDate: 2026-06-21
+pubDate: 2026-06-29
 slug: "robo-advisor-guide"
 ---
 

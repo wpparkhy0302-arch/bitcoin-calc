@@ -1,7 +1,7 @@
 ---
 title: "The 48-Hour Rule: How a Simple Waiting Period Stops Impulse Buying"
 description: "Inserting a pause between the impulse to buy and the actual purchase eliminates most regrettable spending. Learn how to implement a waiting period system."
-pubDate: 2026-06-09
+pubDate: 2026-06-17
 slug: "impulse-purchase-waiting-rule"
 ---
 

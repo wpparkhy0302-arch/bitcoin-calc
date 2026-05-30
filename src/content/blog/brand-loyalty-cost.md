@@ -1,7 +1,7 @@
 ---
 title: "The Cost of Brand Loyalty: Why You Should Shop Around More"
 description: "Loyalty to brands and retailers can cost thousands annually in missed savings. A framework for when loyalty pays off and when switching makes financial sense."
-pubDate: 2026-06-10
+pubDate: 2026-05-31
 slug: "brand-loyalty-cost"
 ---
 

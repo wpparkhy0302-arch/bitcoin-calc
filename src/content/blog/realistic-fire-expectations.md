@@ -1,7 +1,7 @@
 ---
 title: "Setting Realistic FIRE Expectations: What Early Retirement Actually Looks Like"
 description: "Media coverage of FIRE often highlights extremes. A grounded look at what financial independence actually looks like for typical practitioners — the benefits and the trade-offs."
-pubDate: 2026-06-29
+pubDate: 2026-06-27
 slug: "realistic-fire-expectations"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Minimalism and Money: How Owning Less Leads to Having More"
 description: "The minimalist movement is gaining traction for good reason. Discover the direct financial benefits of intentionally reducing consumption and ownership."
-pubDate: 2026-06-08
+pubDate: 2026-06-21
 slug: "minimalism-financial-benefits"
 ---
 

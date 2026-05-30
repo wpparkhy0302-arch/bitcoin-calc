@@ -1,7 +1,7 @@
 ---
 title: "How Social Media Drives Consumerism and What to Do About It"
 description: "Instagram envy and influencer culture quietly inflate lifestyle expectations. Learn to identify and counteract the social spending pressure in your feeds."
-pubDate: 2026-06-07
+pubDate: 2026-07-02
 slug: "social-media-consumerism"
 ---
 

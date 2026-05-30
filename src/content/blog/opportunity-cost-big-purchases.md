@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Big Purchases: Cars, Boats, and Luxury Items"
 description: "Large discretionary purchases have enormous opportunity costs when viewed through a long-term compounding lens. Analysis of the wealth impact of major lifestyle purchases."
-pubDate: 2026-07-02
+pubDate: 2026-06-23
 slug: "opportunity-cost-big-purchases"
 ---
 

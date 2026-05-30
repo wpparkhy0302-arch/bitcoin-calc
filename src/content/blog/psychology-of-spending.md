@@ -1,7 +1,7 @@
 ---
 title: "The Psychology of Spending: Why Your Brain Drives You to Overspend"
 description: "Understanding the cognitive biases and emotional triggers that drive overspending is the first step toward conscious control of your financial decisions."
-pubDate: 2026-06-07
+pubDate: 2026-06-27
 slug: "psychology-of-spending"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Understanding Your Risk Tolerance: How to Invest Appropriately for Your Personality"
 description: "Investment decisions must align with your risk tolerance or you will abandon them at the worst moment. How to assess your true risk profile and build a matching portfolio."
-pubDate: 2026-06-17
+pubDate: 2026-06-28
 slug: "risk-tolerance-assessment"
 ---
 

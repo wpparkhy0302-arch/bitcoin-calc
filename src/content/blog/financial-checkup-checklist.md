@@ -1,7 +1,7 @@
 ---
 title: "The Annual Financial Checkup: A 10-Point Review Every Adult Should Do"
 description: "An annual financial review keeps your money on track and catches problems early. Work through this 10-point checklist to assess and optimize your financial health."
-pubDate: 2026-06-22
+pubDate: 2026-06-08
 slug: "financial-checkup-checklist"
 ---
 

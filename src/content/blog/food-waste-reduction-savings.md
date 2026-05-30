@@ -1,7 +1,7 @@
 ---
 title: "Reducing Food Waste: How to Save $1,500 a Year at the Grocery Store"
 description: "The average American household wastes $1,500 in food annually. Practical systems for meal planning, proper storage, and using every item you buy."
-pubDate: 2026-06-06
+pubDate: 2026-06-14
 slug: "food-waste-reduction-savings"
 ---
 

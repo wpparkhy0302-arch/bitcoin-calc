@@ -1,7 +1,7 @@
 ---
 title: "The Financial Opportunity Cost of Major Relationships Decisions"
 description: "Marriage, divorce, and partnership decisions have profound and often underestimated financial opportunity costs. An honest financial analysis of relationship transitions."
-pubDate: 2026-07-03
+pubDate: 2026-06-20
 slug: "marriage-divorce-financial-impact"
 ---
 

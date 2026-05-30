@@ -1,7 +1,7 @@
 ---
 title: "Coast FIRE: Invest Early, Relax Later"
 description: "Coast FIRE means saving aggressively early, then stopping contributions and letting compounding do the rest. A powerful strategy for those who start saving young."
-pubDate: 2026-06-24
+pubDate: 2026-06-02
 slug: "coast-fire-strategy"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Smart Holiday Spending: How to Celebrate Without Debt"
 description: "The holidays do not have to derail your finances. A practical guide to thoughtful gift-giving, party planning, and celebration on any budget."
-pubDate: 2026-06-06
+pubDate: 2026-07-01
 slug: "smart-holiday-spending"
 ---
 

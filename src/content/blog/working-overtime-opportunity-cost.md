@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Working Overtime: What You Are Trading Your Life For"
 description: "Extra hours at work come with financial and non-financial opportunity costs. A complete accounting of what working overtime actually trades and when it makes sense."
-pubDate: 2026-07-02
+pubDate: 2026-07-08
 slug: "working-overtime-opportunity-cost"
 ---
 

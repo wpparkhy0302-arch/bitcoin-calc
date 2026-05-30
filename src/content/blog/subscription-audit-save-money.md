@@ -1,7 +1,7 @@
 ---
 title: "The Subscription Audit: How to Save $200 a Month Starting Today"
 description: "The average household wastes over $200 monthly on forgotten subscriptions. This step-by-step audit will help you identify and eliminate what you do not use."
-pubDate: 2026-06-01
+pubDate: 2026-07-03
 slug: "subscription-audit-save-money"
 ---
 

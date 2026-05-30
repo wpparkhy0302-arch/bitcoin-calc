@@ -1,7 +1,7 @@
 ---
 title: "The Cost of Financial Procrastination: What You Are Losing Every Month"
 description: "Delaying financial decisions — from investing to insurance to estate planning — carries concrete opportunity costs. A quantification of what procrastination actually costs."
-pubDate: 2026-07-04
+pubDate: 2026-06-10
 slug: "financial-procrastination-cost"
 ---
 

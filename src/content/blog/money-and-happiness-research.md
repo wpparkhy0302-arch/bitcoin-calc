@@ -1,7 +1,7 @@
 ---
 title: "What the Research Says About Money and Happiness"
 description: "Science has mapped the relationship between income and wellbeing with surprising precision. Understanding this research can help you spend in ways that actually improve life satisfaction."
-pubDate: 2026-06-13
+pubDate: 2026-06-22
 slug: "money-and-happiness-research"
 ---
 

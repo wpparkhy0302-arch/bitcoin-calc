@@ -1,7 +1,7 @@
 ---
 title: "Healthcare in Early Retirement: How FIRE Chasers Handle the Gap Years"
 description: "Healthcare is the biggest practical obstacle for early retirees. A thorough overview of the options available for covering healthcare costs before Medicare eligibility."
-pubDate: 2026-06-24
+pubDate: 2026-06-28
 slug: "retiring-early-healthcare"
 ---
 

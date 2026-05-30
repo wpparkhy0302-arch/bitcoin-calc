@@ -1,7 +1,7 @@
 ---
 title: "The Psychology of Debt: How Borrowing Changes Your Spending Behavior"
 description: "Carrying debt changes how you perceive and make financial decisions. Understanding the psychological effects of debt is crucial to breaking free from it."
-pubDate: 2026-06-10
+pubDate: 2026-06-04
 slug: "debt-psychology-spending"
 ---
 

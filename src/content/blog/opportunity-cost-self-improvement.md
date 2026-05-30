@@ -1,7 +1,7 @@
 ---
 title: "Investing in Yourself: The Opportunity Cost Analysis of Self-Improvement"
 description: "Skills, education, and health are investments with genuine financial returns. How to evaluate self-improvement spending through an opportunity cost framework."
-pubDate: 2026-07-08
+pubDate: 2026-06-25
 slug: "opportunity-cost-self-improvement"
 ---
 

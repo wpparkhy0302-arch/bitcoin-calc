@@ -1,7 +1,7 @@
 ---
 title: "The True Cost of Fast Fashion: Why Cheap Clothes Are Expensive"
 description: "Fast fashion creates the illusion of affordability while costing more in the long run. An analysis of the real price of disposable clothing culture."
-pubDate: 2026-06-10
+pubDate: 2026-06-07
 slug: "fast-fashion-true-cost"
 ---
 

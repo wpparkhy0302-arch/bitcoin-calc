@@ -1,7 +1,7 @@
 ---
 title: "Impulse Buying: Why You Do It and How to Stop for Good"
 description: "Impulse purchases are the silent killer of budgets. Learn the psychological triggers behind unplanned spending and proven strategies to break the cycle."
-pubDate: 2026-06-01
+pubDate: 2026-06-17
 slug: "impulse-buying-prevention"
 ---
 

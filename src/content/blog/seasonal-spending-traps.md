@@ -1,7 +1,7 @@
 ---
 title: "Seasonal Spending Traps: How Holidays and Events Hijack Your Budget"
 description: "Black Friday, Valentine's Day, and back-to-school season are engineered to increase spending. A calendar-by-calendar guide to navigating seasonal marketing pressure."
-pubDate: 2026-06-14
+pubDate: 2026-06-30
 slug: "seasonal-spending-traps"
 ---
 

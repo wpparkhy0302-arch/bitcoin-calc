@@ -1,7 +1,7 @@
 ---
 title: "100 Free Weekend Activities That Beat Expensive Entertainment"
 description: "You do not need to spend money to have a great weekend. This list of 100 free and low-cost activities will help you enjoy life on any budget."
-pubDate: 2026-06-04
+pubDate: 2026-07-07
 slug: "weekend-free-activities"
 ---
 

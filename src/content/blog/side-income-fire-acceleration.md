@@ -1,7 +1,7 @@
 ---
 title: "How Side Income Dramatically Accelerates Your FIRE Timeline"
 description: "A part-time side income during the accumulation phase has a double benefit — it adds to savings while reducing withdrawal requirements. The math is compelling."
-pubDate: 2026-06-28
+pubDate: 2026-07-01
 slug: "side-income-fire-acceleration"
 ---
 

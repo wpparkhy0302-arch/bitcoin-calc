@@ -1,7 +1,7 @@
 ---
 title: "Debt Avalanche vs. Snowball: Which Payoff Method Wins?"
 description: "The two most popular debt payoff strategies have different advantages. A data-driven comparison to help you choose the method that fits your psychology and math."
-pubDate: 2026-06-15
+pubDate: 2026-06-04
 slug: "debt-avalanche-vs-snowball"
 ---
 

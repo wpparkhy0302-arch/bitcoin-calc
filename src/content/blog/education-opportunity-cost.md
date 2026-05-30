@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Education: Is a Degree Worth the Investment?"
 description: "College is one of the largest financial decisions most people make. A framework for evaluating the true return on educational investment, including opportunity costs."
-pubDate: 2026-07-02
+pubDate: 2026-06-06
 slug: "education-opportunity-cost"
 ---
 

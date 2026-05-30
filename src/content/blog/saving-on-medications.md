@@ -1,7 +1,7 @@
 ---
 title: "How to Save Money on Medications: Generic Drugs and Discount Programs"
 description: "Prescription drug costs are one of the fastest-growing household expenses. These strategies can reduce your medication spending by 50-90%."
-pubDate: 2026-06-06
+pubDate: 2026-06-29
 slug: "saving-on-medications"
 ---
 

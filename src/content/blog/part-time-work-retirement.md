@@ -1,7 +1,7 @@
 ---
 title: "Working Part-Time in Retirement: The Surprisingly Common FIRE Strategy"
 description: "Many FIRE retirees choose to work part-time not from necessity but for structure, social connection, and a small income buffer. The case for flexible part-time retirement."
-pubDate: 2026-06-30
+pubDate: 2026-06-25
 slug: "part-time-work-retirement"
 ---
 

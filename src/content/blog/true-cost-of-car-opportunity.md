@@ -1,7 +1,7 @@
 ---
 title: "The $500,000 Car: How Vehicle Purchases Destroy Long-Term Wealth"
 description: "A typical car purchase and its associated costs represent an enormous opportunity cost when viewed through a compounding lens. The wealth impact of car culture."
-pubDate: 2026-07-03
+pubDate: 2026-07-06
 slug: "true-cost-of-car-opportunity"
 ---
 

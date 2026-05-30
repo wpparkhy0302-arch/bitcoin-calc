@@ -1,7 +1,7 @@
 ---
 title: "What Is FIRE? A Complete Introduction to Financial Independence Retire Early"
 description: "The FIRE movement has inspired millions to rethink work and retirement. A comprehensive introduction to the philosophy, math, and lifestyle behind Financial Independence."
-pubDate: 2026-06-23
+pubDate: 2026-07-08
 slug: "what-is-fire-explained"
 ---
 

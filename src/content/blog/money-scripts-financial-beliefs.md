@@ -1,7 +1,7 @@
 ---
 title: "Your Money Scripts: How Childhood Beliefs Shape Adult Spending"
 description: "The money beliefs you formed in childhood drive your adult financial behavior. Learn to identify, examine, and rewrite the scripts that may be limiting your wealth."
-pubDate: 2026-06-12
+pubDate: 2026-06-22
 slug: "money-scripts-financial-beliefs"
 ---
 

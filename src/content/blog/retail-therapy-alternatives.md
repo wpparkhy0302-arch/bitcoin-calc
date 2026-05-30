@@ -1,7 +1,7 @@
 ---
 title: "Retail Therapy Alternatives: Healthy Ways to Cope Without Spending"
 description: "Using shopping as emotional management creates a debt cycle that worsens stress. Discover evidence-based alternatives that actually improve your mood."
-pubDate: 2026-06-07
+pubDate: 2026-06-28
 slug: "retail-therapy-alternatives"
 ---
 

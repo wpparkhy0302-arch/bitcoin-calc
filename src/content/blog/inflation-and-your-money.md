@@ -1,7 +1,7 @@
 ---
 title: "Inflation and Your Money: How Rising Prices Erode Your Purchasing Power"
 description: "Inflation is a silent tax on savings. Understanding how inflation works and how to position your money to maintain or grow its purchasing power over time."
-pubDate: 2026-06-16
+pubDate: 2026-06-18
 slug: "inflation-and-your-money"
 ---
 

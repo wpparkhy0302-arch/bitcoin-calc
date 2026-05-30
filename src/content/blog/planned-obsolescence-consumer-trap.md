@@ -1,7 +1,7 @@
 ---
 title: "Planned Obsolescence: How Manufacturers Keep You Buying More"
 description: "From smartphones to appliances, products are designed to fail or feel outdated. Understanding this consumer trap helps you make longer-lasting purchases."
-pubDate: 2026-06-09
+pubDate: 2026-06-26
 slug: "planned-obsolescence-consumer-trap"
 ---
 

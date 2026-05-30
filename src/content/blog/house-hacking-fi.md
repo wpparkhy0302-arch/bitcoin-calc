@@ -1,7 +1,7 @@
 ---
 title: "House Hacking: The Real Estate Strategy That Supercharges Financial Independence"
 description: "House hacking — renting out part of your home to offset housing costs — is one of the most accessible paths to cutting living expenses and accelerating FIRE."
-pubDate: 2026-06-27
+pubDate: 2026-06-16
 slug: "house-hacking-fi"
 ---
 

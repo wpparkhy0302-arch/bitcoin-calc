@@ -1,7 +1,7 @@
 ---
 title: "Financial Minimalism: The Case for Spending on Less But Better"
 description: "Financial minimalism is about quality over quantity in spending. Learn how buying fewer, better things saves money long-term and reduces decision fatigue."
-pubDate: 2026-06-12
+pubDate: 2026-06-09
 slug: "financial-minimalism"
 ---
 

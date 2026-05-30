@@ -1,7 +1,7 @@
 ---
 title: "Value-Based Spending: How to Spend Money in Line With What Matters"
 description: "Aligning your spending with your values reduces regret and increases satisfaction. A framework for auditing your current spending against your true priorities."
-pubDate: 2026-06-08
+pubDate: 2026-07-07
 slug: "value-based-spending"
 ---
 

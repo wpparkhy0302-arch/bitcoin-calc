@@ -1,7 +1,7 @@
 ---
 title: "Daily Habits of People Who Achieved Financial Independence Early"
 description: "Financial independence is built through consistent daily action. Research and self-reporting from FIRE achievers reveals the habits that most reliably lead to early financial freedom."
-pubDate: 2026-06-30
+pubDate: 2026-06-09
 slug: "financial-independence-daily-habits"
 ---
 

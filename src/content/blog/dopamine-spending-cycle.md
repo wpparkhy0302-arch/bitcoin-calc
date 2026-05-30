@@ -1,7 +1,7 @@
 ---
 title: "The Dopamine-Spending Cycle: Why Shopping Feels Good and Costs Everything"
 description: "Shopping triggers the same brain reward pathways as other dopamine-driven behaviors. Understanding the neurochemistry of spending is the first step to changing it."
-pubDate: 2026-06-14
+pubDate: 2026-06-05
 slug: "dopamine-spending-cycle"
 ---
 

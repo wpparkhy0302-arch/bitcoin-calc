@@ -1,7 +1,7 @@
 ---
 title: "Cash Back and Rewards Programs: How to Get Paid to Spend"
 description: "If you are going to spend money, you might as well earn rewards on every purchase. A practical guide to maximizing cash-back programs without overspending."
-pubDate: 2026-06-02
+pubDate: 2026-06-01
 slug: "cash-back-rewards-guide"
 ---
 

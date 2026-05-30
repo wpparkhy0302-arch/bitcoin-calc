@@ -1,7 +1,7 @@
 ---
 title: "The FIRE Community: What You Can Learn From Financial Independents"
 description: "The online FIRE community is one of the most practical personal finance resources available. What to learn from the people who have achieved or are pursuing financial independence."
-pubDate: 2026-06-25
+pubDate: 2026-06-13
 slug: "fire-movement-community"
 ---
 

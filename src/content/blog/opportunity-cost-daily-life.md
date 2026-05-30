@@ -1,7 +1,7 @@
 ---
 title: "Opportunity Cost in Daily Life: Examples That Change How You Spend"
 description: "Opportunity cost is not abstract theory — it operates in every purchase you make. Vivid real-world examples that make the concept immediately practical and useful."
-pubDate: 2026-07-01
+pubDate: 2026-06-23
 slug: "opportunity-cost-daily-life"
 ---
 

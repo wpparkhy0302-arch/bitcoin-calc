@@ -1,7 +1,7 @@
 ---
 title: "Tax-Loss Harvesting: How to Turn Investment Losses Into Tax Savings"
 description: "Even losing investments can generate tax benefits through strategic harvesting. A guide to how tax-loss harvesting works and when it makes sense to implement."
-pubDate: 2026-06-19
+pubDate: 2026-07-04
 slug: "tax-loss-harvesting"
 ---
 

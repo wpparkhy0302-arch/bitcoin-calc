@@ -1,7 +1,7 @@
 ---
 title: "Should You Invest or Pay Off Debt? A Framework for Every Situation"
 description: "The invest-versus-pay-off-debt question depends on interest rates, risk tolerance, and emotional factors. A clear framework for making the right choice in any scenario."
-pubDate: 2026-06-16
+pubDate: 2026-06-19
 slug: "investing-vs-paying-debt"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Building and Protecting Your Credit Score: A Step-by-Step Guide"
 description: "Your credit score affects your mortgage rate, insurance premiums, and more. Learn how credit scores work and the most effective actions to build and maintain an excellent score."
-pubDate: 2026-06-18
+pubDate: 2026-06-01
 slug: "building-credit-score"
 ---
 

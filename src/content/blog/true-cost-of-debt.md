@@ -1,7 +1,7 @@
 ---
 title: "The True Cost of Debt: Why Borrowing Is More Expensive Than You Think"
 description: "When you account for opportunity cost, the real cost of carrying debt is far higher than the stated interest rate. A complete analysis of what debt actually costs."
-pubDate: 2026-07-01
+pubDate: 2026-07-06
 slug: "true-cost-of-debt"
 ---
 

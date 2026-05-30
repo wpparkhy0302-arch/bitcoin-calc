@@ -1,7 +1,7 @@
 ---
 title: "Can You Achieve FIRE on an Average Income? A Realistic Assessment"
 description: "FIRE is often portrayed as a strategy for high earners. An honest look at whether financial independence is achievable on a median household income and what it requires."
-pubDate: 2026-06-24
+pubDate: 2026-06-13
 slug: "fire-on-average-income"
 ---
 

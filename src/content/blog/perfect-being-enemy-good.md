@@ -1,7 +1,7 @@
 ---
 title: "When Perfect Is the Enemy of Good: The Opportunity Cost of Indecision"
 description: "Financial paralysis — waiting for the perfect moment to invest, buy, or start — carries significant opportunity costs. The case for imperfect action over perfect inaction."
-pubDate: 2026-07-05
+pubDate: 2026-06-26
 slug: "perfect-being-enemy-good"
 ---
 

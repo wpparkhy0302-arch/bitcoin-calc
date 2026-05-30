@@ -1,7 +1,7 @@
 ---
 title: "FIRE With Kids: How Families Achieve Financial Independence"
 description: "Raising children significantly increases the cost and complexity of FIRE. Real strategies from families who have navigated child-rearing while pursuing financial independence."
-pubDate: 2026-06-25
+pubDate: 2026-06-14
 slug: "fire-with-kids"
 ---
 

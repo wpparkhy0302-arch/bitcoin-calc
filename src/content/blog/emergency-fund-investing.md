@@ -1,7 +1,7 @@
 ---
 title: "Emergency Fund vs. Investing: Finding the Right Balance"
 description: "Keeping too much in an emergency fund costs returns; keeping too little creates risk. How to find the right emergency fund size before directing extra money to investments."
-pubDate: 2026-06-20
+pubDate: 2026-06-06
 slug: "emergency-fund-investing"
 ---
 

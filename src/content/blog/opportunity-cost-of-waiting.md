@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Waiting to Invest: Why Every Year Matters"
 description: "Delaying the start of investing is one of the most costly financial decisions possible. A quantitative look at what each year of delay actually costs in lifetime wealth."
-pubDate: 2026-07-02
+pubDate: 2026-06-25
 slug: "opportunity-cost-of-waiting"
 ---
 

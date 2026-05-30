@@ -1,7 +1,7 @@
 ---
 title: "10 Financial Mistakes to Avoid in Your 30s"
 description: "Your 30s are a critical decade for wealth building. Avoiding these common financial mistakes can mean the difference between a comfortable retirement and a desperate one."
-pubDate: 2026-06-20
+pubDate: 2026-06-10
 slug: "financial-mistakes-30s"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "How to Use a FIRE Calculator to Plan Your Financial Independence Timeline"
 description: "FIRE calculators are powerful planning tools but require thoughtful inputs. A guide to using these calculators accurately and interpreting their results with appropriate context."
-pubDate: 2026-06-29
+pubDate: 2026-06-11
 slug: "fire-calculator-how-to-use"
 ---
 

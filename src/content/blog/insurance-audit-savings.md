@@ -1,7 +1,7 @@
 ---
 title: "The Insurance Audit: Are You Overpaying by Hundreds a Year?"
 description: "Most people are overinsured in some areas and dangerously underinsured in others. Learn how to audit your insurance portfolio and find savings."
-pubDate: 2026-06-04
+pubDate: 2026-06-18
 slug: "insurance-audit-savings"
 ---
 

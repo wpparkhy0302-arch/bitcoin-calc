@@ -1,7 +1,7 @@
 ---
 title: "International FIRE: Achieving Financial Freedom by Living Abroad"
 description: "A growing number of FIRE retirees choose to live abroad in countries with dramatically lower costs of living. The destinations, practical considerations, and financial math involved."
-pubDate: 2026-06-27
+pubDate: 2026-06-12
 slug: "fire-international"
 ---
 

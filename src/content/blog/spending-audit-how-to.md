@@ -1,7 +1,7 @@
 ---
 title: "How to Do a Spending Audit That Changes Your Financial Life"
 description: "Most people have no idea where their money actually goes. A detailed spending audit reveals the truth and creates the foundation for lasting change."
-pubDate: 2026-06-08
+pubDate: 2026-07-02
 slug: "spending-audit-how-to"
 ---
 

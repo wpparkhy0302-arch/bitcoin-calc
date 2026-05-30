@@ -1,7 +1,7 @@
 ---
 title: "Applying Compound Growth Thinking to Every Spending Decision"
 description: "Compound growth is usually discussed in the context of investing, but applying compounding logic to spending decisions transforms how you see every purchase."
-pubDate: 2026-07-08
+pubDate: 2026-06-03
 slug: "compounding-applied-spending"
 ---
 

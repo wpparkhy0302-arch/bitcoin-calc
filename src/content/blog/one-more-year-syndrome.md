@@ -1,7 +1,7 @@
 ---
 title: "One More Year Syndrome: When the Fear of Leaving Prevents You from Leaving"
 description: "Many FIRE achievers keep working long after they have reached their number. Understanding the psychology of One More Year Syndrome and how to recognize it in yourself."
-pubDate: 2026-06-25
+pubDate: 2026-06-23
 slug: "one-more-year-syndrome"
 ---
 

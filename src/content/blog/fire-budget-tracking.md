@@ -1,7 +1,7 @@
 ---
 title: "FIRE Budget Tracking: The Systems That Keep You on Course"
 description: "Reaching FIRE requires years of precise financial execution. The tracking systems, habits, and review processes that keep FIRE chasers consistently on target."
-pubDate: 2026-06-26
+pubDate: 2026-06-11
 slug: "fire-budget-tracking"
 ---
 

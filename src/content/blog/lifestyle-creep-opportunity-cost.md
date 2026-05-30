@@ -1,7 +1,7 @@
 ---
 title: "Lifestyle Creep: The Opportunity Cost of an Expanding Standard of Living"
 description: "Each dollar consumed by lifestyle inflation has an opportunity cost in future wealth. Quantifying the cumulative effect of lifestyle creep over a career."
-pubDate: 2026-07-06
+pubDate: 2026-06-20
 slug: "lifestyle-creep-opportunity-cost"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "The Coffee Habit Revisited: A Full Opportunity Cost Analysis"
 description: "The famous \"skip the latte\" advice is often mocked but the math is real. A thorough, fair opportunity cost analysis of daily coffee spending across different scenarios."
-pubDate: 2026-07-04
+pubDate: 2026-06-02
 slug: "coffee-habit-wealth-impact"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "How Advertising Manipulates Your Spending and How to Stay Immune"
 description: "Billions are spent annually to influence your purchasing decisions. Understanding these tactics gives you the tools to make spending choices based on real needs."
-pubDate: 2026-06-09
+pubDate: 2026-05-30
 slug: "advertising-manipulation-guide"
 ---
 

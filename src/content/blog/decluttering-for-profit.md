@@ -1,7 +1,7 @@
 ---
 title: "Decluttering for Profit: Turn Your Clutter Into Cash"
 description: "Your home likely contains hundreds of dollars in untapped value. Learn how to efficiently declutter and sell items to generate immediate cash flow."
-pubDate: 2026-06-03
+pubDate: 2026-06-05
 slug: "decluttering-for-profit"
 ---
 

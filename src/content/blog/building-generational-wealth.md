@@ -1,7 +1,7 @@
 ---
 title: "Building Generational Wealth: What It Takes and How to Start"
 description: "Generational wealth is built through consistent action over time, not windfalls. A practical framework for creating assets that outlast your lifetime."
-pubDate: 2026-06-22
+pubDate: 2026-06-01
 slug: "building-generational-wealth"
 ---
 

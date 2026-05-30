@@ -1,7 +1,7 @@
 ---
 title: "The Subscription Trap: How Monthly Fees Drain Your Wealth Slowly"
 description: "Small monthly charges feel harmless but add up to thousands annually. A deep dive into subscription psychology and a system for cutting the unnecessary ones."
-pubDate: 2026-06-10
+pubDate: 2026-07-03
 slug: "subscription-trap-escape"
 ---
 

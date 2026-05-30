@@ -1,7 +1,7 @@
 ---
 title: "Status Spending: The Opportunity Cost of Signaling Wealth to Others"
 description: "Luxury purchases that signal status often cost far more than their price tag suggests. The full financial opportunity cost of status-driven spending patterns."
-pubDate: 2026-07-06
+pubDate: 2026-07-03
 slug: "status-spending-real-cost"
 ---
 

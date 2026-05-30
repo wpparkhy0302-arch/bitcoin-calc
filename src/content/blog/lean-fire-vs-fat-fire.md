@@ -1,7 +1,7 @@
 ---
 title: "Lean FIRE vs. Fat FIRE: Which Path Is Right for You?"
 description: "The FIRE movement contains multitudes — from extreme frugality to lavish early retirement. A comparison of the major FIRE variants to help you find your ideal approach."
-pubDate: 2026-06-23
+pubDate: 2026-06-19
 slug: "lean-fire-vs-fat-fire"
 ---
 

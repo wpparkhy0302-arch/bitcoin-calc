@@ -1,7 +1,7 @@
 ---
 title: "How the FIRE Movement Has Evolved: From Extreme to Mainstream"
 description: "FIRE has moved from a fringe online movement to mainstream financial conversation in a decade. Tracing its evolution and what it means for the way a generation thinks about work."
-pubDate: 2026-06-30
+pubDate: 2026-06-13
 slug: "fire-movement-evolution"
 ---
 

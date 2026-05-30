@@ -1,7 +1,7 @@
 ---
 title: "The Opportunity Cost of Over-Insurance: When Protection Costs Too Much"
 description: "Insurance is necessary but over-insurance has real opportunity costs. How to find the appropriate coverage level that protects without unnecessarily depleting investable capital."
-pubDate: 2026-07-05
+pubDate: 2026-06-18
 slug: "insurance-opportunity-cost"
 ---
 

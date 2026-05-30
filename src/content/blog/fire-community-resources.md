@@ -1,7 +1,7 @@
 ---
 title: "The Best FIRE Resources: Books, Blogs, and Communities That Accelerate Your Journey"
 description: "The FIRE community has produced remarkable educational content. A curated guide to the most valuable books, blogs, podcasts, and communities for financial independence seekers."
-pubDate: 2026-06-29
+pubDate: 2026-06-11
 slug: "fire-community-resources"
 ---
 

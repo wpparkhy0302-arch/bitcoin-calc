@@ -1,7 +1,7 @@
 ---
 title: "The Three Phases of Wealth Accumulation on the Path to FIRE"
 description: "The FIRE journey moves through distinct phases with different characteristics and challenges. Understanding these phases helps set expectations and maintain motivation."
-pubDate: 2026-06-29
+pubDate: 2026-07-07
 slug: "wealth-accumulation-phases"
 ---
 

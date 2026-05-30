@@ -1,7 +1,7 @@
 ---
 title: "The Financial Opportunity Cost of Your Social Circle"
 description: "Your social circle influences your spending, career opportunities, and financial beliefs. The often-underestimated opportunity cost of social environment on financial outcomes."
-pubDate: 2026-07-07
+pubDate: 2026-06-24
 slug: "opportunity-cost-friendship"
 ---
 

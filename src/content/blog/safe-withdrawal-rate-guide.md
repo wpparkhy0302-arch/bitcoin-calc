@@ -1,7 +1,7 @@
 ---
 title: "The 4% Rule Explained: Is the Safe Withdrawal Rate Still Safe?"
 description: "The 4% rule has guided retirement planning for decades but has modern critics. A thorough examination of what the research says and how to apply it in planning."
-pubDate: 2026-06-24
+pubDate: 2026-06-29
 slug: "safe-withdrawal-rate-guide"
 ---
 

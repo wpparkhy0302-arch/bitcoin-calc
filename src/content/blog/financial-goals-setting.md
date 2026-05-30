@@ -1,7 +1,7 @@
 ---
 title: "Setting Financial Goals That Actually Stick: A Framework for Success"
 description: "Most financial goals fail because they are vague. Learn the SMART framework for financial goal-setting and how to create accountability systems that work."
-pubDate: 2026-06-02
+pubDate: 2026-06-08
 slug: "financial-goals-setting"
 ---
 

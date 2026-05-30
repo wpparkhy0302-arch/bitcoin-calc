@@ -1,7 +1,7 @@
 ---
 title: "Setting Financial Boundaries in Relationships: A Guide for Every Dynamic"
 description: "Whether with family, friends, or partners, financial boundaries are essential to financial health. Scripts and frameworks for navigating money in your closest relationships."
-pubDate: 2026-06-14
+pubDate: 2026-06-08
 slug: "financial-boundaries-relationships"
 ---
 

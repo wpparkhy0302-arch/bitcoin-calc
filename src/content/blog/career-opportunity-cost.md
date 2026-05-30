@@ -1,7 +1,7 @@
 ---
 title: "Career Opportunity Cost: Are You in the Right Job?"
 description: "Every career choice has an opportunity cost. How to evaluate whether your current career path maximizes your long-term financial and life outcomes."
-pubDate: 2026-07-03
+pubDate: 2026-06-01
 slug: "career-opportunity-cost"
 ---
 

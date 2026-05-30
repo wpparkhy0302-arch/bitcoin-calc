@@ -1,7 +1,7 @@
 ---
 title: "Online Shopping Traps: How E-Commerce Is Designed to Make You Spend More"
 description: "Free shipping thresholds, countdown timers, and one-click purchasing are engineered to increase your spending. Learn to navigate online shopping defensively."
-pubDate: 2026-06-11
+pubDate: 2026-06-23
 slug: "online-shopping-traps"
 ---
 

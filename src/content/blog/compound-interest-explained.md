@@ -1,7 +1,7 @@
 ---
 title: "Compound Interest: Why Einstein Called It the Eighth Wonder of the World"
 description: "Compound interest is the most powerful force in personal finance. A clear, practical explanation of how compounding works and how to harness it for wealth building."
-pubDate: 2026-06-15
+pubDate: 2026-06-03
 slug: "compound-interest-explained"
 ---
 

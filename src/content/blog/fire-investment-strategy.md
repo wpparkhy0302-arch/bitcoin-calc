@@ -1,7 +1,7 @@
 ---
 title: "Investment Strategy for FIRE Chasers: What to Own and Why"
 description: "The portfolio that builds wealth differs slightly from the portfolio that sustains early retirement. How to evolve your investment strategy as you approach and enter FIRE."
-pubDate: 2026-06-27
+pubDate: 2026-06-13
 slug: "fire-investment-strategy"
 ---
 

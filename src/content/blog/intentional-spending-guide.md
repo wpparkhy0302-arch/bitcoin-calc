@@ -1,7 +1,7 @@
 ---
 title: "Intentional Spending: How to Enjoy Money Without Waste"
 description: "Being intentional with spending does not mean being miserly. Learn how to spend with purpose — getting maximum joy from every dollar while eliminating waste."
-pubDate: 2026-06-09
+pubDate: 2026-06-18
 slug: "intentional-spending-guide"
 ---
 

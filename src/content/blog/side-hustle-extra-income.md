@@ -1,7 +1,7 @@
 ---
 title: "Starting a Side Hustle: How to Earn an Extra $500 a Month"
 description: "A second income stream accelerates every financial goal. Practical guidance on identifying, launching, and scaling a side hustle around your existing schedule."
-pubDate: 2026-06-05
+pubDate: 2026-07-01
 slug: "side-hustle-extra-income"
 ---
 

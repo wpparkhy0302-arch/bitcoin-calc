@@ -1,7 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 
+const today = new Date();
+today.setHours(23, 59, 59, 999); // include all of today
+
 const posts = (await getCollection('blog'))
+  .filter(p => p.data.pubDate <= today)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 function fmtDate(d: Date) {

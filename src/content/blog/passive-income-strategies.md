@@ -1,7 +1,7 @@
 ---
 title: "10 Passive Income Strategies That Actually Work in 2026"
 description: "Passive income is not entirely passive — it requires upfront effort. Honest assessments of 10 strategies, their real income potential, and what it takes to build each."
-pubDate: 2026-06-17
+pubDate: 2026-06-25
 slug: "passive-income-strategies"
 ---
 

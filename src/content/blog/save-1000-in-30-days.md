@@ -1,7 +1,7 @@
 ---
 title: "How to Save $1,000 in 30 Days: A Step-by-Step Action Plan"
 description: "Whether you need emergency savings or want to jumpstart a financial goal, this 30-day challenge will show you exactly how to save $1,000 fast."
-pubDate: 2026-05-30
+pubDate: 2026-06-29
 slug: "save-1000-in-30-days"
 ---
 

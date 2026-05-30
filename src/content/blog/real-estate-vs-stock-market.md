@@ -1,7 +1,7 @@
 ---
 title: "Real Estate vs. Stock Market: Which Builds More Wealth?"
 description: "Both real estate and equities have strong historical returns. A balanced comparison of the two major asset classes including returns, risk, time commitment, and liquidity."
-pubDate: 2026-06-17
+pubDate: 2026-06-27
 slug: "real-estate-vs-stock-market"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "International Diversification: Why Your Portfolio Needs Global Exposure"
 description: "Investing only in domestic markets leaves significant diversification benefits on the table. The case for international equity exposure and how to implement it simply."
-pubDate: 2026-06-20
+pubDate: 2026-06-18
 slug: "international-diversification"
 ---
 

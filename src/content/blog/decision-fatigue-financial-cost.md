@@ -1,7 +1,7 @@
 ---
 title: "Decision Fatigue and Financial Opportunity Cost: How Tired Minds Spend More"
 description: "Decision fatigue leads to impulsive, suboptimal financial choices. Understanding this cognitive phenomenon and designing systems to protect your financial decisions."
-pubDate: 2026-07-07
+pubDate: 2026-06-04
 slug: "decision-fatigue-financial-cost"
 ---
 

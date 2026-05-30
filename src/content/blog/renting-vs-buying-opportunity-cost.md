@@ -1,7 +1,7 @@
 ---
 title: "Renting vs. Buying: The Opportunity Cost Analysis That Might Surprise You"
 description: "The rent-vs.-buy decision involves significant opportunity costs on both sides. A rigorous analysis that goes beyond the simple mortgage-vs.-rent comparison."
-pubDate: 2026-07-01
+pubDate: 2026-06-28
 slug: "renting-vs-buying-opportunity-cost"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Financial Planning at Every Life Stage: A Decade-by-Decade Guide"
 description: "Financial priorities shift dramatically throughout life. A framework for the key financial milestones, decisions, and strategies appropriate for each decade of adulthood."
-pubDate: 2026-06-19
+pubDate: 2026-06-10
 slug: "financial-planning-life-stages"
 ---
 

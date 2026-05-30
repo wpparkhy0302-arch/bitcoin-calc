@@ -1,7 +1,7 @@
 ---
 title: "Wants vs. Needs: A Practical Framework for Every Financial Decision"
 description: "The wants vs. needs distinction sounds simple but requires practice. Learn a decision-making framework that makes the right choice easier under pressure."
-pubDate: 2026-06-08
+pubDate: 2026-07-07
 slug: "wants-vs-needs-framework"
 ---
 

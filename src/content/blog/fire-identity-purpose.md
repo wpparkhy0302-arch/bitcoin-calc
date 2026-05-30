@@ -1,7 +1,7 @@
 ---
 title: "FIRE and Identity: Finding Purpose After You Stop Working"
 description: "Many early retirees struggle with identity and purpose after leaving their careers. How to think about meaning, contribution, and structure in life after work."
-pubDate: 2026-06-26
+pubDate: 2026-06-12
 slug: "fire-identity-purpose"
 ---
 

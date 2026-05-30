@@ -1,7 +1,7 @@
 ---
 title: "FIRE for Couples: Aligning Financial Goals With Your Partner"
 description: "Pursuing FIRE with a partner introduces both advantages and challenges. How couples successfully navigate different risk tolerances, timelines, and spending philosophies."
-pubDate: 2026-06-30
+pubDate: 2026-06-12
 slug: "fire-for-couples"
 ---
 

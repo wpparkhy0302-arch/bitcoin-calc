@@ -1,7 +1,7 @@
 ---
 title: "How Long Until Financial Independence? The Math Behind Your Timeline"
 description: "Financial independence has a predictable timeline based on savings rate. Learn the simple calculation that reveals exactly how many working years remain based on your current behavior."
-pubDate: 2026-06-21
+pubDate: 2026-06-09
 slug: "financial-independence-timeline"
 ---
 

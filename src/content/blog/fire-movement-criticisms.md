@@ -1,7 +1,7 @@
 ---
 title: "The Criticisms of FIRE: Is Early Retirement Actually a Good Idea?"
 description: "The FIRE movement has passionate detractors as well as advocates. An honest examination of the legitimate criticisms and how to evaluate them for your situation."
-pubDate: 2026-06-24
+pubDate: 2026-06-13
 slug: "fire-movement-criticisms"
 ---
 

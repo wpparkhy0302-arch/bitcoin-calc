@@ -1,7 +1,7 @@
 ---
 title: "The Savings Rate That Determines When You Can Retire"
 description: "The relationship between savings rate and years to retirement is mathematical and precise. Discover exactly how many years remain at your current savings rate."
-pubDate: 2026-06-23
+pubDate: 2026-06-30
 slug: "savings-rate-and-retirement-age"
 ---
 
