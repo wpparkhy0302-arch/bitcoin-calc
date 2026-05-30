@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="SkipTheLatte Blog — Tips on saving, spending habits, FIRE, and financial freedom."/>
+  <title>Blog — SkipTheLatte</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2204132369832933" crossorigin="anonymous"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--blue:#1763B6;--border:#e5e8eb;--bg:#fff;--bg2:#f7f8fa;--text:#0a0a0a;--text2:#5c6370;--font:'Inter',-apple-system,sans-serif}
+    html{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:var(--blue)}
+    nav{background:var(--bg);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:100}
+    .nav-logo{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+    .nd{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+    .nav-links{display:flex;gap:4px}
+    .nl{padding:5px 12px;font-size:13px;font-weight:500;color:var(--text2);border-radius:7px;transition:all .12s}
+    .nl:hover,.nl.on{color:var(--blue);background:#eaf1fb}
+
+    .hero{padding:52px 24px 44px;border-bottom:1px solid var(--border);text-align:center}
+    .hero-inner{max-width:700px;margin:0 auto}
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+    .eyebrow::before{content:'';width:18px;height:2px;background:var(--blue)}
+    h1{font-size:clamp(36px,7vw,60px);font-weight:900;letter-spacing:-.04em;line-height:.95;margin-bottom:16px}
+    h1 .bl{color:var(--blue)}
+    .hero-sub{font-size:16px;color:var(--text2);line-height:1.6;max-width:500px;margin:0 auto}
+
+    .container{max-width:900px;margin:0 auto;padding:40px 24px;flex:1}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+    .post-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s}
+    .post-card:hover{border-color:var(--blue);box-shadow:0 4px 16px rgba(23,99,182,.08)}
+    .post-date{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em}
+    .post-title{font-size:16px;font-weight:700;color:var(--text);line-height:1.4}
+    .post-desc{font-size:13px;color:var(--text2);line-height:1.6;flex:1}
+    .post-link{font-size:13px;font-weight:600;color:var(--blue)}
+
+    footer{background:var(--bg2);border-top:1px solid var(--border);padding:20px 24px;text-align:center;font-size:12px;color:var(--text2)}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/"><span class="nd"></span>SkipTheLatte</a>
+  <div class="nav-links">
+    <a href="/" class="nl">Calculator</a>
+    <a href="/freedom" class="nl">Freedom Planner</a>
+    <a href="/blog" class="nl on">Blog</a>
+    <a href="/faq" class="nl">FAQ</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">The SkipTheLatte Blog</div>
+    <h1><span class="bl">SKIP</span> THE LATTE.</h1>
+    <p class="hero-sub">Practical guides on saving, spending habits, FIRE, and building financial freedom — one skipped latte at a time.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="grid">
+    {posts.map(post => (
+      <a href={`/blog/${post.slug}`} class="post-card">
+        <div class="post-date">{fmtDate(post.data.pubDate)}</div>
+        <div class="post-title">{post.data.title}</div>
+        <div class="post-desc">{post.data.description}</div>
+        <div class="post-link">Read more →</div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<footer>© 2026 SkipTheLatte · For informational purposes only · Not financial advice</footer>
+</body>
+</html>
