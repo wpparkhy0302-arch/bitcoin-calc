@@ -347,7 +347,34 @@
 </nav>
 
 <!-- ═══ MAIN ═══════════════════════════════════════════ -->
+<style is:global>
+  .hero-section{
+    background:#fff;border-bottom:1px solid var(--border);
+    padding:52px 0 44px;
+  }
+  .hero-inner{max-width:800px;margin:0 auto;padding:0 24px}
+  .hero-eyebrow{
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--blue);margin-bottom:16px;display:flex;align-items:center;gap:8px;
+  }
+  .hero-eyebrow::before{content:'';width:18px;height:2px;background:var(--blue)}
+  .hero-h1{
+    font-size:clamp(44px,8vw,80px);font-weight:900;letter-spacing:-.04em;
+    line-height:.95;margin-bottom:20px;
+  }
+  .hero-h1 .blue{color:var(--blue)}
+  .hero-sub{font-size:clamp(15px,2vw,17px);color:var(--text2);line-height:1.6;max-width:520px}
+</style>
+
 <main>
+<div class="hero-section">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Bitcoin Calculator</div>
+    <h1 class="hero-h1"><span class="blue">SKIP</span> THE LATTE.</h1>
+    <p class="hero-sub">What if every daily coffee you skipped became Bitcoin instead?</p>
+  </div>
+</div>
+
 <div class="wrap">
 
   <!-- 01 THE SPEND -->
