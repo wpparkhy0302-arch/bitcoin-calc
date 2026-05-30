@@ -821,21 +821,30 @@ function onCagrChange(el){
   setPct(el);
   const v = parseInt(el.value);
   document.getElementById('cagr-val').textContent = v;
-  // Snap label
-  let label='Custom';
-  if(v<=12) label='Bear Case';
-  else if(v<=25) label='Base Case';
-  else if(v<=50) label='Bull Case';
-  else label='Hyperbull';
-  document.getElementById('cagr-scenario-label').textContent = label;
-  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.remove('on'));
+  // Match scenario label and highlight button
+  let matched = null;
+  if      (v === 15) matched = 'bear';
+  else if (v === 21) matched = 'base';
+  else if (v === 35) matched = 'bull';
+  else if (v === 55) matched = 'hyperbull';
+  document.querySelectorAll('.sc-btn').forEach(b =>
+    b.classList.toggle('on', b.dataset.sc === matched)
+  );
+  let label = 'Custom';
+  if      (v <= 18) label = 'Bear Case';
+  else if (v <= 28) label = 'Base Case';
+  else if (v <= 45) label = 'Bull Case';
+  else if (v  >  45) label = 'Hyperbull';
+  document.getElementById('cagr-scenario-label').textContent = matched
+    ? SCENARIOS[matched].label
+    : label;
 }
 
 const SCENARIOS = {
-  bear:{cagr:10,label:'Bear Case'},
-  base:{cagr:21,label:'Base Case'},
-  bull:{cagr:40,label:'Bull Case'},
-  hyperbull:{cagr:60,label:'Hyperbull'},
+  bear:      {cagr:15, label:'Bear Case'},
+  base:      {cagr:21, label:'Base Case'},
+  bull:      {cagr:35, label:'Bull Case'},
+  hyperbull: {cagr:55, label:'Hyperbull'},
 };
 function setScenario(sc){
   const s = SCENARIOS[sc];
