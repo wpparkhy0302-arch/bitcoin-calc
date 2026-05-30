@@ -1,0 +1,306 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="SkipTheLatte FAQ — How the Bitcoin opportunity cost calculator works."/>
+  <title>FAQ — SkipTheLatte</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --blue:#1763B6; --blue-h:#1357a0; --blue-bg:#eaf1fb;
+      --green:#05b26b; --red:#f04452;
+      --bg:#ffffff; --bg2:#f7f8fa; --border:#e5e8eb; --border2:#dde1e7;
+      --text:#0a0a0a; --text2:#5c6370; --text3:#9ea5b0;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    }
+    html{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{color:var(--blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .nav{
+      position:sticky;top:0;z-index:100;background:var(--bg);
+      border-bottom:1px solid var(--border);height:56px;
+      display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+    }
+    .nav-logo{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+    .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+    .nav-back{
+      display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
+      color:var(--text2);padding:6px 13px;border:1px solid var(--border);border-radius:7px;
+      text-decoration:none;transition:all .12s;
+    }
+    .nav-back:hover{border-color:var(--blue);color:var(--blue);text-decoration:none;background:var(--blue-bg)}
+
+    main{flex:1;padding:0 24px 80px}
+    .wrap{max-width:720px;margin:0 auto}
+
+    .hero{padding:56px 0 40px}
+    .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    .hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--blue)}
+    .hero h1{font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:-.03em;color:var(--text);line-height:1.1;margin-bottom:14px}
+    .hero-sub{font-size:16px;color:var(--text2);line-height:1.65}
+
+    .faq-section{margin-bottom:48px}
+    .faq-section-title{
+      font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:10px;
+    }
+    .faq-section-title::after{content:'';flex:1;height:1px;background:var(--border2)}
+
+    .faq-item{border-bottom:1px solid var(--border2)}
+    .faq-item:last-child{border-bottom:none}
+    .faq-q{
+      width:100%;text-align:left;padding:18px 0;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+      background:transparent;border:none;cursor:pointer;
+    }
+    .faq-q-text{font-size:15px;font-weight:600;color:var(--text);line-height:1.45;text-align:left}
+    .faq-q-icon{
+      flex-shrink:0;width:20px;height:20px;border-radius:50%;
+      background:var(--bg2);border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      font-size:12px;color:var(--text2);transition:all .2s;margin-top:2px;
+    }
+    .faq-item.open .faq-q-icon{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}
+    .faq-a{
+      overflow:hidden;max-height:0;transition:max-height .3s ease,padding .2s;
+      font-size:14px;color:var(--text2);line-height:1.75;padding:0 0 0;
+    }
+    .faq-item.open .faq-a{max-height:600px;padding:0 0 20px}
+    .faq-a p{margin-bottom:10px}
+    .faq-a p:last-child{margin-bottom:0}
+    .faq-a ul{padding-left:20px;margin:8px 0;display:flex;flex-direction:column;gap:6px}
+    .faq-a li{color:var(--text2)}
+    .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;margin-right:4px}
+    .tag-bear{background:#fef2f2;color:var(--red)}
+    .tag-base{background:var(--blue-bg);color:var(--blue)}
+    .tag-bull{background:#eafaf3;color:var(--green)}
+    .tag-hyper{background:#fffbeb;color:#d97706}
+
+    .cta-box{
+      background:var(--blue);border-radius:14px;padding:28px 28px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+      margin-top:16px;
+    }
+    .cta-box p{font-size:16px;font-weight:700;color:#fff}
+    .cta-box span{font-size:13px;color:rgba(255,255,255,.65)}
+    .btn-cta{padding:11px 22px;background:#fff;color:var(--blue);border:none;border-radius:9px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;transition:opacity .12s}
+    .btn-cta:hover{opacity:.9;text-decoration:none}
+
+    footer{background:var(--bg2);border-top:1px solid var(--border);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    footer p{font-size:12px;color:var(--text3)}
+    .foot-brand{font-size:13px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:6px}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <span class="logo-dot"></span>
+    SkipTheLatte
+  </a>
+  <a class="nav-back" href="/">← Calculator</a>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Help Center</div>
+    <h1>Frequently Asked<br>Questions</h1>
+    <p class="hero-sub">Everything you need to know about how SkipTheLatte calculates Bitcoin opportunity cost.</p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="faq-section">
+    <div class="faq-section-title">How It Works</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How is the opportunity cost calculated?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>The calculator takes three inputs: your spend amount, frequency, and a projected Bitcoin CAGR. It then:</p>
+        <ul>
+          <li><strong>Totals your spending</strong> over the chosen time horizon (amount × frequency × years).</li>
+          <li><strong>Calculates BTC accumulated</strong> by dividing total spend by the current BTC price — assuming you bought BTC with every dollar instead.</li>
+          <li><strong>Projects future value</strong> by compounding that BTC amount at the selected CAGR: <code>Future Price = Current Price × (1 + CAGR)^years</code></li>
+        </ul>
+        <p>The result is the <em>opportunity cost</em> — what your portfolio could be worth if you had stacked Bitcoin instead of spending.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What do the Bear / Base / Bull / Hyperbull scenarios mean?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Each scenario represents a different Bitcoin annual growth assumption (CAGR):</p>
+        <ul>
+          <li><span class="tag tag-bear">Bear 10%</span> Conservative — similar to gold or real estate historical returns.</li>
+          <li><span class="tag tag-base">Base 21%</span> Moderate — roughly aligned with Bitcoin's long-term declining CAGR trend.</li>
+          <li><span class="tag tag-bull">Bull 40%</span> Optimistic — reflects sustained adoption-driven growth.</li>
+          <li><span class="tag tag-hyper">Hyperbull 60%</span> Aggressive — replicates early-era Bitcoin growth. High risk scenario.</li>
+        </ul>
+        <p>You can also drag the CAGR slider freely to any value between 5% and 60%.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What does "Sats per $ Spent" mean?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>A <strong>satoshi (sat)</strong> is the smallest unit of Bitcoin — 1 BTC = 100,000,000 sats.</p>
+        <p>"Sats per $ spent" tells you how many satoshis you could have bought with <em>every single dollar</em> you spent on your habit, at today's BTC price.</p>
+        <p>Formula: <code>100,000,000 ÷ BTC_price_in_USD</code></p>
+        <p>If BTC is at $60,000, then $1 = 1,667 sats. Small amounts add up quickly over years of compounding.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Does the calculator account for DCA or historical prices?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>The current version uses <strong>today's BTC price</strong> as the purchase price for all accumulated BTC. This is a simplified model — it assumes you convert your habit spending to Bitcoin at the current price, then hold it to your target year.</p>
+        <p>A true DCA simulation would require fetching historical price data for every purchase date. This will be added in a future update.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA & PRICES -->
+  <div class="faq-section">
+    <div class="faq-section-title">Data & Prices</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Where does the live Bitcoin price come from?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Prices are fetched from the <a href="https://www.coingecko.com" target="_blank" rel="noopener">CoinGecko</a> public API in real time. The data auto-refreshes every 60 seconds. You can also tap the ↻ button for an instant refresh.</p>
+        <p>CoinGecko aggregates prices from hundreds of exchanges. The free tier has rate limits — if you see "Unavailable," simply wait a moment and refresh.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Which currencies are supported?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>The calculator displays values in five currencies: <strong>USD, KRW, JPY, EUR, and GBP</strong>. Select your preferred currency from the top navigation bar. Exchange rates are pulled directly from CoinGecko's multi-currency price endpoint.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I use a custom BTC price?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes. In Section 02 THE FUTURE, the BTC price input is pre-filled with the live price but is fully editable. Click or tap the field and type any value you want to use for the calculation — for example, a target price for sensitivity analysis.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTNING TIP -->
+  <div class="faq-section">
+    <div class="faq-section-title">Lightning Tip & Wallet</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is the Lightning Tip box?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>The ⚡ Lightning Tip box at the bottom of the page lets you <strong>save your own Bitcoin or Lightning address</strong> for quick access. Your address is stored in your browser's local storage — it is never sent to any server.</p>
+        <p>Accepted formats:</p>
+        <ul>
+          <li>Native SegWit: <code>bc1q...</code></li>
+          <li>Legacy: <code>1A1z...</code></li>
+          <li>Script: <code>3J98t...</code></li>
+          <li>Lightning invoice: <code>lnbc...</code></li>
+          <li>Lightning address: <code>you@walletofsatoshi.com</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Is my wallet address stored anywhere?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>No. Your address is saved only in your browser's <code>localStorage</code>. It never leaves your device and is not transmitted to our servers or any third party. Clearing your browser data will remove it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGAL -->
+  <div class="faq-section">
+    <div class="faq-section-title">Legal & Disclaimer</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Is this financial advice?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p><strong>No.</strong> SkipTheLatte is a hypothetical modeling tool for educational and entertainment purposes only. All projections are speculative. Past Bitcoin performance does not guarantee future results.</p>
+        <p>Bitcoin is a highly volatile asset. Do not make financial decisions based solely on this calculator. Consult a qualified financial advisor before making any investment.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is StackFreedom?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p><a href="https://stackfreedom.io/" target="_blank" rel="noopener">StackFreedom.io</a> is a resource for Bitcoiners focused on financial independence through Bitcoin accumulation. SkipTheLatte links to StackFreedom as a complementary tool — there is no financial relationship.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <div>
+      <p>Ready to calculate your habit cost?</p>
+      <span>See your Bitcoin opportunity cost in seconds.</span>
+    </div>
+    <a href="/" class="btn-cta">Go to Calculator →</a>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot-brand">
+    <span class="logo-dot" style="width:6px;height:6px;background:var(--blue);border-radius:50%;display:inline-block"></span>
+    SkipTheLatte
+  </div>
+  <p>© 2025 SkipTheLatte · For informational purposes only · Not financial advice</p>
+</footer>
+
+<script>
+function toggle(btn){
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
