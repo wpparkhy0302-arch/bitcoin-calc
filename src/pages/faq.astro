@@ -77,6 +77,31 @@
     .faq-a p:last-child{margin-bottom:0}
     .faq-a ul{padding-left:20px;margin:8px 0;display:flex;flex-direction:column;gap:6px}
     .faq-a li{color:var(--text2)}
+    .wallet-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+    .wallet-item{
+      display:flex;align-items:center;gap:10px;
+      background:var(--bg2);border:1.5px solid var(--border);
+      border-radius:9px;padding:10px 12px;
+    }
+    .wallet-icon{
+      width:32px;height:32px;border-radius:7px;
+      background:var(--blue-bg);display:flex;align-items:center;justify-content:center;
+      font-size:15px;font-weight:800;color:var(--blue);flex-shrink:0;
+    }
+    .wallet-info{flex:1;min-width:0}
+    .wallet-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:2px}
+    .wallet-addr{
+      font-size:11px;font-family:'Courier New',monospace;
+      color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+      font-weight:500;
+    }
+    .btn-wallet-copy{
+      padding:6px 12px;background:var(--bg);border:1.5px solid var(--border);
+      border-radius:6px;font-size:11px;font-weight:600;color:var(--text2);
+      transition:all .12s;white-space:nowrap;flex-shrink:0;cursor:pointer;font-family:inherit;
+    }
+    .btn-wallet-copy:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
+    .btn-wallet-copy.done{background:var(--green);border-color:var(--green);color:#fff}
     .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;margin-right:4px}
     .tag-bear{background:#fef2f2;color:var(--red)}
     .tag-base{background:var(--blue-bg);color:var(--blue)}
@@ -220,33 +245,51 @@
 
   <!-- LIGHTNING TIP -->
   <div class="faq-section">
-    <div class="faq-section-title">Lightning Tip & Wallet</div>
+    <div class="faq-section-title">Support & Tip</div>
 
     <div class="faq-item">
       <button class="faq-q" onclick="toggle(this)">
-        <span class="faq-q-text">What is the Lightning Tip box?</span>
+        <span class="faq-q-text">How can I send a tip to support this tool?</span>
         <span class="faq-q-icon">+</span>
       </button>
       <div class="faq-a">
-        <p>The ⚡ Lightning Tip box at the bottom of the page lets you <strong>save your own Bitcoin or Lightning address</strong> for quick access. Your address is stored in your browser's local storage — it is never sent to any server.</p>
-        <p>Accepted formats:</p>
-        <ul>
-          <li>Native SegWit: <code>bc1q...</code></li>
-          <li>Legacy: <code>1A1z...</code></li>
-          <li>Script: <code>3J98t...</code></li>
-          <li>Lightning invoice: <code>lnbc...</code></li>
-          <li>Lightning address: <code>you@walletofsatoshi.com</code></li>
-        </ul>
+        <p>If SkipTheLatte has been useful to you, you can send a tip via <strong>Phantom Wallet</strong>. Click the <strong>Copy</strong> button next to any address below and send from your wallet app.</p>
+        <div class="wallet-list">
+          <div class="wallet-item">
+            <div class="wallet-icon">₿</div>
+            <div class="wallet-info">
+              <div class="wallet-label">Bitcoin</div>
+              <div class="wallet-addr" id="faq-addr-btc">bc1q3nk3fm66477ug2rpy68zmz0kuh4f89xk82lwqr</div>
+            </div>
+            <button class="btn-wallet-copy" onclick="copyWallet('faq-addr-btc',this)">Copy</button>
+          </div>
+          <div class="wallet-item">
+            <div class="wallet-icon">Ξ</div>
+            <div class="wallet-info">
+              <div class="wallet-label">Ethereum</div>
+              <div class="wallet-addr" id="faq-addr-eth">0xfa72F4A7cC80D116685b7d25E6b13840c8fC2715</div>
+            </div>
+            <button class="btn-wallet-copy" onclick="copyWallet('faq-addr-eth',this)">Copy</button>
+          </div>
+          <div class="wallet-item">
+            <div class="wallet-icon">◎</div>
+            <div class="wallet-info">
+              <div class="wallet-label">Solana</div>
+              <div class="wallet-addr" id="faq-addr-sol">8xraZfsmzJUgLdHYsiruwZDGPux8wGrP1RXVQpb8QHzQ</div>
+            </div>
+            <button class="btn-wallet-copy" onclick="copyWallet('faq-addr-sol',this)">Copy</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-q" onclick="toggle(this)">
-        <span class="faq-q-text">Is my wallet address stored anywhere?</span>
+        <span class="faq-q-text">Is my personal data or wallet information stored?</span>
         <span class="faq-q-icon">+</span>
       </button>
       <div class="faq-a">
-        <p>No. Your address is saved only in your browser's <code>localStorage</code>. It never leaves your device and is not transmitted to our servers or any third party. Clearing your browser data will remove it.</p>
+        <p>No personal data is collected. The wallet addresses shown on this site are the <strong>site owner's addresses</strong> for receiving tips — they are static and read-only. No user data is sent to any server.</p>
       </div>
     </div>
   </div>
@@ -303,6 +346,14 @@ function toggle(btn){
   const wasOpen = item.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
   if(!wasOpen) item.classList.add('open');
+}
+async function copyWallet(id, btn){
+  const v = document.getElementById(id).textContent.trim();
+  try{
+    await navigator.clipboard.writeText(v);
+    btn.textContent='Copied!'; btn.classList.add('done');
+    setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('done') },2000);
+  }catch(e){}
 }
 </script>
 </body>

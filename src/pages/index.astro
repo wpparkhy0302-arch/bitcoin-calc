@@ -292,6 +292,34 @@
     .tip-valid{font-size:11px;margin-top:6px}
     .tip-valid.ok{color:var(--green)} .tip-valid.err{color:var(--red)}
 
+    /* WALLET LIST */
+    .wallet-list{display:flex;flex-direction:column;gap:10px}
+    .wallet-item{
+      display:flex;align-items:center;gap:12px;
+      background:var(--bg2);border:1.5px solid var(--border);
+      border-radius:10px;padding:12px 14px;
+    }
+    .wallet-icon{
+      width:36px;height:36px;border-radius:8px;
+      background:var(--blue-bg);display:flex;align-items:center;justify-content:center;
+      font-size:17px;font-weight:800;color:var(--blue);flex-shrink:0;
+    }
+    .wallet-info{flex:1;min-width:0}
+    .wallet-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:3px}
+    .wallet-addr{
+      font-size:12px;font-family:'Courier New',monospace;
+      color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+      font-weight:500;
+    }
+    .btn-wallet-copy{
+      padding:7px 14px;background:var(--bg);border:1.5px solid var(--border);
+      border-radius:7px;font-size:12px;font-weight:600;color:var(--text2);
+      transition:all .12s;white-space:nowrap;flex-shrink:0;cursor:pointer;font-family:inherit;
+    }
+    .btn-wallet-copy:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
+    .btn-wallet-copy.done{background:var(--green);border-color:var(--green);color:#fff}
+    .tip-phantom{font-size:12px;color:var(--text3);margin-top:10px;text-align:center}
+
     /* ═══ FOOTER ═══════════════════════════════ */
     footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 24px 24px}
     .footer-inner{max-width:800px;margin:0 auto}
@@ -605,22 +633,42 @@
 
   </div><!-- /results -->
 
-  <!-- LIGHTNING TIP -->
+  <!-- SUPPORT / TIP -->
   <div class="sec-head">
     <span class="sec-num">⚡</span>
     <span class="sec-line"></span>
-    <span class="sec-title" data-i18n="sec_tip">LIGHTNING TIP</span>
+    <span class="sec-title">SUPPORT THIS TOOL</span>
   </div>
   <div class="tip-section">
-    <div class="tip-head" data-i18n="tip_head">Support this tool</div>
-    <p class="tip-sub" data-i18n="tip_sub">Send a Bitcoin or Lightning tip. Paste your address below to save it.</p>
-    <div class="tip-row">
-      <input class="tip-input" type="text" id="tip-addr"
-        placeholder="bc1q... or lnbc... or lightning@address.com"
-        oninput="validateTip()" autocomplete="off" spellcheck="false"/>
-      <button class="btn-tip-copy" id="tip-copy-btn" onclick="copyTip()" data-i18n="btn_copy">Copy</button>
+    <div class="tip-head">Send a Tip</div>
+    <p class="tip-sub">If this tool helped you, consider sending a tip via Phantom Wallet. Click Copy to grab any address.</p>
+    <div class="wallet-list">
+      <div class="wallet-item">
+        <div class="wallet-icon">₿</div>
+        <div class="wallet-info">
+          <div class="wallet-label">Bitcoin</div>
+          <div class="wallet-addr" id="addr-btc">bc1q3nk3fm66477ug2rpy68zmz0kuh4f89xk82lwqr</div>
+        </div>
+        <button class="btn-wallet-copy" onclick="copyWallet('addr-btc',this)">Copy</button>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-icon">Ξ</div>
+        <div class="wallet-info">
+          <div class="wallet-label">Ethereum</div>
+          <div class="wallet-addr" id="addr-eth">0xfa72F4A7cC80D116685b7d25E6b13840c8fC2715</div>
+        </div>
+        <button class="btn-wallet-copy" onclick="copyWallet('addr-eth',this)">Copy</button>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-icon">◎</div>
+        <div class="wallet-info">
+          <div class="wallet-label">Solana</div>
+          <div class="wallet-addr" id="addr-sol">8xraZfsmzJUgLdHYsiruwZDGPux8wGrP1RXVQpb8QHzQ</div>
+        </div>
+        <button class="btn-wallet-copy" onclick="copyWallet('addr-sol',this)">Copy</button>
+      </div>
     </div>
-    <div class="tip-valid" id="tip-valid"></div>
+    <p class="tip-phantom">👻 Phantom Wallet</p>
   </div>
 
 </div><!-- /wrap -->
@@ -1037,25 +1085,14 @@ async function copyShareText(){
 }
 
 // ══════════════════════════════════════════════
-//  Lightning Tip
+//  Wallet Copy
 // ══════════════════════════════════════════════
-function validateTip(){
-  const v = document.getElementById('tip-addr').value.trim();
-  const el = document.getElementById('tip-valid');
-  if(!v){ el.textContent=''; el.className='tip-valid'; return; }
-  const ok = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,62}$|^lnbc|^lightning@|^[\w.-]+@[\w.-]+\.[a-z]{2,}$/.test(v);
-  el.textContent = ok ? '✓ '+t('w_ok') : '✗ '+t('w_err');
-  el.className = 'tip-valid '+(ok?'ok':'err');
-  if(ok) localStorage.setItem('stl_tip',v);
-}
-async function copyTip(){
-  const v = document.getElementById('tip-addr').value.trim();
-  if(!v) return;
+async function copyWallet(id, btn){
+  const v = document.getElementById(id).textContent.trim();
   try{
     await navigator.clipboard.writeText(v);
-    const btn = document.getElementById('tip-copy-btn');
-    btn.textContent = t('copied'); btn.classList.add('done');
-    setTimeout(()=>{ btn.textContent=t('btn_copy'); btn.classList.remove('done') },2000);
+    btn.textContent='Copied!'; btn.classList.add('done');
+    setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('done') },2000);
   }catch(e){}
 }
 
@@ -1067,10 +1104,6 @@ const ys = document.getElementById('years-slider');
 const cs = document.getElementById('cagr-slider');
 setPct(ys); setPct(cs);
 document.getElementById('target-year').textContent = '→ '+(new Date().getFullYear()+parseInt(ys.value));
-
-// Restore tip
-const saved = localStorage.getItem('stl_tip');
-if(saved){ document.getElementById('tip-addr').value=saved; validateTip(); }
 
 // Set Base scenario active
 setScenario('base');
