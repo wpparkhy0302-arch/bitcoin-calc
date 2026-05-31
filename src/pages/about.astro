@@ -1,0 +1,146 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-KMVG0NPRG5"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KMVG0NPRG5');
+  </script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="About SkipTheLatte — The Bitcoin opportunity cost calculator that shows you the real price of daily spending habits."/>
+  <title>About — SkipTheLatte</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --blue:#1763B6;--blue-h:#1357a0;--blue-bg:#eaf1fb;
+      --green:#05b26b;
+      --bg:#ffffff;--bg2:#f7f8fa;--border:#e5e8eb;--border2:#dde1e7;
+      --text:#0a0a0a;--text2:#5c6370;--text3:#9ea5b0;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    }
+    html{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{color:var(--blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+    .nav-logo{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+    .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+    .nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--text2);padding:6px 13px;border:1px solid var(--border);border-radius:7px;text-decoration:none;transition:all .12s}
+    .nav-back:hover{border-color:var(--blue);color:var(--blue);text-decoration:none;background:var(--blue-bg)}
+    main{flex:1;padding:0 24px 80px}
+    .wrap{max-width:720px;margin:0 auto}
+    .hero{padding:56px 0 40px}
+    .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    .hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--blue)}
+    .hero h1{font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+    .hero-sub{font-size:16px;color:var(--text2);line-height:1.65}
+    .section{margin-bottom:40px}
+    .section-title{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+    .section-title::after{content:'';flex:1;height:1px;background:var(--border2)}
+    .prose h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;margin-top:24px}
+    .prose h3:first-child{margin-top:0}
+    .prose p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:12px}
+    .prose ul{padding-left:20px;margin:8px 0 12px;display:flex;flex-direction:column;gap:6px}
+    .prose li{font-size:14px;color:var(--text2);line-height:1.6}
+    .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+    @media(max-width:480px){.stat-grid{grid-template-columns:1fr}}
+    .stat-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+    .stat-val{font-size:28px;font-weight:900;color:var(--blue);letter-spacing:-.02em}
+    .stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-top:4px}
+    .cta-box{background:var(--blue);border-radius:14px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:16px}
+    .cta-box p{font-size:16px;font-weight:700;color:#fff}
+    .cta-box span{font-size:13px;color:rgba(255,255,255,.65)}
+    .btn-cta{padding:11px 22px;background:#fff;color:var(--blue);border:none;border-radius:9px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;transition:opacity .12s}
+    .btn-cta:hover{opacity:.9;text-decoration:none}
+    footer{background:var(--bg2);border-top:1px solid var(--border);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    footer p{font-size:12px;color:var(--text3)}
+    .foot-brand{font-size:13px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:6px}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <span class="logo-dot"></span>
+    SkipTheLatte
+  </a>
+  <div style="display:flex;gap:6px">
+    <a class="nav-back" href="/faq">FAQ</a>
+    <a class="nav-back" href="/">← Calculator</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-eyebrow">About</div>
+    <h1>What is<br>SkipTheLatte?</h1>
+    <p class="hero-sub">A free tool that shows you the Bitcoin opportunity cost of your daily spending habits — so you can make smarter decisions about your money.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-val">Free</div>
+      <div class="stat-lbl">Always free</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">5+</div>
+      <div class="stat-lbl">Currencies</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">Live</div>
+      <div class="stat-lbl">BTC price</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">The Idea</div>
+    <div class="prose">
+      <h3>The latte factor — reimagined for Bitcoin</h3>
+      <p>The "latte factor" is a concept popularized by financial author David Bach — the idea that small, daily spending habits compound into surprisingly large amounts over time. SkipTheLatte takes this concept and applies it specifically to Bitcoin.</p>
+      <p>Instead of asking "what if you invested that coffee money in an index fund?", we ask: <strong>what if you stacked Bitcoin instead?</strong></p>
+
+      <h3>How it works</h3>
+      <p>Enter any daily habit — coffee, subscriptions, takeout — along with a time horizon and an expected Bitcoin CAGR. The calculator shows you exactly how much Bitcoin you could have accumulated, and what it could be worth at your target year.</p>
+      <ul>
+        <li>Live BTC price via CoinGecko API (refreshed every 60 seconds)</li>
+        <li>Four growth scenarios: Bear, Base, Bull, Hyperbull</li>
+        <li>Support for USD, KRW, JPY, EUR, and GBP</li>
+        <li>Shareable results for social media</li>
+      </ul>
+
+      <h3>Disclaimer</h3>
+      <p>SkipTheLatte is a hypothetical modeling tool for <strong>educational and entertainment purposes only</strong>. All projections are speculative. Past Bitcoin performance does not guarantee future results. Bitcoin is a highly volatile asset — do not make investment decisions based solely on this calculator. Please consult a qualified financial advisor.</p>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div>
+      <p>Try the calculator</p>
+      <span>See your Bitcoin opportunity cost in seconds.</span>
+    </div>
+    <a href="/" class="btn-cta">Go to Calculator →</a>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot-brand">
+    <span class="logo-dot" style="width:6px;height:6px;background:var(--blue);border-radius:50%;display:inline-block"></span>
+    SkipTheLatte
+  </div>
+  <p>© 2025 SkipTheLatte · For informational purposes only · Not financial advice</p>
+</footer>
+
+</body>
+</html>
