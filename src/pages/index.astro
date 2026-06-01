@@ -112,6 +112,14 @@
     .with-suf input{padding-right:40px}
     input::placeholder{color:var(--text3);font-size:13px}
 
+    /* Currency select */
+    #currency-select{
+      padding:5px 8px;border:1.5px solid var(--border);border-radius:7px;
+      background:var(--bg2);font-size:12px;font-weight:600;color:var(--text);
+      cursor:pointer;outline:none;transition:border-color .15s;
+    }
+    #currency-select:focus{border-color:var(--blue)}
+
     /* Frequency pills */
     .freq-pills{display:flex;gap:6px;flex-wrap:wrap}
     .freq-btn{
@@ -445,7 +453,21 @@
     </div>
 
     <div class="field">
-      <label data-i18n="label_amount">Amount per purchase</label>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <label data-i18n="label_amount" style="margin:0">Amount per purchase</label>
+        <select id="currency-select" onchange="setCur(this.value)">
+          <option value="usd">$ USD</option>
+          <option value="krw">₩ KRW</option>
+          <option value="jpy">¥ JPY</option>
+          <option value="eur">€ EUR</option>
+          <option value="gbp">£ GBP</option>
+          <option value="cad">C$ CAD</option>
+          <option value="aud">A$ AUD</option>
+          <option value="sgd">S$ SGD</option>
+          <option value="hkd">HK$ HKD</option>
+          <option value="aed">د.إ AED</option>
+        </select>
+      </div>
       <div class="irow with-pre">
         <span class="ipre" id="cur-sym">$</span>
         <input type="number" id="spend-amount" value="5" min="0.01" step="any" placeholder="5.00"/>
@@ -569,7 +591,7 @@
 
     <div class="bd-list">
       <div class="bd-row">
-        <span class="bd-lbl">Total USD Out</span>
+        <span class="bd-lbl" id="bd-usd-label">Total USD Out</span>
         <div class="bd-right"><span class="bd-val blue" id="bd-usd">—</span></div>
       </div>
       <div class="bd-row">
@@ -592,7 +614,7 @@
         <div class="bd-right"><span class="bd-val" id="bd-return">—</span></div>
       </div>
       <div class="bd-row">
-        <span class="bd-lbl">Sats per $ Spent</span>
+        <span class="bd-lbl" id="bd-sats-label">Sats per $ Spent</span>
         <div class="bd-right"><span class="bd-val" id="bd-sats">—</span></div>
       </div>
     </div>
@@ -837,13 +859,19 @@ function setLang(l){
 //  Currency
 // ══════════════════════════════════════════════
 const CURR = {
-  usd:{sym:'$',name:'USD',dec:2},
-  krw:{sym:'₩',name:'KRW',dec:0},
-  jpy:{sym:'¥',name:'JPY',dec:0},
-  eur:{sym:'€',name:'EUR',dec:2},
-  gbp:{sym:'£',name:'GBP',dec:2},
+  usd:{sym:'$',   name:'USD',dec:2},
+  krw:{sym:'₩',   name:'KRW',dec:0},
+  jpy:{sym:'¥',   name:'JPY',dec:0},
+  eur:{sym:'€',   name:'EUR',dec:2},
+  gbp:{sym:'£',   name:'GBP',dec:2},
+  cad:{sym:'C$',  name:'CAD',dec:2},
+  aud:{sym:'A$',  name:'AUD',dec:2},
+  sgd:{sym:'S$',  name:'SGD',dec:2},
+  hkd:{sym:'HK$', name:'HKD',dec:2},
+  aed:{sym:'د.إ', name:'AED',dec:2},
 };
-let cur = 'usd', prices = {}, priceData = null;
+let cur = 'usd', prices = {}, priceData = null, ratesExpiry = 0;
+const RATES_TTL = 5 * 60 * 1000;
 
 // Convert spend-amount field to new currency when user switches
 function setCur(c){
@@ -857,7 +885,8 @@ function setCur(c){
     amtEl.value  = inNew.toFixed(CURR[c].dec);
   }
   cur = c;
-  document.querySelectorAll('#cur-group .pill-btn').forEach(b=>b.classList.toggle('on',b.dataset.cur===c));
+  const sel = document.getElementById('currency-select');
+  if(sel) sel.value = c;
   document.getElementById('cur-sym').textContent = CURR[c].sym;
   updateTicker();
 }
@@ -887,17 +916,22 @@ function sign(n){ return n>=0?'+':'' }
 //  Price fetch  (simple/price endpoint — faster + less rate-limited)
 // ══════════════════════════════════════════════
 async function fetchPrice(manual=false){
+  const now = Date.now();
+  if(!manual && now < ratesExpiry && prices.usd){
+    updateTicker();
+    return;
+  }
+
   const rb = document.getElementById('refresh-btn');
   if(rb) rb.classList.add('spin');
 
-  // AbortController for timeout (works on all modern browsers)
   const ctrl  = new AbortController();
   const timer = setTimeout(()=>ctrl.abort(), 9000);
 
   try{
     const r = await fetch(
       'https://api.coingecko.com/api/v3/simple/price' +
-      '?ids=bitcoin&vs_currencies=usd,krw,jpy,eur,gbp&include_24hr_change=true',
+      '?ids=bitcoin&vs_currencies=usd,krw,jpy,eur,gbp,cad,aud,sgd,hkd,aed&include_24hr_change=true',
       { signal: ctrl.signal }
     );
     clearTimeout(timer);
@@ -905,8 +939,12 @@ async function fetchPrice(manual=false){
 
     const d = await r.json();
     const b = d.bitcoin;
-    prices = { usd:b.usd, krw:b.krw, jpy:b.jpy, eur:b.eur, gbp:b.gbp };
-    priceData = { change24h: b.usd_24h_change ?? 0 };
+    prices = {
+      usd:b.usd, krw:b.krw, jpy:b.jpy, eur:b.eur, gbp:b.gbp,
+      cad:b.cad, aud:b.aud, sgd:b.sgd, hkd:b.hkd, aed:b.aed
+    };
+    priceData   = { change24h: b.usd_24h_change ?? 0 };
+    ratesExpiry = Date.now() + RATES_TTL;
 
     const pi = document.getElementById('btc-price-input');
     if(pi && !pi.dataset.manual) pi.value = prices.usd;
@@ -1052,21 +1090,28 @@ function calculate(){
     activeFreq === 'once' ? 'one-time payment' : `over ${years} year${years > 1 ? 's' : ''}`;
 
   // ── BREAKDOWN (list) ─────────────────────────────
-  const btcSats = btcAmt > 0 ? Math.round(btcAmt * 1e8) : 0;
+  const btcSats   = btcAmt > 0 ? Math.round(btcAmt * 1e8) : 0;
+  const curSym    = CURR[cur].sym;
+  const curName   = CURR[cur].name;
+  const satsPerUnit = (prices.usd && prices[cur] && btcNow > 0)
+    ? Math.round(1e8 / (btcNow * (prices[cur] / prices.usd)))
+    : satsPerDollar;
 
-  document.getElementById('bd-usd').textContent            = fmtUSD(totalUSD);
+  document.getElementById('bd-usd-label').textContent      = `Total ${curName} Out`;
+  document.getElementById('bd-usd').textContent            = fmt(totalFiat);
   document.getElementById('bd-btc').textContent            = fmtBTC(btcAmt);
   document.getElementById('bd-btc-sats').textContent       = btcSats > 0 ? btcSats.toLocaleString('en-US') + ' sats' : '';
   document.getElementById('bd-price-label').textContent    = `BTC Price in ${targetYear}`;
-  document.getElementById('bd-future-price').textContent   = fmtUSD(futureBTCprice);
-  document.getElementById('bd-portfolio').textContent      = fmtUSD(portfolioUSD);
+  document.getElementById('bd-future-price').textContent   = fmt(futBTCFiat);
+  document.getElementById('bd-portfolio').textContent      = fmt(portFiat);
 
   const retEl       = document.getElementById('bd-return');
   retEl.textContent = sign(returnPct) + returnPct.toFixed(1) + '%';
   retEl.className   = 'bd-val ' + (returnPct >= 0 ? 'green' : 'red');
 
-  document.getElementById('bd-sats').textContent =
-    satsPerDollar.toLocaleString('en-US') + ' sats / $1';
+  document.getElementById('bd-sats-label').textContent     = `Sats per ${curSym} Spent`;
+  document.getElementById('bd-sats').textContent           =
+    satsPerUnit.toLocaleString('en-US') + ` sats / ${curSym}1`;
 
   // ── SHARE TEXT (always English) ──────────────────
   const shareStr =
