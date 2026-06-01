@@ -141,17 +141,31 @@ nav{background:#fff;border-bottom:1px solid #e1e4e8;padding:0 24px;height:56px;d
     </div>
 
     <div class="input-group">
-      <div class="input-label">Monthly DCA ($)</div>
-      <div class="input-wrap">
-        <span>$</span>
-        <input type="number" id="monthlyDca" value="200" min="0" oninput="update()">
+      <div class="input-label">Monthly DCA</div>
+      <div style="display:flex;gap:8px;align-items:stretch">
+        <div class="input-wrap" style="flex:1">
+          <span id="cur-sym">$</span>
+          <input type="number" id="monthlyDca" value="200" min="0" oninput="update()">
+        </div>
+        <select id="currency-select" onchange="setCur(this.value)" style="width:80px;border:1px solid #e1e4e8;border-radius:8px;padding:8px;font-size:13px;font-weight:600;background:#f5f7fa;cursor:pointer;outline:none;">
+          <option value="usd">USD</option>
+          <option value="krw">KRW</option>
+          <option value="jpy">JPY</option>
+          <option value="eur">EUR</option>
+          <option value="gbp">GBP</option>
+          <option value="cad">CAD</option>
+          <option value="aud">AUD</option>
+          <option value="sgd">SGD</option>
+          <option value="hkd">HKD</option>
+          <option value="aed">AED</option>
+        </select>
       </div>
     </div>
 
     <div class="input-group">
-      <div class="input-label">Monthly Expenses ($)</div>
+      <div class="input-label">Monthly Expenses</div>
       <div class="input-wrap">
-        <span>$</span>
+        <span id="exp-sym">$</span>
         <input type="number" id="monthlyExpenses" value="3500" min="0" oninput="update()">
       </div>
     </div>
@@ -172,7 +186,7 @@ nav{background:#fff;border-bottom:1px solid #e1e4e8;padding:0 24px;height:56px;d
     <div class="cagr-info" id="cagrInfo">Base 55%/yr · 3.72%/mo · historical avg</div>
 
     <div class="btc-price-box">
-      <div class="btc-price-label">BTC Current Price</div>
+      <div class="btc-price-label" id="btcPriceLabel">BTC Current Price</div>
       <div class="btc-price-val" id="btcPriceDisplay">Loading...</div>
       <div class="btc-price-change up" id="btcChangeDisplay"></div>
     </div>
@@ -227,42 +241,112 @@ nav{background:#fff;border-bottom:1px solid #e1e4e8;padding:0 24px;height:56px;d
 </div>
 
 <script is:inline>
+// ── Currency ──────────────────────────────────────────
+const CURR = {
+  usd:{sym:'$',   name:'USD',dec:2},
+  krw:{sym:'₩',   name:'KRW',dec:0},
+  jpy:{sym:'¥',   name:'JPY',dec:0},
+  eur:{sym:'€',   name:'EUR',dec:2},
+  gbp:{sym:'£',   name:'GBP',dec:2},
+  cad:{sym:'C$',  name:'CAD',dec:2},
+  aud:{sym:'A$',  name:'AUD',dec:2},
+  sgd:{sym:'S$',  name:'SGD',dec:2},
+  hkd:{sym:'HK$', name:'HKD',dec:2},
+  aed:{sym:'د.إ', name:'AED',dec:2},
+};
+let cur = 'usd', prices = {}, ratesExpiry = 0;
+const RATES_TTL = 5 * 60 * 1000;
+
 let btcPrice = 73000;
 let currentCagr = 55;
 let activeBtn = 'base';
 
 const milestones = [
-  { id: 'm1', emoji: '☕', title: '3 Months Free', desc: 'First taste of breathing room', multiplier: 3/12, color: '#1a7a4a' },
-  { id: 'm2', emoji: '🌊', title: '6 Months Runway', desc: 'Half a year — no financial pressure', multiplier: 6/12, color: '#1763B6' },
-  { id: 'm3', emoji: '🦅', title: '1 Year of Freedom', desc: '12 months of expenses stored in your stack', multiplier: 1, color: '#8957e5' },
-  { id: 'm4', emoji: '⚡', title: '5-Year Sovereignty', desc: '5 years — no employer can touch you', multiplier: 5, color: '#e3a228' },
-  { id: 'm5', emoji: '🎯', title: 'FIRE Number', desc: 'Annual expenses x25 — retirement threshold', multiplier: 25, color: '#d73a49', fireBased: true },
-  { id: 'm6', emoji: '💎', title: '$1M Stack', desc: '7-figure hard money', target: 1000000, fixedTarget: true, color: '#1763B6' },
-  { id: 'm7', emoji: '∞', title: 'Never Sell Time Again', desc: 'Appreciation alone covers your lifestyle — forever', multiplier: 0, perpetual: true, color: '#8957e5' },
-  { id: 'm8', emoji: '🏛️', title: 'Generational Wealth', desc: 'Annual income x100 — a legacy that outlasts you', multiplier: 100, annualBased: true, color: '#e3a228' },
+  { id:'m1', emoji:'☕',  title:'3 Months Free',         desc:'First taste of breathing room',                              multiplier:3/12,  color:'#1a7a4a' },
+  { id:'m2', emoji:'🌊',  title:'6 Months Runway',        desc:'Half a year — no financial pressure',                        multiplier:6/12,  color:'#1763B6' },
+  { id:'m3', emoji:'🦅',  title:'1 Year of Freedom',      desc:'12 months of expenses stored in your stack',                 multiplier:1,     color:'#8957e5' },
+  { id:'m4', emoji:'⚡',  title:'5-Year Sovereignty',     desc:'5 years — no employer can touch you',                        multiplier:5,     color:'#e3a228' },
+  { id:'m5', emoji:'🎯',  title:'FIRE Number',             desc:'Annual expenses x25 — retirement threshold',                 multiplier:25,    color:'#d73a49', fireBased:true },
+  { id:'m6', emoji:'💎',  title:'$1M Stack',               desc:'7-figure hard money',                                        target:1000000,   fixedTarget:true, color:'#1763B6' },
+  { id:'m7', emoji:'∞',   title:'Never Sell Time Again',   desc:'Appreciation alone covers your lifestyle — forever',         multiplier:0,     perpetual:true,   color:'#8957e5' },
+  { id:'m8', emoji:'🏛️', title:'Generational Wealth',    desc:'Annual income x100 — a legacy that outlasts you',            multiplier:100,   annualBased:true, color:'#e3a228' },
 ];
 
+// ── Formatters ────────────────────────────────────────
+function fmt(n) {
+  if (n == null || isNaN(n)) return '—';
+  const d = CURR[cur].dec;
+  return CURR[cur].sym + n.toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
+}
+
+function formatK(val) {
+  const sym = CURR[cur].sym;
+  if (CURR[cur].dec === 0) return sym + Math.round(val).toLocaleString('en-US'); // KRW/JPY: full number
+  if (val >= 1000000) return sym + (val/1000000).toFixed(2) + 'M';
+  if (val >= 1000)    return sym + Math.round(val/1000) + 'K';
+  return sym + val.toFixed(2);
+}
+
+// ── Currency switch ───────────────────────────────────
+function setCur(c) {
+  const prevRate = prices.usd && prices[cur] ? prices[cur] / prices.usd : 0;
+  const nextRate = prices.usd && prices[c]   ? prices[c]   / prices.usd : 0;
+  if (prevRate > 0 && nextRate > 0) {
+    ['monthlyDca', 'monthlyExpenses'].forEach(id => {
+      const el = document.getElementById(id);
+      const v  = parseFloat(el.value);
+      if (!isNaN(v)) el.value = (v / prevRate * nextRate).toFixed(CURR[c].dec);
+    });
+  }
+  cur = c;
+  btcPrice = prices[cur] || btcPrice;
+  document.getElementById('cur-sym').textContent = CURR[c].sym;
+  document.getElementById('exp-sym').textContent = CURR[c].sym;
+  const lbl = document.getElementById('btcPriceLabel');
+  if (lbl) lbl.textContent = 'BTC Current Price (' + CURR[c].name + ')';
+  const sel = document.getElementById('currency-select');
+  if (sel) sel.value = c;
+  updateBtcDisplay();
+  update();
+}
+
+// ── Price fetch (5-min cache) ─────────────────────────
 async function fetchBtcPrice() {
+  const now = Date.now();
+  if (now < ratesExpiry && prices.usd) { updateBtcDisplay(); update(); return; }
   try {
-    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+    const r = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price' +
+      '?ids=bitcoin&vs_currencies=usd,krw,jpy,eur,gbp,cad,aud,sgd,hkd,aed&include_24hr_change=true'
+    );
     const d = await r.json();
-    btcPrice = d.bitcoin.usd;
-    const change = d.bitcoin.usd_24h_change;
-    document.getElementById('btcPriceDisplay').textContent = '$' + btcPrice.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-    const el = document.getElementById('btcChangeDisplay');
-    el.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '% (24h)';
-    el.className = 'btc-price-change ' + (change >= 0 ? 'up' : 'down');
+    const b = d.bitcoin;
+    prices = {usd:b.usd, krw:b.krw, jpy:b.jpy, eur:b.eur, gbp:b.gbp, cad:b.cad, aud:b.aud, sgd:b.sgd, hkd:b.hkd, aed:b.aed};
+    ratesExpiry = Date.now() + RATES_TTL;
+    btcPrice = prices[cur];
+    updateBtcDisplay(b.usd_24h_change);
     update();
   } catch(e) {
-    document.getElementById('btcPriceDisplay').textContent = '$73,000.00';
+    document.getElementById('btcPriceDisplay').textContent = CURR[cur].sym + '73,000';
     document.getElementById('btcChangeDisplay').textContent = 'Price unavailable';
     update();
   }
 }
 
+function updateBtcDisplay(change24h) {
+  if (prices[cur]) btcPrice = prices[cur];
+  document.getElementById('btcPriceDisplay').textContent = fmt(btcPrice);
+  if (change24h !== undefined) {
+    const el = document.getElementById('btcChangeDisplay');
+    el.textContent  = (change24h >= 0 ? '+' : '') + change24h.toFixed(2) + '% (24h)';
+    el.className    = 'btc-price-change ' + (change24h >= 0 ? 'up' : 'down');
+  }
+}
+
+// ── CAGR controls ─────────────────────────────────────
 function setCagr(val, name) {
   currentCagr = val;
-  activeBtn = name;
+  activeBtn   = name;
   document.querySelectorAll('.cagr-btn').forEach(b => b.classList.remove('active'));
   if (name !== 'custom') {
     document.getElementById('btn-' + name)?.classList.add('active');
@@ -283,46 +367,50 @@ function toggleCustom() {
 }
 
 function setCustomCagr() {
-  const v = parseFloat(document.getElementById('customCagr').value) || 55;
-  currentCagr = v;
+  currentCagr = parseFloat(document.getElementById('customCagr').value) || 55;
   updateCagrInfo();
   update();
 }
 
 function updateCagrInfo() {
   const monthly = ((1 + currentCagr/100) ** (1/12) - 1) * 100;
-  document.getElementById('cagrInfo').textContent = currentCagr + '%/yr · ' + monthly.toFixed(2) + '%/mo compounding';
-  document.getElementById('headerCagr').textContent = 'CAGR ' + currentCagr + '% · ' + monthly.toFixed(2) + '%/mo';
+  document.getElementById('cagrInfo').textContent    = currentCagr + '%/yr · ' + monthly.toFixed(2) + '%/mo compounding';
+  document.getElementById('headerCagr').textContent  = 'CAGR ' + currentCagr + '% · ' + monthly.toFixed(2) + '%/mo';
 }
 
-function monthsToReach(currentBtcVal, monthlyDca, targetUsd, cagr) {
+// ── Projection math ───────────────────────────────────
+function monthsToReach(currentBtcVal, monthlyDca, targetFiat, cagr) {
   const monthlyRate = (1 + cagr/100) ** (1/12) - 1;
   let portfolio = currentBtcVal;
   for (let m = 0; m < 600; m++) {
     portfolio = portfolio * (1 + monthlyRate) + monthlyDca;
-    if (portfolio >= targetUsd) return m + 1;
+    if (portfolio >= targetFiat) return m + 1;
   }
   return null;
 }
 
-function formatK(val) {
-  if (val >= 1000000) return '$' + (val/1000000).toFixed(2) + 'M';
-  if (val >= 1000) return '$' + Math.round(val/1000) + 'K';
-  return '$' + Math.round(val);
+function calcTarget(m, monthlyExpenses, annualExpenses, usdToFiat) {
+  if (m.fixedTarget)  return m.target * usdToFiat;
+  if (m.fireBased)    return annualExpenses * m.multiplier;
+  if (m.annualBased)  return annualExpenses * m.multiplier;
+  if (m.perpetual)    return (annualExpenses / (currentCagr / 100)) * 100;
+  return monthlyExpenses * m.multiplier * 12;
 }
 
+// ── Main update ───────────────────────────────────────
 function update() {
-  const btcStack = parseFloat(document.getElementById('btcStack').value) || 0;
-  const monthlyDca = parseFloat(document.getElementById('monthlyDca').value) || 0;
+  const btcStack        = parseFloat(document.getElementById('btcStack').value) || 0;
+  const monthlyDca      = parseFloat(document.getElementById('monthlyDca').value) || 0;
   const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
-  const targetYear = parseInt(document.getElementById('targetYear').value) || null;
-  const annualExpenses = monthlyExpenses * 12;
-  const currentBtcVal = btcStack * btcPrice;
+  const annualExpenses  = monthlyExpenses * 12;
+  const currentBtcVal   = btcStack * btcPrice;
+  const usdToFiat       = (prices.usd && prices[cur]) ? prices[cur] / prices.usd : 1;
 
-  document.getElementById('btcUsdVal').textContent = '≈ $' + currentBtcVal.toLocaleString('en-US', {maximumFractionDigits:0});
+  document.getElementById('btcUsdVal').textContent = '≈ ' + fmt(currentBtcVal);
 
   if (btcStack <= 0) {
-    document.getElementById('milestoneList').innerHTML = '<div class="no-stack-msg"><div class="big">₿</div><p>Enter your Bitcoin stack to unlock your sovereignty timeline.</p></div>';
+    document.getElementById('milestoneList').innerHTML =
+      '<div class="no-stack-msg"><div class="big">₿</div><p>Enter your Bitcoin stack to unlock your sovereignty timeline.</p></div>';
     document.getElementById('recsSection').style.display = 'none';
     document.getElementById('sovereigntyScore').textContent = '0';
     document.getElementById('scoreDesc').textContent = 'Enter your stack to begin';
@@ -330,39 +418,24 @@ function update() {
   }
 
   const now = new Date();
-  let reached = 0;
-  let html = '';
+  let reached = 0, html = '';
 
   milestones.forEach((m, i) => {
-    let targetUsd;
-    if (m.fixedTarget) {
-      targetUsd = m.target;
-    } else if (m.fireBased) {
-      targetUsd = annualExpenses * m.multiplier;
-    } else if (m.annualBased) {
-      targetUsd = annualExpenses * m.multiplier;
-    } else if (m.perpetual) {
-      targetUsd = (annualExpenses / (currentCagr/100)) * 100;
-    } else {
-      targetUsd = monthlyExpenses * m.multiplier * 12;
-    }
+    let targetFiat = calcTarget(m, monthlyExpenses, annualExpenses, usdToFiat);
+    if (targetFiat <= 0) targetFiat = currentBtcVal * 2;
 
-    if (targetUsd <= 0) targetUsd = currentBtcVal * 2;
-
-    const months = monthsToReach(currentBtcVal, monthlyDca, targetUsd, currentCagr);
-    const isReached = currentBtcVal >= targetUsd;
+    const months    = monthsToReach(currentBtcVal, monthlyDca, targetFiat, currentCagr);
+    const isReached = currentBtcVal >= targetFiat;
     if (isReached) reached++;
 
-    let dateStr = '', timeStr = '', portfolioStr = '';
+    let dateStr = '', timeStr = '';
     if (isReached) {
       dateStr = 'Reached';
-      timeStr = '';
     } else if (months !== null) {
       const d = new Date(now);
       d.setMonth(d.getMonth() + months);
       dateStr = d.toLocaleDateString('en-US', {month:'short', year:'numeric'});
-      const yrs = (months/12).toFixed(1);
-      timeStr = 'In ' + yrs + ' yrs';
+      timeStr = 'In ' + (months/12).toFixed(1) + ' yrs';
     } else {
       dateStr = '50+ yrs';
       timeStr = 'Very long horizon';
@@ -370,16 +443,12 @@ function update() {
 
     const monthlyRate = (1 + currentCagr/100) ** (1/12) - 1;
     let futureVal = currentBtcVal;
-    const mCount = months || 120;
+    const mCount  = months || 120;
     for (let x = 0; x < mCount; x++) futureVal = futureVal * (1 + monthlyRate) + monthlyDca;
 
-    portfolioStr = formatK(currentBtcVal) + ' / ' + formatK(Math.min(futureVal, targetUsd * 1.1));
-
-    const progress = isReached ? 100 : Math.min(99, (currentBtcVal / targetUsd) * 100);
-    const isNext = !isReached && i === milestones.findIndex(x => {
-      const t = x.fixedTarget ? x.target : (x.fireBased ? annualExpenses*x.multiplier : monthlyExpenses*x.multiplier*12);
-      return currentBtcVal < t;
-    });
+    const portfolioStr = formatK(currentBtcVal) + ' / ' + formatK(Math.min(futureVal, targetFiat * 1.1));
+    const progress     = isReached ? 100 : Math.min(99, (currentBtcVal / targetFiat) * 100);
+    const isNext       = !isReached && i === milestones.findIndex(x => currentBtcVal < calcTarget(x, monthlyExpenses, annualExpenses, usdToFiat));
 
     html += `<div class="milestone-card ${isReached?'reached':''} ${isNext?'next':''}">
       <div class="m-icon">${m.emoji}</div>
@@ -398,45 +467,47 @@ function update() {
 
   document.getElementById('milestoneList').innerHTML = html;
 
-  const score = Math.min(100, Math.round((reached / milestones.length) * 100 + (currentBtcVal / (monthlyExpenses*12)) * 10));
+  const score = Math.min(100, Math.round((reached / milestones.length) * 100 + (currentBtcVal / (monthlyExpenses*12 || 1)) * 10));
   document.getElementById('sovereigntyScore').textContent = score;
   const descs = ['Just getting started','Building momentum','On the right path','Getting serious','Almost sovereign','Truly sovereign'];
   document.getElementById('scoreDesc').textContent = descs[Math.min(5, Math.floor(score/20))];
 
-  buildRecs(btcStack, monthlyDca, monthlyExpenses, currentBtcVal, annualExpenses);
+  buildRecs(monthlyDca, monthlyExpenses, usdToFiat);
   document.getElementById('recsSection').style.display = 'block';
 }
 
-function buildRecs(btcStack, monthlyDca, monthlyExpenses, currentBtcVal, annualExpenses) {
+// ── Recommendations ───────────────────────────────────
+function buildRecs(monthlyDca, monthlyExpenses, usdToFiat) {
   let recs = [];
-  const dcaRatio = monthlyDca / monthlyExpenses;
+  const dcaRatio = monthlyExpenses > 0 ? monthlyDca / monthlyExpenses : 0;
+  const cutAmt   = Math.round(500 * usdToFiat);
 
   if (dcaRatio < 0.1) {
     recs.push({
-      icon: '⚠️',
-      title: `You're stacking ${(dcaRatio*100).toFixed(1)}% of spending — below escape velocity`,
-      desc: `Stackers who reach sovereignty typically put 10–20% of budget into Bitcoin. Raising to $${Math.round(monthlyExpenses*0.1)}/mo would lift your rate to 10%.`,
-      badge: 'High Impact', type: 'high'
+      icon:'⚠️',
+      title:`You're stacking ${(dcaRatio*100).toFixed(1)}% of spending — below escape velocity`,
+      desc:`Stackers who reach sovereignty typically put 10–20% of budget into Bitcoin. Raising to ${formatK(Math.round(monthlyExpenses*0.1))}/mo would lift your rate to 10%.`,
+      badge:'High Impact', type:'high'
     });
   }
 
-  if (monthlyExpenses > 3000) {
+  if (monthlyExpenses > 3000 * usdToFiat) {
     recs.push({
-      icon: '✂️',
-      title: `Cut $500/mo → your FIRE target drops by $150K`,
-      desc: `Going from $${monthlyExpenses.toLocaleString()} to $${(monthlyExpenses-500).toLocaleString()}/mo shrinks your FIRE number significantly and compresses every single milestone.`,
-      badge: 'High Impact', type: 'high'
+      icon:'✂️',
+      title:`Cut ${formatK(cutAmt)}/mo → your FIRE target drops by ${formatK(cutAmt * 12 * 25)}`,
+      desc:`Going from ${formatK(monthlyExpenses)} to ${formatK(monthlyExpenses - cutAmt)}/mo shrinks your FIRE number significantly and compresses every single milestone.`,
+      badge:'High Impact', type:'high'
     });
   }
 
   recs.push({
-    icon: '📈',
-    title: `Bull scenario (110% CAGR) compresses your timeline by ${Math.round((1 - Math.log(1+55/100)/Math.log(1+110/100))*100)}%`,
-    desc: `If Bitcoin performs at historical peak rates, FIRE could arrive years earlier. The base vs bull difference is about one Bitcoin cycle.`,
-    badge: 'Medium Impact', type: 'med'
+    icon:'📈',
+    title:`Bull scenario (110% CAGR) compresses your timeline by ${Math.round((1 - Math.log(1+55/100)/Math.log(1+110/100))*100)}%`,
+    desc:`If Bitcoin performs at historical peak rates, FIRE could arrive years earlier. The base vs bull difference is about one Bitcoin cycle.`,
+    badge:'Medium Impact', type:'med'
   });
 
-  let html = recs.map(r => `<div class="rec-card">
+  document.getElementById('recsList').innerHTML = recs.map(r => `<div class="rec-card">
     <div class="rec-icon">${r.icon}</div>
     <div class="rec-body">
       <div class="rec-title">${r.title}</div>
@@ -444,7 +515,6 @@ function buildRecs(btcStack, monthlyDca, monthlyExpenses, currentBtcVal, annualE
       <span class="rec-badge ${r.type==='high'?'badge-high':'badge-med'}">${r.badge}</span>
     </div>
   </div>`).join('');
-  document.getElementById('recsList').innerHTML = html;
 }
 
 updateCagrInfo();
