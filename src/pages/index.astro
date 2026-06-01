@@ -453,9 +453,13 @@
     </div>
 
     <div class="field">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-        <label data-i18n="label_amount" style="margin:0">Amount per purchase</label>
-        <select id="currency-select" onchange="setCur(this.value)">
+      <label data-i18n="label_amount">Amount per purchase</label>
+      <div style="display:flex;gap:8px;align-items:stretch">
+        <div class="irow with-pre" style="flex:1;position:relative">
+          <span class="ipre" id="cur-sym">$</span>
+          <input type="number" id="spend-amount" value="5" min="0.01" step="any" placeholder="5.00"/>
+        </div>
+        <select id="currency-select" onchange="setCur(this.value)" style="width:120px;padding:11px 10px;border:1.5px solid var(--border);border-radius:9px;background:var(--bg2);font-size:14px;font-weight:600;color:var(--text);cursor:pointer;outline:none;flex-shrink:0;">
           <option value="usd">$ USD</option>
           <option value="krw">₩ KRW</option>
           <option value="jpy">¥ JPY</option>
@@ -467,10 +471,6 @@
           <option value="hkd">HK$ HKD</option>
           <option value="aed">د.إ AED</option>
         </select>
-      </div>
-      <div class="irow with-pre">
-        <span class="ipre" id="cur-sym">$</span>
-        <input type="number" id="spend-amount" value="5" min="0.01" step="any" placeholder="5.00"/>
       </div>
     </div>
 
