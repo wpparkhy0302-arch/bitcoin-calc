@@ -158,6 +158,7 @@ nav{background:#fff;border-bottom:1px solid #e1e4e8;padding:0 24px;height:56px;d
           <option value="sgd">SGD</option>
           <option value="hkd">HKD</option>
           <option value="aed">AED</option>
+          <option value="inr">INR</option>
         </select>
       </div>
     </div>
@@ -253,6 +254,7 @@ const CURR = {
   sgd:{sym:'S$',  name:'SGD',dec:2},
   hkd:{sym:'HK$', name:'HKD',dec:2},
   aed:{sym:'د.إ', name:'AED',dec:2},
+  inr:{sym:'₹',   name:'INR',dec:0},
 };
 let cur = 'usd', prices = {}, ratesExpiry = 0;
 const RATES_TTL = 5 * 60 * 1000;
@@ -317,11 +319,11 @@ async function fetchBtcPrice() {
   try {
     const r = await fetch(
       'https://api.coingecko.com/api/v3/simple/price' +
-      '?ids=bitcoin&vs_currencies=usd,krw,jpy,eur,gbp,cad,aud,sgd,hkd,aed&include_24hr_change=true'
+      '?ids=bitcoin&vs_currencies=usd,krw,jpy,eur,gbp,cad,aud,sgd,hkd,aed,inr&include_24hr_change=true'
     );
     const d = await r.json();
     const b = d.bitcoin;
-    prices = {usd:b.usd, krw:b.krw, jpy:b.jpy, eur:b.eur, gbp:b.gbp, cad:b.cad, aud:b.aud, sgd:b.sgd, hkd:b.hkd, aed:b.aed};
+    prices = {usd:b.usd, krw:b.krw, jpy:b.jpy, eur:b.eur, gbp:b.gbp, cad:b.cad, aud:b.aud, sgd:b.sgd, hkd:b.hkd, aed:b.aed, inr:b.inr};
     ratesExpiry = Date.now() + RATES_TTL;
     btcPrice = prices[cur];
     updateBtcDisplay(b.usd_24h_change);
