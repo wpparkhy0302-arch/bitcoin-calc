@@ -510,10 +510,10 @@
 
     <!-- BTC Price -->
     <div class="field">
-      <label data-i18n="label_btc_price">Current BTC Price (USD)</label>
+      <label id="btc-price-label" data-i18n="label_btc_price">Current BTC Price (USD)</label>
       <div class="price-row">
         <div class="irow with-pre" style="flex:1">
-          <span class="ipre">$</span>
+          <span class="ipre" id="btc-price-sym">$</span>
           <input type="number" id="btc-price-input" placeholder="Loading..." step="any"/>
         </div>
         <button class="btn-refresh" id="refresh-btn" onclick="fetchPrice(true)" title="Refresh">↻</button>
@@ -875,17 +875,32 @@ const RATES_TTL = 5 * 60 * 1000;
 function setCur(c){
   const prevRate = prices.usd && prices[cur] ? prices[cur] / prices.usd : 0;
   const nextRate = prices.usd && prices[c]   ? prices[c]   / prices.usd : 0;
-  const amtEl   = document.getElementById('spend-amount');
-  const oldAmt  = parseFloat(amtEl.value);
+
+  // Convert spend amount
+  const amtEl  = document.getElementById('spend-amount');
+  const oldAmt = parseFloat(amtEl.value);
   if (prevRate > 0 && nextRate > 0 && !isNaN(oldAmt)) {
-    const inUSD  = oldAmt / prevRate;           // convert to USD
-    const inNew  = inUSD  * nextRate;            // convert to target
-    amtEl.value  = inNew.toFixed(CURR[c].dec);
+    amtEl.value = (oldAmt / prevRate * nextRate).toFixed(CURR[c].dec);
   }
+
+  // Convert BTC price input
+  const btcEl       = document.getElementById('btc-price-input');
+  const oldBtcPrice = parseFloat(btcEl.value);
+  if (prevRate > 0 && nextRate > 0 && !isNaN(oldBtcPrice)) {
+    btcEl.value = Math.round(oldBtcPrice / prevRate * nextRate);
+  }
+
   cur = c;
   const sel = document.getElementById('currency-select');
   if(sel) sel.value = c;
   document.getElementById('cur-sym').textContent = CURR[c].sym;
+
+  // Update BTC price label and symbol
+  const btcLabel = document.getElementById('btc-price-label');
+  const btcSym   = document.getElementById('btc-price-sym');
+  if(btcLabel) btcLabel.textContent = `Current BTC Price (${CURR[c].name})`;
+  if(btcSym)   btcSym.textContent   = CURR[c].sym;
+
   updateTicker();
 }
 
@@ -902,6 +917,7 @@ function fmtBTC(n){
 }
 function fmtBig(n, c=cur){
   if(n==null||isNaN(n)) return '—';
+  if(CURR[c].dec === 0) return fmt(n, c); // KRW, JPY: full number, no M/B/T
   const s=CURR[c].sym;
   if(n>=1e12) return s+(n/1e12).toFixed(2)+'T';
   if(n>=1e9)  return s+(n/1e9).toFixed(2)+'B';
@@ -945,7 +961,7 @@ async function fetchPrice(manual=false){
     ratesExpiry = Date.now() + RATES_TTL;
 
     const pi = document.getElementById('btc-price-input');
-    if(pi && !pi.dataset.manual) pi.value = prices.usd;
+    if(pi && !pi.dataset.manual) pi.value = prices[cur] ?? prices.usd;
 
     updateTicker();
   }catch(e){
@@ -1038,18 +1054,20 @@ function setFreq(f){
 //  CALCULATE
 // ══════════════════════════════════════════════
 function calculate(){
-  const amountFiat = parseFloat(document.getElementById('spend-amount').value) || 0;
-  const label      = document.getElementById('spend-label').value.trim() || 'My Latte Habit';
-  const years      = parseInt(document.getElementById('years-slider').value) || 10;
-  const cagr       = parseFloat(document.getElementById('cagr-slider').value) || 21;
-  const btcNow     = parseFloat(document.getElementById('btc-price-input').value) || prices.usd || 0;
+  const amountFiat  = parseFloat(document.getElementById('spend-amount').value) || 0;
+  const label       = document.getElementById('spend-label').value.trim() || 'My Latte Habit';
+  const years       = parseInt(document.getElementById('years-slider').value) || 10;
+  const cagr        = parseFloat(document.getElementById('cagr-slider').value) || 21;
+  // btc-price-input is stored in selected currency; convert to USD for all internal math
+  const fiatToUSD   = (prices.usd && prices[cur]) ? prices.usd / prices[cur] : 1;
+  const btcPriceCur = parseFloat(document.getElementById('btc-price-input').value) || prices[cur] || 0;
+  const btcNow      = btcPriceCur * fiatToUSD;
 
   const errEl = document.getElementById('err-msg');
   if (amountFiat <= 0 || !btcNow) { errEl.classList.add('show'); return; }
   errEl.classList.remove('show');
 
-  // Normalise amount to USD (all BTC maths are in USD)
-  const fiatToUSD = (prices.usd && prices[cur]) ? prices.usd / prices[cur] : 1;
+  // Normalise spend amount to USD
   const amountUSD = amountFiat * fiatToUSD;
 
   // Core maths
