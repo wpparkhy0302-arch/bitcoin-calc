@@ -454,22 +454,20 @@
 
     <div class="field">
       <label data-i18n="label_amount">Amount per purchase</label>
-      <div style="display:flex;gap:8px;align-items:stretch">
-        <div class="irow with-pre" style="flex:1;position:relative">
-          <span class="ipre" id="cur-sym">$</span>
-          <input type="number" id="spend-amount" value="5" min="0.01" step="any" placeholder="5.00"/>
-        </div>
-        <select id="currency-select" onchange="setCur(this.value)" style="width:120px;padding:11px 10px;border:1.5px solid var(--border);border-radius:9px;background:var(--bg2);font-size:14px;font-weight:600;color:var(--text);cursor:pointer;outline:none;flex-shrink:0;">
-          <option value="usd">$ USD</option>
-          <option value="krw">₩ KRW</option>
-          <option value="jpy">¥ JPY</option>
-          <option value="eur">€ EUR</option>
-          <option value="gbp">£ GBP</option>
-          <option value="cad">C$ CAD</option>
-          <option value="aud">A$ AUD</option>
-          <option value="sgd">S$ SGD</option>
-          <option value="hkd">HK$ HKD</option>
-          <option value="aed">د.إ AED</option>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span id="cur-sym" style="font-size:13px;font-weight:600;color:var(--text3);">$</span>
+        <input type="number" id="spend-amount" value="5" min="0.01" step="any" placeholder="5.00" style="flex:1;"/>
+        <select id="currency-select" onchange="setCur(this.value)" style="width:80px; border:1px solid #ddd; border-radius:6px; padding:8px;">
+          <option value="usd">USD</option>
+          <option value="krw">KRW</option>
+          <option value="jpy">JPY</option>
+          <option value="eur">EUR</option>
+          <option value="gbp">GBP</option>
+          <option value="cad">CAD</option>
+          <option value="aud">AUD</option>
+          <option value="sgd">SGD</option>
+          <option value="hkd">HKD</option>
+          <option value="aed">AED</option>
         </select>
       </div>
     </div>
