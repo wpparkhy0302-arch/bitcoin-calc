@@ -1,6 +1,12 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://bitcoin-calc.vercel.app',
+  site: 'https://lattecalc.com',
   output: 'static',
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
 });
