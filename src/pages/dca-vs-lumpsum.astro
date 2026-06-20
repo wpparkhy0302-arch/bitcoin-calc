@@ -729,6 +729,26 @@ $('#btcPrice').addEventListener('input', () => {
 $('#go').addEventListener('click', runCalc);
 $('#refreshBtn').addEventListener('click', loadPrice);
 
+/* ─── AMOUNT INPUT: comma formatting with cursor preservation ─ */
+$('#amount').addEventListener('input', function() {
+  const sel     = this.selectionStart;
+  const oldVal  = this.value;
+  // Count digits before cursor so we can restore relative position
+  const digitsBeforeCursor = oldVal.slice(0, sel).replace(/\D/g, '').length;
+
+  const raw = oldVal.replace(/\D/g, '');
+  this.value = raw ? parseInt(raw, 10).toLocaleString('en-US') : '';
+
+  // Restore cursor: advance through new value until we've passed the same number of digits
+  let count = 0, pos = 0;
+  for (let i = 0; i < this.value.length; i++) {
+    if (count === digitsBeforeCursor) { pos = i; break; }
+    if (/\d/.test(this.value[i])) count++;
+    pos = i + 1;
+  }
+  this.setSelectionRange(pos, pos);
+});
+
 /* ─── INIT ─────────────────────────────────────────────────── */
 setMode('backtest');
 refreshHorizon();
