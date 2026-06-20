@@ -608,7 +608,7 @@ function runBacktest() {
     lS.push(lumpBtc * pt.priceUSD);
   }
 
-  const freqUnit = {daily:'일', weekly:'주', monthly:'개월'}[freq] || '회';
+  const freqUnit = {daily:'daily', weekly:'weekly', monthly:'monthly'}[freq] || 'periodic';
   render({mode:'backtest', amtUSD, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD, lumpValUSD, dS, lS,
           purchaseCount: purchaseDates.length, perPurchaseUSD, freqUnit});
 }
@@ -646,7 +646,7 @@ function runProjection() {
   const dcaAvgUSD  = amtUSD / dcaBtc;
 
   render({mode:'projection', amtUSD, N, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD:startPriceUSD, lumpValUSD, dS, lS,
-          purchaseCount: totalMonths, perPurchaseUSD: perMonthUSD, freqUnit:'개월'});
+          purchaseCount: totalMonths, perPurchaseUSD: perMonthUSD, freqUnit:'monthly'});
 }
 
 /* ─── RENDER ───────────────────────────────────────────────── */
@@ -657,9 +657,9 @@ function render(r) {
   // Investment detail lines
   const countStr = r.purchaseCount.toLocaleString('en-US');
   $('#dcaDesc').textContent =
-    `${money(r.amtUSD)}을 ${countStr}${r.freqUnit} 분할 · 회당 약 ${money(r.perPurchaseUSD)}`;
+    `${money(r.amtUSD)} split into ${countStr} ${r.freqUnit} buys · ~${money(r.perPurchaseUSD)} each`;
   $('#lsDesc').textContent =
-    `${money(r.amtUSD)} 전액을 1일차에 한 번에`;
+    `${money(r.amtUSD)} invested all at once on day 1`;
 
   if (r.mode === 'backtest') {
     $('#chartTitle').textContent = 'PORTFOLIO VALUE OVER TIME';
