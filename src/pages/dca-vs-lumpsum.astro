@@ -1,4 +1,5 @@
 ---
+import btcHistory from '../data/btc-history.json';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -184,11 +185,6 @@
 </head>
 <body data-mode="backtest">
 
-<div class="loading-overlay" id="loading-overlay">
-  <div class="spinner"></div>
-  <div class="loading-text">Fetching historical BTC prices…</div>
-</div>
-
 <nav class="nav">
   <a class="nav-logo" href="/"><span class="logo-dot"></span>SkipTheLatte</a>
   <div class="nav-center">
@@ -352,9 +348,15 @@
   </div>
 </footer>
 
-<script is:inline>
+<script is:inline define:vars={{ btcHistory }}>
+/* ─── STATIC PRICE DATA ────────────────────────────────────── */
+const BTC_HISTORY = btcHistory.map(({date, price}) => ({
+  date: new Date(date + 'T00:00:00Z'),
+  priceUSD: price
+}));
+
 /* ─── CONSTANTS ────────────────────────────────────────────── */
-const FIRST_YEAR = 2014;
+const FIRST_YEAR = BTC_HISTORY.length ? BTC_HISTORY[0].date.getFullYear() : 2017;
 const NOW_YEAR = new Date().getFullYear();
 const CAGR_NAMES = {10:'Bear Case', 21:'Base Case', 35:'Bull Case', 55:'Hyperbull'};
 const HINTS = {
@@ -367,7 +369,6 @@ let currentPrice = 0;
 let mode = 'backtest';
 let freq = 'weekly';
 let cagr = 0.21;
-let historicalCache = null;
 let navPricesCache = null;
 let navRatesExpiry = 0;
 
@@ -468,22 +469,6 @@ async function loadPrice() {
   }
 }
 
-/* ─── HISTORICAL DATA (CoinGecko) ──────────────────────────── */
-async function fetchHistorical() {
-  if (historicalCache) return historicalCache;
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 20000);
-  const r = await fetch(
-    'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=max&interval=daily',
-    { signal: ctrl.signal }
-  );
-  clearTimeout(timer);
-  if (!r.ok) throw new Error('HTTP ' + r.status);
-  const d = await r.json();
-  historicalCache = d.prices.map(([ts, price]) => ({ date: new Date(ts), priceUSD: price }));
-  return historicalCache;
-}
-
 /* ─── INTERPOLATE PRICE ────────────────────────────────────── */
 function interpolatePrice(data, target) {
   for (let i = 0; i < data.length - 1; i++) {
@@ -519,67 +504,53 @@ function showErr(msg) {
 }
 
 /* ─── MAIN CALC ────────────────────────────────────────────── */
-async function runCalc() {
+function runCalc() {
   $('#err').hidden = true;
-  if (mode === 'backtest') await runBacktest();
+  if (mode === 'backtest') runBacktest();
   else runProjection();
 }
 
-/* ─── BACKTEST ─────────────────────────────────────────────── */
-async function runBacktest() {
+/* ─── BACKTEST (static data, no fetch) ─────────────────────── */
+function runBacktest() {
   const amount = parseAmt();
   if (amount <= 0) { showErr('Please enter an amount above 0.'); return; }
   const sy = +$('#startYear').value, ey = +$('#endYear').value;
   if (ey <= sy) { showErr('End year must be after start year.'); return; }
 
-  const overlay = $('#loading-overlay');
-  overlay.classList.add('show');
-  try {
-    const allData = await fetchHistorical();
-    const rangeData = allData.filter(p =>
-      p.date >= new Date(sy, 0, 1) && p.date <= new Date(ey, 11, 31)
-    );
-    if (rangeData.length < 2) { showErr('Not enough data for this range.'); return; }
+  const rangeData = BTC_HISTORY.filter(p =>
+    p.date >= new Date(Date.UTC(sy, 0, 1)) && p.date <= new Date(Date.UTC(ey, 11, 31))
+  );
+  if (rangeData.length < 2) { showErr('Not enough data for this date range.'); return; }
 
-    const lumpBtc = amount / rangeData[0].priceUSD;
-    const lumpAvg = rangeData[0].priceUSD;
+  const lumpBtc = amount / rangeData[0].priceUSD;
+  const lumpAvg = rangeData[0].priceUSD;
 
-    const purchaseDates = buildPurchaseDates(rangeData, freq);
-    const perPurchase = amount / purchaseDates.length;
-    let dcaBtc = 0;
-    for (const pd of purchaseDates) {
-      const p = interpolatePrice(rangeData, pd);
-      if (p > 0) dcaBtc += perPurchase / p;
-    }
-    const dcaAvg = amount / dcaBtc;
-    const liveP = currentPrice || rangeData[rangeData.length-1].priceUSD;
-    const dcaVal = dcaBtc * liveP;
-    const lumpVal = lumpBtc * liveP;
-
-    // Monthly chart series
-    const dS = [], lS = [];
-    const seen = new Set();
-    let dcaBtcSoFar = 0, pIdx = 0;
-    for (const pt of rangeData) {
-      const key = pt.date.toISOString().slice(0, 7);
-      if (seen.has(key)) continue;
-      seen.add(key);
-      while (pIdx < purchaseDates.length && purchaseDates[pIdx] <= pt.date) {
-        const p = interpolatePrice(rangeData, purchaseDates[pIdx]);
-        if (p > 0) dcaBtcSoFar += perPurchase / p;
-        pIdx++;
-      }
-      dS.push(dcaBtcSoFar * pt.priceUSD);
-      lS.push(lumpBtc * pt.priceUSD);
-    }
-
-    render({ mode:'backtest', amount, dcaBtc, dcaAvg, dcaVal, lumpBtc, lumpAvg, lumpVal, dS, lS });
-  } catch(e) {
-    showErr('Failed to fetch historical data. Please try again.');
-    console.error(e);
-  } finally {
-    overlay.classList.remove('show');
+  const purchaseDates = buildPurchaseDates(rangeData, freq);
+  const perPurchase = amount / purchaseDates.length;
+  let dcaBtc = 0;
+  for (const pd of purchaseDates) {
+    const p = interpolatePrice(rangeData, pd);
+    if (p > 0) dcaBtc += perPurchase / p;
   }
+  const dcaAvg = amount / dcaBtc;
+  const liveP = currentPrice || rangeData[rangeData.length - 1].priceUSD;
+  const dcaVal = dcaBtc * liveP;
+  const lumpVal = lumpBtc * liveP;
+
+  // Chart series: one point per weekly data entry
+  const dS = [], lS = [];
+  let dcaBtcSoFar = 0, pIdx = 0;
+  for (const pt of rangeData) {
+    while (pIdx < purchaseDates.length && purchaseDates[pIdx] <= pt.date) {
+      const p = interpolatePrice(rangeData, purchaseDates[pIdx]);
+      if (p > 0) dcaBtcSoFar += perPurchase / p;
+      pIdx++;
+    }
+    dS.push(dcaBtcSoFar * pt.priceUSD);
+    lS.push(lumpBtc * pt.priceUSD);
+  }
+
+  render({ mode:'backtest', amount, dcaBtc, dcaAvg, dcaVal, lumpBtc, lumpAvg, lumpVal, dS, lS });
 }
 
 /* ─── PROJECTION ───────────────────────────────────────────── */
