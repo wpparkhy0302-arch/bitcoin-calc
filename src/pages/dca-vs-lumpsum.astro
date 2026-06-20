@@ -144,6 +144,7 @@ import btcHistory from '../data/btc-history.json';
     .rcard .stat:first-of-type{border-top:0}
     .slabel{display:block;color:var(--label);font-size:12px;font-weight:600;margin-bottom:3px}
     .sval{display:block;font-size:21px;font-weight:800;letter-spacing:-.2px}
+    .invest-desc{color:var(--label);font-size:12px;font-weight:500;margin:2px 0 10px;line-height:1.5}
     .verdict{margin-top:18px;background:var(--verdict-bg);color:var(--win);border-radius:11px;
       padding:18px 22px;font-size:16px;font-weight:700}
     .chart-card{margin-top:18px}
@@ -289,12 +290,14 @@ import btcHistory from '../data/btc-history.json';
   <div class="result-cards">
     <div class="rcard">
       <div class="rhead">📅 DCA (<span id="freqLabel">weekly</span>)</div>
+      <p class="invest-desc" id="dcaDesc"></p>
       <div class="stat"><span class="slabel" id="dL1">BTC accumulated</span><span class="sval" id="d1">—</span></div>
       <div class="stat"><span class="slabel" id="dL2">Avg buy price</span><span class="sval" id="d2">—</span></div>
       <div class="stat"><span class="slabel" id="dL3">Value today</span><span class="sval" id="d3">—</span></div>
     </div>
     <div class="rcard hl">
       <div class="rhead">⚡ <span id="lumpHead">Lump sum (day 1)</span></div>
+      <p class="invest-desc" id="lsDesc"></p>
       <div class="stat"><span class="slabel" id="lL1">BTC accumulated</span><span class="sval" id="l1">—</span></div>
       <div class="stat"><span class="slabel" id="lL2">Buy price</span><span class="sval" id="l2">—</span></div>
       <div class="stat"><span class="slabel" id="lL3">Value today</span><span class="sval" id="l3">—</span></div>
@@ -605,7 +608,9 @@ function runBacktest() {
     lS.push(lumpBtc * pt.priceUSD);
   }
 
-  render({mode:'backtest', amtUSD, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD, lumpValUSD, dS, lS});
+  const freqUnit = {daily:'일', weekly:'주', monthly:'개월'}[freq] || '회';
+  render({mode:'backtest', amtUSD, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD, lumpValUSD, dS, lS,
+          purchaseCount: purchaseDates.length, perPurchaseUSD, freqUnit});
 }
 
 /* ─── PROJECTION ───────────────────────────────────────────── */
@@ -640,13 +645,21 @@ function runProjection() {
   const lumpValUSD = lumpBtc * PN;
   const dcaAvgUSD  = amtUSD / dcaBtc;
 
-  render({mode:'projection', amtUSD, N, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD:startPriceUSD, lumpValUSD, dS, lS});
+  render({mode:'projection', amtUSD, N, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD:startPriceUSD, lumpValUSD, dS, lS,
+          purchaseCount: totalMonths, perPurchaseUSD: perMonthUSD, freqUnit:'개월'});
 }
 
 /* ─── RENDER ───────────────────────────────────────────────── */
 // All price values passed in are USD; money() handles conversion + symbol
 function render(r) {
   $('#freqLabel').textContent = freq;
+
+  // Investment detail lines
+  const countStr = r.purchaseCount.toLocaleString('en-US');
+  $('#dcaDesc').textContent =
+    `${money(r.amtUSD)}을 ${countStr}${r.freqUnit} 분할 · 회당 약 ${money(r.perPurchaseUSD)}`;
+  $('#lsDesc').textContent =
+    `${money(r.amtUSD)} 전액을 1일차에 한 번에`;
 
   if (r.mode === 'backtest') {
     $('#chartTitle').textContent = 'PORTFOLIO VALUE OVER TIME';
