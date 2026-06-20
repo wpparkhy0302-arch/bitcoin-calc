@@ -268,10 +268,10 @@ import btcHistory from '../data/btc-history.json';
     </div>
 
     <!-- BTC price: always visible -->
-    <label class="lbl gap">CURRENT BTC PRICE (USD)</label>
+    <label class="lbl gap">CURRENT BTC PRICE (<span id="btcPriceCurLabel">USD</span>)</label>
     <div class="amount-row">
       <div class="input-money">
-        <span class="prefix">$</span>
+        <span class="prefix" id="btcPriceSym">$</span>
         <input class="finput" id="btcPrice" value="…"/>
       </div>
       <button class="btn-refresh" id="refreshBtn" title="Refresh live price">↻</button>
@@ -357,15 +357,23 @@ const BTC_HISTORY = btcHistory.map(({date, price}) => ({
 
 /* ─── CONSTANTS ────────────────────────────────────────────── */
 const FIRST_YEAR = BTC_HISTORY.length ? BTC_HISTORY[0].date.getFullYear() : 2017;
-const NOW_YEAR = new Date().getFullYear();
+const NOW_YEAR   = new Date().getFullYear();
 const CAGR_NAMES = {10:'Bear Case', 21:'Base Case', 35:'Bull Case', 55:'Hyperbull'};
 const HINTS = {
-  backtest: "What would have actually happened if you'd invested in the past — using real BTC price history.",
+  backtest:   "What would have actually happened if you'd invested in the past — using real BTC price history.",
   projection: "What could happen from today, compounding at an expected annual return — lump sum now vs DCA over time."
+};
+// Fallback rates (1 USD = N units) in case API fails
+const FALLBACK_RATES = {USD:1, KRW:1380, EUR:0.92, GBP:0.79, JPY:157};
+const CUR_META = {
+  USD:{sym:'$'}, KRW:{sym:'₩'}, EUR:{sym:'€'}, GBP:{sym:'£'}, JPY:{sym:'¥'}
 };
 
 /* ─── STATE ────────────────────────────────────────────────── */
-let currentPrice = 0;
+let currentPriceUSD = 0;   // BTC price in USD (from Binance)
+let fxRateUSD       = 1;   // 1 USD = N units of selected currency
+let fxRatesCache    = {};
+let fxRatesExpiry   = 0;
 let mode = 'backtest';
 let freq = 'weekly';
 let cagr = 0.21;
@@ -373,11 +381,56 @@ let navPricesCache = null;
 let navRatesExpiry = 0;
 
 /* ─── HELPERS ──────────────────────────────────────────────── */
-const $ = s => document.querySelector(s);
+const $        = s => document.querySelector(s);
+const getCur   = () => $('#currency').value || 'USD';
+const curSym   = () => (CUR_META[getCur()] || CUR_META.USD).sym;
 const parseAmt = () => parseFloat(($('#amount').value||'').replace(/[^0-9.]/g,'')) || 0;
-const curSym = () => ($('#currency').selectedOptions[0].dataset.sym) || '$';
-const money = n => curSym() + Math.round(n).toLocaleString();
+
+// Investment amount → USD (user enters in selected currency)
+const parseAmtUSD = () => fxRateUSD > 0 ? parseAmt() / fxRateUSD : parseAmt();
+
+// USD amount → display string in selected currency
+function money(usdAmt) {
+  return curSym() + Math.round(usdAmt * fxRateUSD).toLocaleString();
+}
 const btcFmt = n => n >= 0.001 ? n.toFixed(6) + ' BTC' : (n * 1e8).toFixed(0) + ' sats';
+
+/* ─── FX RATES ─────────────────────────────────────────────── */
+async function fetchFxRates() {
+  const now = Date.now();
+  if (now < fxRatesExpiry && Object.keys(fxRatesCache).length) return fxRatesCache;
+  try {
+    const ctrl  = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    const r = await fetch('https://open.er-api.com/v6/latest/USD', {signal: ctrl.signal});
+    clearTimeout(timer);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    fxRatesCache = d.rates;
+    fxRatesExpiry = Date.now() + 3600 * 1000; // 1 hour
+    return fxRatesCache;
+  } catch(e) {
+    console.warn('FX rates fallback:', e.message);
+    return FALLBACK_RATES;
+  }
+}
+
+// Call whenever currency changes or on init
+async function applyFxRate() {
+  const cur   = getCur();
+  const rates = await fetchFxRates();
+  fxRateUSD   = rates[cur] || FALLBACK_RATES[cur] || 1;
+
+  // Update all currency symbols in the UI
+  $('#curSym').textContent         = curSym();
+  $('#btcPriceSym').textContent    = curSym();
+  $('#btcPriceCurLabel').textContent = cur;
+
+  // Redisplay BTC price in new currency
+  if (currentPriceUSD) {
+    $('#btcPrice').value = Math.round(currentPriceUSD * fxRateUSD).toLocaleString();
+  }
+}
 
 /* ─── YEAR DROPDOWNS ───────────────────────────────────────── */
 (function initYears() {
@@ -397,14 +450,14 @@ function paint(el) {
 }
 function refreshHorizon() {
   const N = +$('#horizon').value;
-  $('#horizonVal').textContent = N;
+  $('#horizonVal').textContent  = N;
   $('#horizonYear').textContent = '→ ' + (NOW_YEAR + N);
   paint($('#horizon'));
 }
 function refreshCagr() {
   const v = +$('#cagrSlider').value;
   cagr = v / 100;
-  $('#cagrVal').textContent = v;
+  $('#cagrVal').textContent  = v;
   $('#cagrName').textContent = CAGR_NAMES[v] || 'Custom';
   paint($('#cagrSlider'));
   $('#cagrPills').querySelectorAll('button').forEach(b => b.classList.toggle('on', +b.dataset.v === v));
@@ -418,21 +471,21 @@ function setMode(m) {
   $('#modeswitch').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
 }
 
-/* ─── NAV PRICE ────────────────────────────────────────────── */
+/* ─── NAV PRICE (CoinGecko, always USD) ────────────────────── */
 async function fetchNavPrice() {
   const now = Date.now();
   if (now < navRatesExpiry && navPricesCache) { updateNavTicker(); return; }
   try {
-    const ctrl = new AbortController();
+    const ctrl  = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 9000);
     const r = await fetch(
       'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
-      { signal: ctrl.signal }
+      {signal: ctrl.signal}
     );
     clearTimeout(timer);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
-    navPricesCache = { usd: d.bitcoin.usd, change24h: d.bitcoin.usd_24h_change || 0 };
+    navPricesCache = {usd: d.bitcoin.usd, change24h: d.bitcoin.usd_24h_change || 0};
     navRatesExpiry = Date.now() + 5 * 60 * 1000;
     updateNavTicker();
   } catch(e) { console.warn('Nav price:', e.message); }
@@ -444,11 +497,11 @@ function updateNavTicker() {
   if (nc) {
     const ch = navPricesCache.change24h;
     nc.textContent = (ch >= 0 ? '▲' : '▼') + Math.abs(ch).toFixed(2) + '%';
-    nc.style.color = ch >= 0 ? '#05b26b' : '#f04452';
+    nc.style.color  = ch >= 0 ? '#05b26b' : '#f04452';
   }
 }
 
-/* ─── LIVE BTC PRICE (Binance) ─────────────────────────────── */
+/* ─── LIVE BTC PRICE (Binance → convert to selected currency) ─ */
 async function loadPrice() {
   const btn = $('#refreshBtn');
   if (btn) btn.classList.add('spin');
@@ -456,13 +509,13 @@ async function loadPrice() {
     const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
-    currentPrice = Math.round(parseFloat(d.price));
-    $('#btcPrice').value = currentPrice.toLocaleString();
+    currentPriceUSD = Math.round(parseFloat(d.price));
+    $('#btcPrice').value = Math.round(currentPriceUSD * fxRateUSD).toLocaleString();
   } catch(e) {
     console.warn('Binance price:', e.message);
     if (navPricesCache?.usd) {
-      currentPrice = Math.round(navPricesCache.usd);
-      $('#btcPrice').value = currentPrice.toLocaleString();
+      currentPriceUSD = Math.round(navPricesCache.usd);
+      $('#btcPrice').value = Math.round(currentPriceUSD * fxRateUSD).toLocaleString();
     }
   } finally {
     if (btn) btn.classList.remove('spin');
@@ -510,10 +563,11 @@ function runCalc() {
   else runProjection();
 }
 
-/* ─── BACKTEST (static data, no fetch) ─────────────────────── */
+/* ─── BACKTEST ─────────────────────────────────────────────── */
 function runBacktest() {
-  const amount = parseAmt();
-  if (amount <= 0) { showErr('Please enter an amount above 0.'); return; }
+  // Input amount is in selected currency → convert to USD for BTC math
+  const amtUSD = parseAmtUSD();
+  if (amtUSD <= 0) { showErr('Please enter an amount above 0.'); return; }
   const sy = +$('#startYear').value, ey = +$('#endYear').value;
   if (ey <= sy) { showErr('End year must be after start year.'); return; }
 
@@ -522,98 +576,105 @@ function runBacktest() {
   );
   if (rangeData.length < 2) { showErr('Not enough data for this date range.'); return; }
 
-  const lumpBtc = amount / rangeData[0].priceUSD;
-  const lumpAvg = rangeData[0].priceUSD;
+  // All prices in USD; display via money() which applies fxRateUSD
+  const lumpBuyUSD = rangeData[0].priceUSD;
+  const lumpBtc    = amtUSD / lumpBuyUSD;
 
-  const purchaseDates = buildPurchaseDates(rangeData, freq);
-  const perPurchase = amount / purchaseDates.length;
+  const purchaseDates  = buildPurchaseDates(rangeData, freq);
+  const perPurchaseUSD = amtUSD / purchaseDates.length;
   let dcaBtc = 0;
   for (const pd of purchaseDates) {
     const p = interpolatePrice(rangeData, pd);
-    if (p > 0) dcaBtc += perPurchase / p;
+    if (p > 0) dcaBtc += perPurchaseUSD / p;
   }
-  const dcaAvg = amount / dcaBtc;
-  const liveP = currentPrice || rangeData[rangeData.length - 1].priceUSD;
-  const dcaVal = dcaBtc * liveP;
-  const lumpVal = lumpBtc * liveP;
+  const dcaAvgUSD  = amtUSD / dcaBtc;
+  const livePriceUSD = currentPriceUSD || rangeData[rangeData.length - 1].priceUSD;
+  const dcaValUSD  = dcaBtc * livePriceUSD;
+  const lumpValUSD = lumpBtc * livePriceUSD;
 
-  // Chart series: one point per weekly data entry
+  // Chart (USD values; shape is currency-independent)
   const dS = [], lS = [];
   let dcaBtcSoFar = 0, pIdx = 0;
   for (const pt of rangeData) {
     while (pIdx < purchaseDates.length && purchaseDates[pIdx] <= pt.date) {
       const p = interpolatePrice(rangeData, purchaseDates[pIdx]);
-      if (p > 0) dcaBtcSoFar += perPurchase / p;
+      if (p > 0) dcaBtcSoFar += perPurchaseUSD / p;
       pIdx++;
     }
     dS.push(dcaBtcSoFar * pt.priceUSD);
     lS.push(lumpBtc * pt.priceUSD);
   }
 
-  render({ mode:'backtest', amount, dcaBtc, dcaAvg, dcaVal, lumpBtc, lumpAvg, lumpVal, dS, lS });
+  render({mode:'backtest', amtUSD, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD, lumpValUSD, dS, lS});
 }
 
 /* ─── PROJECTION ───────────────────────────────────────────── */
 function runProjection() {
-  const amount = parseAmt();
-  if (amount <= 0) { showErr('Please enter an amount above 0.'); return; }
-  const P0 = parseFloat(($('#btcPrice').value||'').replace(/[^0-9.]/g,'')) || currentPrice;
-  if (!P0) { showErr('BTC price not loaded. Click ↻ to refresh.'); return; }
+  const amtUSD = parseAmtUSD();
+  if (amtUSD <= 0) { showErr('Please enter an amount above 0.'); return; }
 
-  const N = +$('#horizon').value;
-  const g = cagr;
+  // BTC price field shows in selected currency → convert back to USD for math
+  const fieldVal  = parseFloat(($('#btcPrice').value||'').replace(/[^0-9.]/g,'')) || 0;
+  const P0USD     = fxRateUSD > 0 ? fieldVal / fxRateUSD : fieldVal;
+  const p0Fallback = currentPriceUSD || (P0USD > 0 ? P0USD : 0);
+  if (!p0Fallback) { showErr('BTC price not loaded. Click ↻ to refresh.'); return; }
+  const startPriceUSD = P0USD > 0 ? P0USD : p0Fallback;
+
+  const N           = +$('#horizon').value;
+  const g           = cagr;
   const totalMonths = N * 12;
-  const perMonth = amount / totalMonths;
-  const lumpBtc = amount / P0;
+  const perMonthUSD = amtUSD / totalMonths;
+  const lumpBtc     = amtUSD / startPriceUSD;
   let dcaBtc = 0;
   const dS = [], lS = [];
 
   for (let k = 0; k <= totalMonths; k++) {
-    const pt = P0 * Math.pow(1 + g, k / 12);
-    if (k < totalMonths) dcaBtc += perMonth / pt;
+    const pt = startPriceUSD * Math.pow(1 + g, k / 12);
+    if (k < totalMonths) dcaBtc += perMonthUSD / pt;
     dS.push(dcaBtc * pt);
     lS.push(lumpBtc * pt);
   }
 
-  const PN = P0 * Math.pow(1 + g, N);
-  const dcaVal = dcaBtc * PN;
-  const lumpVal = lumpBtc * PN;
-  const dcaAvg = amount / dcaBtc;
+  const PN        = startPriceUSD * Math.pow(1 + g, N);
+  const dcaValUSD = dcaBtc * PN;
+  const lumpValUSD = lumpBtc * PN;
+  const dcaAvgUSD  = amtUSD / dcaBtc;
 
-  render({ mode:'projection', amount, N, dcaBtc, dcaAvg, dcaVal, lumpBtc, lumpAvg:P0, lumpVal, dS, lS });
+  render({mode:'projection', amtUSD, N, dcaBtc, dcaAvgUSD, dcaValUSD, lumpBtc, lumpBuyUSD:startPriceUSD, lumpValUSD, dS, lS});
 }
 
 /* ─── RENDER ───────────────────────────────────────────────── */
+// All price values passed in are USD; money() handles conversion + symbol
 function render(r) {
   $('#freqLabel').textContent = freq;
 
   if (r.mode === 'backtest') {
     $('#chartTitle').textContent = 'PORTFOLIO VALUE OVER TIME';
-    $('#lumpHead').textContent = 'Lump sum (day 1)';
+    $('#lumpHead').textContent   = 'Lump sum (day 1)';
     $('#dL1').textContent = 'BTC accumulated'; $('#d1').textContent = btcFmt(r.dcaBtc);
-    $('#dL2').textContent = 'Avg buy price';   $('#d2').textContent = '$' + Math.round(r.dcaAvg).toLocaleString();
-    $('#dL3').textContent = 'Value today';     $('#d3').textContent = money(r.dcaVal);
+    $('#dL2').textContent = 'Avg buy price';   $('#d2').textContent = money(r.dcaAvgUSD);
+    $('#dL3').textContent = 'Value today';     $('#d3').textContent = money(r.dcaValUSD);
     $('#lL1').textContent = 'BTC accumulated'; $('#l1').textContent = btcFmt(r.lumpBtc);
-    $('#lL2').textContent = 'Buy price';       $('#l2').textContent = '$' + Math.round(r.lumpAvg).toLocaleString();
-    $('#lL3').textContent = 'Value today';     $('#l3').textContent = money(r.lumpVal);
+    $('#lL2').textContent = 'Buy price';       $('#l2').textContent = money(r.lumpBuyUSD);
+    $('#lL3').textContent = 'Value today';     $('#l3').textContent = money(r.lumpValUSD);
 
-    const diff = r.lumpVal - r.dcaVal;
-    const w = diff >= 0 ? 'Lump sum' : 'DCA';
-    const pct = (Math.abs(diff) / Math.min(r.dcaVal, r.lumpVal) * 100).toFixed(0);
+    const diff = r.lumpValUSD - r.dcaValUSD;
+    const w    = diff >= 0 ? 'Lump sum' : 'DCA';
+    const pct  = (Math.abs(diff) / Math.min(r.dcaValUSD, r.lumpValUSD) * 100).toFixed(0);
     $('#verdict').textContent = `${w} won by +${money(Math.abs(diff))} (+${pct}%) over this period`;
   } else {
     $('#chartTitle').textContent = 'PROJECTED VALUE OVER TIME';
-    $('#lumpHead').textContent = 'Lump sum (now)';
-    $('#dL1').textContent = 'Total invested';  $('#d1').textContent = money(r.amount);
+    $('#lumpHead').textContent   = 'Lump sum (now)';
+    $('#dL1').textContent = 'Total invested';  $('#d1').textContent = money(r.amtUSD);
     $('#dL2').textContent = 'Projected BTC';   $('#d2').textContent = btcFmt(r.dcaBtc);
-    $('#dL3').textContent = 'Projected value'; $('#d3').textContent = money(r.dcaVal);
-    $('#lL1').textContent = 'Invested now';    $('#l1').textContent = money(r.amount);
+    $('#dL3').textContent = 'Projected value'; $('#d3').textContent = money(r.dcaValUSD);
+    $('#lL1').textContent = 'Invested now';    $('#l1').textContent = money(r.amtUSD);
     $('#lL2').textContent = 'Projected BTC';   $('#l2').textContent = btcFmt(r.lumpBtc);
-    $('#lL3').textContent = 'Projected value'; $('#l3').textContent = money(r.lumpVal);
+    $('#lL3').textContent = 'Projected value'; $('#l3').textContent = money(r.lumpValUSD);
 
-    const diff = r.lumpVal - r.dcaVal;
+    const diff = r.lumpValUSD - r.dcaValUSD;
     const more = diff >= 0 ? 'more' : 'less';
-    const pct = (Math.abs(diff) / Math.min(r.dcaVal, r.lumpVal) * 100).toFixed(0);
+    const pct  = (Math.abs(diff) / Math.min(r.dcaValUSD, r.lumpValUSD) * 100).toFixed(0);
     $('#verdict').textContent = `Lump sum now projects ${money(Math.abs(diff))} ${more} than DCA (+${pct}%) over ${r.N} years`;
   }
 
@@ -624,9 +685,9 @@ function render(r) {
 function drawChart(dS, lS) {
   const svg = $('#svgChart'), W = 700, H = 240, pad = 12;
   const max = Math.max(...dS, ...lS, 1);
-  const n = Math.max(dS.length - 1, 1);
-  const x = i => pad + i / n * (W - 2 * pad);
-  const y = v => H - pad - v / max * (H - 2 * pad);
+  const n   = Math.max(dS.length - 1, 1);
+  const x   = i => pad + i / n * (W - 2 * pad);
+  const y   = v => H - pad - v / max * (H - 2 * pad);
   const pts = arr => arr.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
   svg.innerHTML =
     `<polyline fill="none" stroke="#9aa1ab" stroke-width="2.5" points="${pts(dS)}"/>` +
@@ -653,10 +714,11 @@ $('#cagrPills').addEventListener('click', e => {
 });
 $('#horizon').addEventListener('input', refreshHorizon);
 $('#cagrSlider').addEventListener('input', refreshCagr);
-$('#currency').addEventListener('change', () => { $('#curSym').textContent = curSym(); });
+$('#currency').addEventListener('change', () => applyFxRate());
 $('#btcPrice').addEventListener('input', () => {
-  const v = parseFloat(($('#btcPrice').value||'').replace(/[^0-9.]/g,''));
-  if (v > 0) currentPrice = v;
+  // Field shows selected currency → store USD internally
+  const val = parseFloat(($('#btcPrice').value||'').replace(/[^0-9.]/g,''));
+  if (val > 0) currentPriceUSD = fxRateUSD > 0 ? val / fxRateUSD : val;
 });
 $('#go').addEventListener('click', runCalc);
 $('#refreshBtn').addEventListener('click', loadPrice);
@@ -665,7 +727,8 @@ $('#refreshBtn').addEventListener('click', loadPrice);
 setMode('backtest');
 refreshHorizon();
 refreshCagr();
-loadPrice();
+// Fetch FX rates first, then load BTC price (so display is correct from the start)
+applyFxRate().then(loadPrice);
 fetchNavPrice();
 setInterval(loadPrice, 60000);
 setInterval(fetchNavPrice, 60000);
