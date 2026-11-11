@@ -1,4 +1,5 @@
 ---
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +14,10 @@
   </script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="About SkipTheLatte — The Bitcoin opportunity cost calculator that shows you the real price of daily spending habits."/>
-  <title>About — SkipTheLatte</title>
+  <meta name="description" content="About LatteCalc — The Bitcoin opportunity cost calculator that shows you the real price of daily spending habits."/>
+  <title>About — LatteCalc</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link rel="canonical" href={canonicalURL}/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -60,6 +62,16 @@
     .cta-box span{font-size:13px;color:rgba(255,255,255,.65)}
     .btn-cta{padding:11px 22px;background:#fff;color:var(--blue);border:none;border-radius:9px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;transition:opacity .12s}
     .btn-cta:hover{opacity:.9;text-decoration:none}
+    .wallet-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+    .wallet-item{display:flex;align-items:center;gap:12px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px}
+    .wallet-icon{width:36px;height:36px;border-radius:8px;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:var(--blue);flex-shrink:0}
+    .wallet-info{flex:1;min-width:0}
+    .wallet-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:3px}
+    .wallet-addr{font-size:12px;font-family:'Courier New',monospace;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+    .btn-wallet-copy{padding:7px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-weight:600;color:var(--text2);transition:all .12s;white-space:nowrap;flex-shrink:0;cursor:pointer;font-family:inherit}
+    .btn-wallet-copy:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
+    .btn-wallet-copy.done{background:var(--green);border-color:var(--green);color:#fff}
+    .tip-phantom{font-size:12px;color:var(--text3);margin-top:10px;text-align:center}
     footer{background:var(--bg2);border-top:1px solid var(--border);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
     footer p{font-size:12px;color:var(--text3)}
     .foot-brand{font-size:13px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:6px}
@@ -70,7 +82,7 @@
 <nav class="nav">
   <a class="nav-logo" href="/">
     <span class="logo-dot"></span>
-    SkipTheLatte
+    LatteCalc
   </a>
   <div style="display:flex;gap:6px">
     <a class="nav-back" href="/faq">FAQ</a>
@@ -83,7 +95,7 @@
 
   <div class="hero">
     <div class="hero-eyebrow">About</div>
-    <h1>What is<br>SkipTheLatte?</h1>
+    <h1>What is<br>LatteCalc?</h1>
     <p class="hero-sub">A free tool that shows you the Bitcoin opportunity cost of your daily spending habits — so you can make smarter decisions about your money.</p>
   </div>
 
@@ -103,10 +115,19 @@
   </div>
 
   <div class="section">
+    <div class="section-title">Who Made This</div>
+    <div class="prose">
+      <p>LatteCalc is built and maintained by <strong>Hyunsu Park</strong>, who runs the Bitcoin-focused YouTube channel <strong>Crypto SOO (크립토수)</strong> in Korea, covering Bitcoin's four-year halving cycle, long-term holding strategy, and market cycle analysis for a Korean-speaking audience.</p>
+      <p>This site started from a recurring theme in that channel's content: small, easily-dismissed daily spending habits are one of the clearest ways to make the idea of "opportunity cost" concrete, rather than abstract. LatteCalc exists to let anyone — not just channel viewers — run that comparison for their own numbers, in their own currency, using live market data.</p>
+      <p>Live BTC prices and historical price data used throughout this site and its calculators are sourced from <strong>CoinGecko</strong> and <strong>Binance</strong> public market data. Figures are refreshed periodically and may differ slightly from other exchanges or data providers at any given moment.</p>
+    </div>
+  </div>
+
+  <div class="section">
     <div class="section-title">The Idea</div>
     <div class="prose">
       <h3>The latte factor — reimagined for Bitcoin</h3>
-      <p>The "latte factor" is a concept popularized by financial author David Bach — the idea that small, daily spending habits compound into surprisingly large amounts over time. SkipTheLatte takes this concept and applies it specifically to Bitcoin.</p>
+      <p>The "latte factor" is a concept popularized by financial author David Bach — the idea that small, daily spending habits compound into surprisingly large amounts over time. LatteCalc takes this concept and applies it specifically to Bitcoin.</p>
       <p>Instead of asking "what if you invested that coffee money in an index fund?", we ask: <strong>what if you stacked Bitcoin instead?</strong></p>
 
       <h3>How it works</h3>
@@ -119,8 +140,50 @@
       </ul>
 
       <h3>Disclaimer</h3>
-      <p>SkipTheLatte is a hypothetical modeling tool for <strong>educational and entertainment purposes only</strong>. All projections are speculative. Past Bitcoin performance does not guarantee future results. Bitcoin is a highly volatile asset — do not make investment decisions based solely on this calculator. Please consult a qualified financial advisor.</p>
+      <p>LatteCalc is a hypothetical modeling tool for <strong>educational and entertainment purposes only</strong>. All projections are speculative. Past Bitcoin performance does not guarantee future results. Bitcoin is a highly volatile asset — do not make investment decisions based solely on this calculator. Please consult a qualified financial advisor.</p>
     </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Support This Project</div>
+    <div class="prose">
+      <p>LatteCalc is free to use and always will be. If it helped you think differently about a habit or a purchase, you're welcome to send a tip to any of the addresses below. Click "Copy" to grab one.</p>
+    </div>
+    <div class="wallet-list">
+      <div class="wallet-item">
+        <div class="wallet-icon">₿</div>
+        <div class="wallet-info">
+          <div class="wallet-label">Bitcoin</div>
+          <div class="wallet-addr" id="addr-btc">bc1q3nk3fm66477ug2rpy68zmz0kuh4f89xk82lwqr</div>
+        </div>
+        <button class="btn-wallet-copy" onclick="copyWallet('addr-btc',this)">Copy</button>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="12" height="19" fill="currentColor"><path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"/></svg></div>
+        <div class="wallet-info">
+          <div class="wallet-label">Ethereum</div>
+          <div class="wallet-addr" id="addr-eth">0xfa72F4A7cC80D116685b7d25E6b13840c8fC2715</div>
+        </div>
+        <button class="btn-wallet-copy" onclick="copyWallet('addr-eth',this)">Copy</button>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-icon">◎</div>
+        <div class="wallet-info">
+          <div class="wallet-label">Solana</div>
+          <div class="wallet-addr" id="addr-sol">8xraZfsmzJUgLdHYsiruwZDGPux8wGrP1RXVQpb8QHzQ</div>
+        </div>
+        <button class="btn-wallet-copy" onclick="copyWallet('addr-sol',this)">Copy</button>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-icon">⚡</div>
+        <div class="wallet-info">
+          <div class="wallet-label">Bitcoin (Lightning)</div>
+          <div class="wallet-addr" id="addr-ln">scrappypurple954@walletofsatoshi.com</div>
+        </div>
+        <button class="btn-wallet-copy" onclick="copyWallet('addr-ln',this)">Copy</button>
+      </div>
+    </div>
+    <p class="tip-phantom">👻 Phantom Wallet</p>
   </div>
 
   <div class="cta-box">
@@ -137,10 +200,20 @@
 <footer>
   <div class="foot-brand">
     <span class="logo-dot" style="width:6px;height:6px;background:var(--blue);border-radius:50%;display:inline-block"></span>
-    SkipTheLatte
+    LatteCalc
   </div>
-  <p>© 2025 SkipTheLatte · For informational purposes only · Not financial advice</p>
+  <p>© 2026 LatteCalc · For informational purposes only · Not financial advice</p>
 </footer>
 
+<script is:inline>
+async function copyWallet(id, btn){
+  const v = document.getElementById(id).textContent.trim();
+  try{
+    await navigator.clipboard.writeText(v);
+    btn.textContent='Copied!'; btn.classList.add('done');
+    setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('done') },2000);
+  }catch(e){}
+}
+</script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 ---
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +14,10 @@
   </script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="Contact SkipTheLatte — Send us a message with questions or feedback."/>
-  <title>Contact — SkipTheLatte</title>
+  <meta name="description" content="Contact LatteCalc — Send us a message with questions or feedback."/>
+  <title>Contact — LatteCalc</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link rel="canonical" href={canonicalURL}/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -76,7 +78,7 @@
 <nav class="nav">
   <a class="nav-logo" href="/">
     <span class="logo-dot"></span>
-    SkipTheLatte
+    LatteCalc
   </a>
   <div style="display:flex;gap:6px">
     <a class="nav-back" href="/faq">FAQ</a>
@@ -123,9 +125,9 @@
 <footer>
   <div class="foot-brand">
     <span class="logo-dot" style="width:6px;height:6px;background:var(--blue);border-radius:50%;display:inline-block"></span>
-    SkipTheLatte
+    LatteCalc
   </div>
-  <p>© 2025 SkipTheLatte · For informational purposes only · Not financial advice</p>
+  <p>© 2026 LatteCalc · For informational purposes only · Not financial advice</p>
 </footer>
 
 <script is:inline>

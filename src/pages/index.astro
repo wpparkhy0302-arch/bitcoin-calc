@@ -1,4 +1,5 @@
 ---
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +14,10 @@
   </script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="SkipTheLatte — Calculate the Bitcoin opportunity cost of your daily habits."/>
-  <title>SkipTheLatte — Bitcoin Opportunity Cost Calculator</title>
+  <meta name="description" content="LatteCalc — Calculate the Bitcoin opportunity cost of your daily habits."/>
+  <title>LatteCalc — Bitcoin Opportunity Cost Calculator</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link rel="canonical" href={canonicalURL}/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -285,56 +287,13 @@
     }
     .btn-sf:hover{opacity:.9}
 
-    /* LIGHTNING TIP */
-    .tip-section{border:1.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
-    .tip-head{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:4px;display:flex;align-items:center;gap:8px}
-    .tip-head::before{content:'';width:16px;height:1.5px;background:var(--border2)}
-    .tip-sub{font-size:12px;color:var(--text3);margin-bottom:14px}
-    .tip-row{display:flex;gap:8px}
-    .tip-input{
-      flex:1;background:var(--bg2);border:1.5px solid var(--border);
-      color:var(--text);padding:10px 14px;border-radius:9px;
-      font-size:13px;font-family:'Courier New',monospace;letter-spacing:.03em;
-    }
-    .tip-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,99,182,.1);background:#fff}
-    .tip-input::placeholder{font-family:var(--font);letter-spacing:0;color:var(--text3);font-size:12px}
-    .btn-tip-copy{
-      padding:10px 18px;background:var(--bg2);border:1.5px solid var(--border);
-      border-radius:9px;font-size:13px;font-weight:600;color:var(--text2);
-      transition:all .12s;white-space:nowrap;
-    }
-    .btn-tip-copy:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
-    .btn-tip-copy.done{background:var(--green);border-color:var(--green);color:#fff}
-    .tip-valid{font-size:11px;margin-top:6px}
-    .tip-valid.ok{color:var(--green)} .tip-valid.err{color:var(--red)}
-
-    /* WALLET LIST */
-    .wallet-list{display:flex;flex-direction:column;gap:10px}
-    .wallet-item{
-      display:flex;align-items:center;gap:12px;
-      background:var(--bg2);border:1.5px solid var(--border);
-      border-radius:10px;padding:12px 14px;
-    }
-    .wallet-icon{
-      width:36px;height:36px;border-radius:8px;
-      background:var(--blue-bg);display:flex;align-items:center;justify-content:center;
-      font-size:17px;font-weight:800;color:var(--blue);flex-shrink:0;
-    }
-    .wallet-info{flex:1;min-width:0}
-    .wallet-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:3px}
-    .wallet-addr{
-      font-size:12px;font-family:'Courier New',monospace;
-      color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-      font-weight:500;
-    }
-    .btn-wallet-copy{
-      padding:7px 14px;background:var(--bg);border:1.5px solid var(--border);
-      border-radius:7px;font-size:12px;font-weight:600;color:var(--text2);
-      transition:all .12s;white-space:nowrap;flex-shrink:0;cursor:pointer;font-family:inherit;
-    }
-    .btn-wallet-copy:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
-    .btn-wallet-copy.done{background:var(--green);border-color:var(--green);color:#fff}
-    .tip-phantom{font-size:12px;color:var(--text3);margin-top:10px;text-align:center}
+    /* EXPLAINER (long-form prose section) */
+    .explainer{border:1.5px solid var(--border);border-radius:14px;padding:28px 24px;margin-bottom:16px}
+    .explainer h3{font-size:16px;font-weight:700;color:var(--text);margin:22px 0 8px}
+    .explainer h3:first-child{margin-top:0}
+    .explainer p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:12px}
+    .explainer a{color:var(--blue);font-weight:600}
+    .explainer strong{color:var(--text)}
 
     /* ═══ FOOTER ═══════════════════════════════ */
     footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 24px 24px}
@@ -395,7 +354,7 @@
 <nav class="nav">
   <a class="nav-logo" href="/">
     <span class="logo-dot"></span>
-    SkipTheLatte
+    LatteCalc
   </a>
 
   <div class="nav-center">
@@ -663,50 +622,29 @@
 
   </div><!-- /results -->
 
-  <!-- SUPPORT / TIP -->
+  <!-- ═══ EXPLAINER ═══════════════════════════════ -->
   <div class="sec-head">
-    <span class="sec-num">⚡</span>
+    <span class="sec-num">—</span>
     <span class="sec-line"></span>
-    <span class="sec-title">SUPPORT THIS TOOL</span>
+    <span class="sec-title">HOW THIS CALCULATOR WORKS</span>
   </div>
-  <div class="tip-section">
-    <div class="tip-head">Send a Tip</div>
-    <p class="tip-sub">If this tool helped you, consider sending a tip via Phantom Wallet. Click Copy to grab any address.</p>
-    <div class="wallet-list">
-      <div class="wallet-item">
-        <div class="wallet-icon">₿</div>
-        <div class="wallet-info">
-          <div class="wallet-label">Bitcoin</div>
-          <div class="wallet-addr" id="addr-btc">bc1q3nk3fm66477ug2rpy68zmz0kuh4f89xk82lwqr</div>
-        </div>
-        <button class="btn-wallet-copy" onclick="copyWallet('addr-btc',this)">Copy</button>
-      </div>
-      <div class="wallet-item">
-        <div class="wallet-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="12" height="19" fill="currentColor"><path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"/></svg></div>
-        <div class="wallet-info">
-          <div class="wallet-label">Ethereum</div>
-          <div class="wallet-addr" id="addr-eth">0xfa72F4A7cC80D116685b7d25E6b13840c8fC2715</div>
-        </div>
-        <button class="btn-wallet-copy" onclick="copyWallet('addr-eth',this)">Copy</button>
-      </div>
-      <div class="wallet-item">
-        <div class="wallet-icon">◎</div>
-        <div class="wallet-info">
-          <div class="wallet-label">Solana</div>
-          <div class="wallet-addr" id="addr-sol">8xraZfsmzJUgLdHYsiruwZDGPux8wGrP1RXVQpb8QHzQ</div>
-        </div>
-        <button class="btn-wallet-copy" onclick="copyWallet('addr-sol',this)">Copy</button>
-      </div>
-      <div class="wallet-item">
-        <div class="wallet-icon">⚡</div>
-        <div class="wallet-info">
-          <div class="wallet-label">Bitcoin (Lightning)</div>
-          <div class="wallet-addr" id="addr-ln">scrappypurple954@walletofsatoshi.com</div>
-        </div>
-        <button class="btn-wallet-copy" onclick="copyWallet('addr-ln',this)">Copy</button>
-      </div>
-    </div>
-    <p class="tip-phantom">👻 Phantom Wallet</p>
+  <div class="explainer">
+
+    <h3>The Formula Behind Every Result</h3>
+    <p>The calculator runs three steps on every calculation. First, it converts your recurring spend into a total dollar amount based on your chosen frequency and time horizon (for example, a daily $5 habit over 10 years becomes $5 × 365 × 10 = $18,250). Second, it divides that total by the BTC price you entered to estimate how much Bitcoin that spending would have purchased. Third, it compounds the entered BTC price forward using your selected annual growth rate (CAGR) across your chosen number of years, then multiplies that projected future price by your accumulated BTC to estimate a future portfolio value. Every number in your results — total spent, BTC accumulated, projected future price, and portfolio value — follows directly from those three steps.</p>
+
+    <h3>How Bear, Base, Bull, and Hyperbull Were Chosen</h3>
+    <p>The four CAGR presets (Bear 15%, Base 21%, Bull 35%, Hyperbull 55%) are fixed reference points spanning a conservative-to-aggressive range, not a statistical forecast or a guarantee of any kind. Bear sits below Bitcoin's historical long-run average as a deliberately conservative floor. Base is a moderate middle value. Bull and Hyperbull reflect increasingly optimistic assumptions closer to some of Bitcoin's more favorable historical multi-year stretches. We explain the reasoning behind each tier — and how to pick one that matches your own view — in <a href="/bear-base-bull-hyperbull-scenarios-explained">this breakdown of the four scenarios</a>. You're never limited to these four presets either: the underlying slider accepts any custom CAGR from 5% to 60%.</p>
+
+    <h3>Two Worked Examples</h3>
+    <p><strong>Example 1 — Daily coffee, 10 years, Base case:</strong> A $5/day habit totals $18,250 spent over a decade. At a 21% CAGR, the projected portfolio value is meaningfully higher than the total spent, though the exact multiple depends entirely on the BTC price you entered as your starting point — try it yourself with today's live price.</p>
+    <p><strong>Example 2 — One-time $2,000 lump sum, 5 years, Bear vs. Hyperbull:</strong> Switch the frequency to "Once" and enter $2,000. Running this through Bear (15%) produces a noticeably different outcome than running it through Hyperbull (55%) — compounding even a moderate percentage difference over 5 years produces a wide range, which is exactly why comparing multiple scenarios side by side matters more than trusting any single number.</p>
+
+    <h3>Limitations and Risks</h3>
+    <p>This tool models a hypothetical scenario using an assumed constant annual growth rate. Real Bitcoin price history has never moved in a smooth, constant line — it moves through sharp rallies and severe multi-year drawdowns, sometimes losing more than 70% of its value before recovering. A constant-CAGR projection smooths over all of that real-world volatility, which makes the math easy to follow but means no single projected number here should be mistaken for a prediction. Bitcoin is a highly volatile, speculative asset, and this calculator is for educational and illustrative purposes only — not investment advice.</p>
+
+    <p>For the full field-by-field walkthrough of every input and output, see our <a href="/how-to-use-lattecalc-calculator-guide">complete calculator guide</a>, or check the <a href="/faq">FAQ</a> for answers to the most common questions about how this tool works.</p>
+
   </div>
 
 </div><!-- /wrap -->
@@ -744,9 +682,9 @@
     <div class="footer-bottom">
       <div class="footer-brand">
         <span class="logo-dot" style="width:6px;height:6px"></span>
-        SkipTheLatte
+        LatteCalc
       </div>
-      <p data-i18n="footer_disc">© 2025 SkipTheLatte · For informational purposes only · Not financial advice · Price data: CoinGecko</p>
+      <p data-i18n="footer_disc">© 2026 LatteCalc · For informational purposes only · Not financial advice · Price data: CoinGecko</p>
     </div>
   </div>
 </footer>
@@ -776,7 +714,7 @@ const T = {
     footer_tools:'Calculator Tools', footer_learn:'Learn More', footer_legal:'Legal',
     footer_opportunity:'Opportunity Cost', footer_dca:'DCA Calculator', footer_converter:'Currency Converter',
     footer_faq:'FAQ', footer_disclaimer:'Disclaimer', footer_privacy:'Privacy Policy', footer_terms:'Terms of Use',
-    footer_disc:'© 2025 SkipTheLatte · For informational purposes only · Not financial advice · Price data: CoinGecko',
+    footer_disc:'© 2026 LatteCalc · For informational purposes only · Not financial advice · Price data: CoinGecko',
     w_ok:'Valid address', w_err:'Invalid format',
     copied:'Copied!',
     share_tmpl:'I just found out my {{freq}} ${{amt}} {{label}} habit could be worth {{value}} in Bitcoin by {{year}}.\n\nThat\'s {{btc}} if I stacked BTC instead of spending.\n\nWhat\'s YOUR habit costing you? 👇\n',
@@ -801,7 +739,7 @@ const T = {
     footer_tools:'계산기 도구', footer_learn:'더 알아보기', footer_legal:'법적 고지',
     footer_opportunity:'기회비용', footer_dca:'DCA 계산기', footer_converter:'환율 변환',
     footer_faq:'자주 묻는 질문', footer_disclaimer:'면책조항', footer_privacy:'개인정보처리방침', footer_terms:'이용약관',
-    footer_disc:'© 2025 SkipTheLatte · 정보 제공 목적만, 투자 조언 아님 · 가격 데이터: CoinGecko',
+    footer_disc:'© 2026 LatteCalc · 정보 제공 목적만, 투자 조언 아님 · 가격 데이터: CoinGecko',
     w_ok:'유효한 주소', w_err:'형식 오류',
     copied:'복사됨!',
     share_tmpl:'{{freq}} ${{amt}} {{label}} 지출을 비트코인으로 바꿨다면 {{year}}년에 {{value}}가 됩니다.\n\n대신 {{btc}}를 쌓을 수 있었어요.\n\n당신의 지출은? 👇\n',
@@ -826,7 +764,7 @@ const T = {
     footer_tools:'計算ツール', footer_learn:'さらに学ぶ', footer_legal:'法的事項',
     footer_opportunity:'機会費用', footer_dca:'DCA計算機', footer_converter:'通貨換算',
     footer_faq:'よくある質問', footer_disclaimer:'免責事項', footer_privacy:'プライバシーポリシー', footer_terms:'利用規約',
-    footer_disc:'© 2025 SkipTheLatte · 情報提供目的のみ · 投資アドバイスではありません · 価格データ: CoinGecko',
+    footer_disc:'© 2026 LatteCalc · 情報提供目的のみ · 投資アドバイスではありません · 価格データ: CoinGecko',
     w_ok:'有効なアドレス', w_err:'無効なフォーマット',
     copied:'コピー済み！',
     share_tmpl:'{{freq}}の${{amt}} {{label}}をビットコインに変えたら{{year}}に{{value}}になります。\n\n代わりに{{btc}}を積み立てられました。\n\nあなたの習慣のコストは？👇\n',
@@ -1161,18 +1099,6 @@ async function copyShareText(){
     const btn = document.getElementById('copy-share-btn');
     btn.textContent = t('copied'); btn.classList.add('done');
     setTimeout(()=>{ btn.textContent=t('btn_copy'); btn.classList.remove('done') },2000);
-  }catch(e){}
-}
-
-// ══════════════════════════════════════════════
-//  Wallet Copy
-// ══════════════════════════════════════════════
-async function copyWallet(id, btn){
-  const v = document.getElementById(id).textContent.trim();
-  try{
-    await navigator.clipboard.writeText(v);
-    btn.textContent='Copied!'; btn.classList.add('done');
-    setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('done') },2000);
   }catch(e){}
 }
 

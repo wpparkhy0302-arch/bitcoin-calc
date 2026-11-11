@@ -12,6 +12,8 @@ const { Content } = await post.render();
 function fmtDate(d: Date) {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +29,9 @@ function fmtDate(d: Date) {
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <meta name="description" content={post.data.description}/>
-  <title>{post.data.title} — SkipTheLatte</title>
+  <title>{post.data.title} — LatteCalc</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link rel="canonical" href={canonicalURL}/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2204132369832933" crossorigin="anonymous"></script>
   <style>
@@ -69,7 +72,7 @@ function fmtDate(d: Date) {
 </head>
 <body>
 <nav>
-  <a class="nav-logo" href="/"><span class="nd"></span>SkipTheLatte</a>
+  <a class="nav-logo" href="/"><span class="nd"></span>LatteCalc</a>
   <div class="nav-links">
     <a href="/" class="nl">Calculator</a>
     <a href="/freedom" class="nl">Freedom Planner</a>
@@ -79,7 +82,7 @@ function fmtDate(d: Date) {
 </nav>
 
 <div class="container">
-  <div class="post-meta">{fmtDate(post.data.pubDate)}</div>
+  <div class="post-meta">{fmtDate(post.data.pubDate)} · by Hyunsu Park (Crypto SOO)</div>
   <h1>{post.data.title}</h1>
   <p class="desc">{post.data.description}</p>
 
@@ -102,6 +105,6 @@ function fmtDate(d: Date) {
   <a href="/blog" class="back-link">← Back to Blog</a>
 </div>
 
-<footer>© 2026 SkipTheLatte · For informational purposes only · Not financial advice</footer>
+<footer>© 2026 LatteCalc · For informational purposes only · Not financial advice</footer>
 </body>
 </html>

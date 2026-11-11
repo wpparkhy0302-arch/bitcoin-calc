@@ -1,4 +1,5 @@
 ---
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +14,10 @@
   </script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="SkipTheLatte Privacy Policy — How we handle your data."/>
-  <title>Privacy Policy — SkipTheLatte</title>
+  <meta name="description" content="LatteCalc Privacy Policy — How we handle your data."/>
+  <title>Privacy Policy — LatteCalc</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link rel="canonical" href={canonicalURL}/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -59,7 +61,7 @@
 <nav class="nav">
   <a class="nav-logo" href="/">
     <span class="logo-dot"></span>
-    SkipTheLatte
+    LatteCalc
   </a>
   <div style="display:flex;gap:6px">
     <a class="nav-back" href="/faq">FAQ</a>
@@ -73,14 +75,14 @@
   <div class="hero">
     <div class="hero-eyebrow">Legal</div>
     <h1>Privacy Policy</h1>
-    <p class="hero-sub">Last updated: June 2025. This policy explains how SkipTheLatte collects and uses information.</p>
+    <p class="hero-sub">Last updated: November 2026. This policy explains how LatteCalc collects and uses information.</p>
   </div>
 
   <div class="section">
     <div class="section-title">Overview</div>
     <div class="prose">
       <h3>No personal data collected</h3>
-      <p>SkipTheLatte (lattecalc.com) is a free, client-side Bitcoin opportunity cost calculator. We do not require registration, accounts, or any personal information to use this tool.</p>
+      <p>LatteCalc (lattecalc.com) is a free, client-side Bitcoin opportunity cost calculator. We do not require registration, accounts, or any personal information to use this tool.</p>
 
       <h3>Information we collect automatically</h3>
       <p>We use <strong>Google Analytics</strong> to understand how visitors use this site. This may collect:</p>
@@ -118,9 +120,9 @@
 <footer>
   <div class="foot-brand">
     <span class="logo-dot" style="width:6px;height:6px;background:var(--blue);border-radius:50%;display:inline-block"></span>
-    SkipTheLatte
+    LatteCalc
   </div>
-  <p>© 2025 SkipTheLatte · For informational purposes only · Not financial advice</p>
+  <p>© 2026 LatteCalc · For informational purposes only · Not financial advice</p>
 </footer>
 
 </body>

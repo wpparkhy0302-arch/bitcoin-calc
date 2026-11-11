@@ -1,4 +1,5 @@
 ---
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +14,10 @@
   </script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="SkipTheLatte FAQ — How the Bitcoin opportunity cost calculator works."/>
-  <title>FAQ — SkipTheLatte</title>
+  <meta name="description" content="LatteCalc FAQ — How the Bitcoin opportunity cost calculator works."/>
+  <title>FAQ — LatteCalc</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link rel="canonical" href={canonicalURL}/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -136,7 +138,7 @@
 <nav class="nav">
   <a class="nav-logo" href="/">
     <span class="logo-dot"></span>
-    SkipTheLatte
+    LatteCalc
   </a>
   <div style="display:flex;gap:6px">
     <a class="nav-back" href="/blog">Blog</a>
@@ -150,7 +152,7 @@
   <div class="hero">
     <div class="hero-eyebrow">Help Center</div>
     <h1>Frequently Asked<br>Questions</h1>
-    <p class="hero-sub">Everything you need to know about how SkipTheLatte calculates Bitcoin opportunity cost.</p>
+    <p class="hero-sub">Everything you need to know about how LatteCalc calculates Bitcoin opportunity cost.</p>
   </div>
 
   <!-- HOW IT WORKS -->
@@ -261,7 +263,7 @@
         <span class="faq-q-icon">+</span>
       </button>
       <div class="faq-a">
-        <p>If SkipTheLatte has been useful to you, you can send a tip via <strong>Phantom Wallet</strong>. Click the <strong>Copy</strong> button next to any address below and send from your wallet app.</p>
+        <p>If LatteCalc has been useful to you, you can send a tip via <strong>Phantom Wallet</strong>. Click the <strong>Copy</strong> button next to any address below and send from your wallet app.</p>
         <div class="wallet-list">
           <div class="wallet-item">
             <div class="wallet-icon">₿</div>
@@ -320,7 +322,7 @@
         <span class="faq-q-icon">+</span>
       </button>
       <div class="faq-a">
-        <p><strong>No.</strong> SkipTheLatte is a hypothetical modeling tool for educational and entertainment purposes only. All projections are speculative. Past Bitcoin performance does not guarantee future results.</p>
+        <p><strong>No.</strong> LatteCalc is a hypothetical modeling tool for educational and entertainment purposes only. All projections are speculative. Past Bitcoin performance does not guarantee future results.</p>
         <p>Bitcoin is a highly volatile asset. Do not make financial decisions based solely on this calculator. Consult a qualified financial advisor before making any investment.</p>
       </div>
     </div>
@@ -331,7 +333,7 @@
         <span class="faq-q-icon">+</span>
       </button>
       <div class="faq-a">
-        <p><a href="https://www.lattecalc.com/freedom">StackFreedom.io</a> is a resource for Bitcoiners focused on financial independence through Bitcoin accumulation. SkipTheLatte links to StackFreedom as a complementary tool — there is no financial relationship.</p>
+        <p><a href="https://www.lattecalc.com/freedom">StackFreedom.io</a> is a resource for Bitcoiners focused on financial independence through Bitcoin accumulation. LatteCalc links to StackFreedom as a complementary tool — there is no financial relationship.</p>
       </div>
     </div>
   </div>
@@ -351,9 +353,9 @@
 <footer>
   <div class="foot-brand">
     <span class="logo-dot" style="width:6px;height:6px;background:var(--blue);border-radius:50%;display:inline-block"></span>
-    SkipTheLatte
+    LatteCalc
   </div>
-  <p>© 2025 SkipTheLatte · For informational purposes only · Not financial advice</p>
+  <p>© 2026 LatteCalc · For informational purposes only · Not financial advice</p>
 </footer>
 
 <script is:inline>
