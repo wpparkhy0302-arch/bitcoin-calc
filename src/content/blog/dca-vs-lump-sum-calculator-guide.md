@@ -1,64 +1,49 @@
 ---
 title: "DCA vs Lump Sum Calculator Guide: How to Interpret Your Results"
-description: "A walkthrough of the DCA vs Lump Sum tool — what each input controls, how the historical price replay works, and what the winner badge actually means."
+description: "A walkthrough of the DCA vs Lump Sum tool — the two modes it offers, what each input controls, and how to read the verdict and chart it produces."
 pubDate: 2026-10-17
 ---
 
-## What This Tool Does Differently
+## Two Tools in One
 
-Unlike the main opportunity-cost calculator, which projects forward using a chosen CAGR assumption, the [DCA vs Lump Sum tool](/dca-vs-lumpsum) looks backward, using Bitcoin's actual historical price data to show what would genuinely have happened if you'd invested a specific amount using each of two strategies over a specific historical window. There's no assumption to select here — the outcome is a historical fact, not a projection, which makes this tool useful as a reality check against the forward-looking scenarios in the main calculator.
+The [DCA vs Lump Sum tool](/dca-vs-lumpsum) actually runs two different kinds of comparison, selected with a mode switch at the top of the page: **Historical Backtest**, which uses real past BTC price data to show what would genuinely have happened, and **Future Projection**, which compounds forward from today using an assumed annual growth rate — the same kind of assumption used by the [main Opportunity Cost Calculator](/). Understanding which mode you're in matters more than any other input on the page, because the two modes answer fundamentally different questions: one is a historical fact, the other is a hypothetical.
 
-## The Inputs
+## Inputs Shared by Both Modes
 
-**Total Investment.** The total dollar amount you're comparing — entered once, since both strategies invest the same total amount, just on different schedules. The default is $10,000, but any amount can be entered.
+**Total Amount to Invest.** The lump sum you're comparing against an equivalent dollar amount spread out via DCA — entered once, with a currency selector supporting 11 currencies.
 
-**Currency.** Converts the comparison into your preferred display currency, consistent with the main calculator's currency support.
+**DCA Frequency.** Daily, Weekly, or Monthly — controls how the same total amount gets split into installments for the DCA side of the comparison.
 
-**Start Year and End Year.** These two dropdowns define the historical window being tested. This is the single most important choice in the entire tool, because — as covered in [DCA vs Lump Sum: What 10 Years of Bitcoin Price Data Actually Shows](/dca-vs-lump-sum-bitcoin-data) — which strategy wins depends heavily on whether your chosen window starts near a cycle peak, a cycle bottom, or somewhere in between.
+**Current BTC Price.** Auto-populated from a live price feed, with a manual refresh button if you want to override it.
 
-**DCA Frequency.** Controls how the "Total Investment" amount gets split for the dollar-cost-averaging side of the comparison — for example, a monthly frequency over a 4-year window splits your total investment into 48 equal purchases, one per month, each buying BTC at that month's actual historical price.
+## Historical Backtest Mode
 
-## How the Comparison Is Calculated
+Selecting **Historical Backtest** reveals a **Start Year** and **End Year** dropdown. This defines the actual historical window being tested — for example, starting in 2021 and ending today replays what a lump sum invested right near that cycle's peak would have experienced, compared against a DCA schedule spreading purchases across the same window using real historical Binance price data. This is the mode to use when the question is "what would have actually happened," not "what might happen."
 
-For the **Lump Sum** side, the tool simply converts your entire total investment into BTC at the historical price on your selected start date, then tracks that BTC's value through to your selected end date using real historical prices along the way.
+## Future Projection Mode
 
-For the **DCA** side, the tool splits your total investment into equal installments according to your selected frequency, "invests" each installment at the actual historical BTC price on that installment's date, and accumulates the resulting BTC over time. Both strategies are tracked on the same chart simultaneously, so you can see not just the final numbers but how the two approaches diverged and converged throughout the window.
+Switching to **Future Projection** replaces the Start/End Year dropdowns with a **Time Horizon** slider (1–40 years) and an **Expected Annual Return (CAGR)** selector with the same four presets used elsewhere on the site — Bear, Base, Bull, and Hyperbull. In this mode, the lump sum is modeled as a single purchase today at the current BTC price, compounding forward at your selected CAGR, while the DCA side spreads the same total amount across your chosen horizon at your chosen frequency, with each installment's effective entry price also compounding forward from today. This mode answers "if this growth rate holds, how would these two approaches compare going forward" — a hypothetical, not a historical record.
+
+## Reading the Result Cards
+
+After clicking **Compare Strategies**, two cards appear side by side: one for DCA (labeled with your selected frequency) and one for Lump Sum. Each shows BTC accumulated, an average or single buy price, and the resulting value. Below both cards, a **verdict line** states in plain language which strategy performed better in your selected scenario and by roughly how much — this line changes mode-to-mode and window-to-window, which is the entire point: there's no single, permanent answer to "which strategy is better," only an answer specific to the scenario you just ran.
 
 ## Reading the Chart
 
-The chart plots two lines over your selected date range: the Lump Sum portfolio value (amber) and the DCA portfolio value (blue). Because the lump sum is fully invested from day one, its line tends to move more sharply in both directions — it has 100% exposure to every price swing from the very start. The DCA line tends to be smoother in the earlier portion of the window, since only a fraction of the total investment has been deployed yet, and it "catches up" to full exposure only by the final installment.
+Below the verdict, a chart plots both strategies' portfolio value over the relevant time range, with DCA and Lump Sum each getting their own line (see the legend beneath the chart for which color is which). In Historical Backtest mode, this chart reflects actual price history — every bend in the line corresponds to a real historical price movement. In Future Projection mode, the lines instead follow a smooth compounding curve determined by your chosen CAGR, since there's no real daily price data to plot going forward.
 
-## The Winner Badge
+## Why Testing Multiple Scenarios Matters More Than Trusting One
 
-At the end of the comparison, the tool displays a badge indicating which strategy produced the higher final portfolio value over your selected window, along with a plain-language explanation — for example, noting that an early, large lump-sum position captured more of a sustained price appreciation, or that spreading purchases across a declining market reduced the average cost basis compared to a single bad-timed entry. This badge reflects one specific historical window, not a general verdict on which strategy is "better" in all circumstances — re-running the comparison with a different start or end year can, and often does, flip the result.
+Whichever mode you're in, the single most informative way to use this tool is to deliberately re-run it with different inputs rather than treating your first result as definitive. In Backtest mode, try a window starting near a known cycle peak (e.g., late 2021) and compare it against a window starting near a known cycle bottom (e.g., late 2018 or late 2022) — the verdict will very likely flip between the two. In Projection mode, run the same horizon through Bear and then Hyperbull and notice how much the outcome range widens. Either way, the lesson is the same one covered in [DCA vs Lump Sum: What 10 Years of Bitcoin Price Data Actually Shows](/dca-vs-lump-sum-bitcoin-data): which strategy "wins" depends heavily on the scenario, not on an inherent property of either strategy.
 
-## Why You Should Test Multiple Windows
+## What Neither Mode Can Tell You
 
-The most informative way to use this tool isn't running it once and treating the result as definitive — it's deliberately testing several different windows: a window starting near a known cycle peak (late 2021, for instance), a window starting near a known cycle bottom (late 2018 or late 2022), and a few windows in between. Seeing the winner flip between Lump Sum and DCA depending on the starting point is the actual lesson this tool teaches, and it's a more honest takeaway than any single run showing one strategy decisively "winning."
-
-## A Suggested Sequence of Tests to Run
-
-Rather than running the comparison once and stopping, consider working through this short sequence to get a genuinely balanced view of what the data shows:
-
-1. **Test a known peak-to-trough window** — for example, starting near the November 2021 high and ending near the November 2022 low. This isolates the scenario where DCA's downside protection matters most.
-2. **Test a known trough-to-peak window** — for example, starting near a 2018-2019 bear-market low and ending near a subsequent cycle high. This isolates the scenario where lump sum's full-exposure advantage matters most.
-3. **Test the longest window the tool allows, start to end.** Over the full available history, see which strategy comes out ahead when the comparison isn't restricted to a hand-picked favorable window for either side.
-4. **Test a window starting today** (or as close to today as the tool allows) **extending into the past-available data in reverse context** — in other words, consider what the comparison would have looked like for someone starting exactly when you're reading this, using whatever the most recent historical data shows.
-
-Running all four gives a far more balanced picture than running any single test and generalizing from it — which is the same lesson that applies to interpreting historical Bitcoin data in general.
-
-## Why the Same Total Investment Produces Different BTC Totals
-
-A detail that surprises first-time users: entering the same Total Investment amount with a different DCA Frequency, over the same Start and End Year, produces a slightly different final BTC total for the DCA side, even though the total dollars invested is identical. This happens because changing the frequency changes exactly which historical dates your installments land on, and each of those dates has a different actual historical price. A monthly schedule and a weekly schedule covering the same year are sampling the same underlying price path at different points, so their resulting average cost basis — and therefore their final BTC total — will differ slightly, sometimes favoring one frequency and sometimes the other, depending on which specific dates each schedule happens to hit.
-
-## What the Tool Can't Tell You
-
-This tool answers "which strategy would have performed better over this specific historical window" — a factual, backward-looking question. It cannot answer "which strategy will perform better going forward from today," because that depends on future price behavior that hasn't happened yet. Treating a favorable historical backtest as a guarantee of future results is the single most common misuse of any historical comparison tool, this one included.
+Historical Backtest mode tells you what actually happened in the past — a fact, not a forecast. Future Projection mode tells you what a constant, assumed growth rate would produce — a hypothetical built on an assumption that may or may not hold. Neither mode tells you what will actually happen going forward from today, because that depends on real future price behavior that hasn't occurred yet. Treating either mode's output as a guarantee, rather than as one of two different ways to explore the same underlying question, is the most common way to misread this tool.
 
 ## Where to Go From Here
 
-For a forward-looking projection using adjustable growth assumptions instead of historical replay, use the [main Opportunity Cost Calculator](/). For the underlying reasoning behind why DCA and lump sum each win under different conditions, see [Dollar-Cost Averaging Into Bitcoin](/dollar-cost-averaging-bitcoin-explained) and [DCA vs Lump Sum: What 10 Years of Bitcoin Price Data Actually Shows](/dca-vs-lump-sum-bitcoin-data).
+For the reasoning behind why DCA and lump sum each outperform under different conditions, see [Dollar-Cost Averaging Into Bitcoin](/dollar-cost-averaging-bitcoin-explained). For a single-habit, forward-looking projection with the same four CAGR scenarios used in Projection mode here, use the [main Opportunity Cost Calculator](/).
 
 ---
 
-*Not financial advice. Historical backtests describe what has already happened; they do not predict future performance. — Hyunsu Park (Crypto SOO)*
+*Not financial advice. Historical backtests describe what has already happened; projections are hypothetical and not guaranteed. — Hyunsu Park (Crypto SOO)*
